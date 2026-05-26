@@ -6,7 +6,7 @@
 #    By: adores <adores@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/05/25 11:37:50 by adores            #+#    #+#              #
-#    Updated: 2026/05/25 11:37:53 by adores           ###   ########.fr        #
+#    Updated: 2026/05/26 15:55:28 by adores           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,11 @@ INCLUDES = -I include -I libft/include
 LIBFT_DIR = libft
 LIBFT = $(LIBFT_DIR)/libft.a
 
-SRC = src/parsing/map_validation.c
+SRC_DIR = src/parsing/
+
+SRC_FILES = map_validation.c utils.c init.c
+
+SRC = $(addprefix $(SRC_DIR), $(SRC_FILES))
 
 OBJ = $(SRC:.c=.o)
 

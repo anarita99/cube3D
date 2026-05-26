@@ -1,37 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.h                                          :+:      :+:    :+:   */
+/*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adores <adores@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/25 10:33:42 by adores            #+#    #+#             */
-/*   Updated: 2026/05/26 15:55:15 by adores           ###   ########.fr       */
+/*   Created: 2026/05/26 15:54:38 by adores            #+#    #+#             */
+/*   Updated: 2026/05/26 15:55:39 by adores           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSING_H
-#define PARSING_H
+#include "parsing.h"
 
-# include "libft.h"
-# include "get_next_line.h"
-# include <fcntl.h>
-# include <stdio.h>
-
-typedef struct s_config
+void	init_configs(t_config *config)
 {
-	char	*no_path;
-	char	*so_path;
-	char	*we_path;
-	char	*ea_path;
-	char	*f_rgb;
-	char	*c_rgb;
-} t_config;
-
-//utils.c
-int		skip_space(char *line);
-char	*find_new_line(char *str);
-void	free_paths(t_config *config);
-void	init_configs(t_config *config);
-
-#endif
+	config->no_path = NULL;
+	config->so_path = NULL;
+	config->ea_path = NULL;
+	config->we_path = NULL;
+	config->f_rgb = NULL;
+	config->c_rgb = NULL;
+}
