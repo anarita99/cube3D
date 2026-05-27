@@ -3,96 +3,89 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leramos- <leramos-@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: adores <adores@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/27 12:04:32 by leramos-          #+#    #+#             */
-/*   Updated: 2025/10/27 12:05:43 by leramos-         ###   ########.fr       */
+/*   Created: 2025/05/03 12:13:46 by adores            #+#    #+#             */
+/*   Updated: 2026/05/27 14:54:09 by adores           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-static int	find_newline(char *str)
+static size_t	ft_strlengnl(const char *s)
 {
-	int	i;
+	size_t	i;
 
 	i = 0;
-	while (str[i])
+	if (!s)
+		return (0);
+	while (s[i] && s[i] != '\n')
+		i++;
+	if (s[i] == '\n')
+		i++;
+	return (i);
+}
+
+char	*ft_strjoingnl(char const *s1, char const *s2)
+{
+	char	*newstr;
+	int		newstrlen;
+	int		i;
+	int		j;
+
+	newstrlen = ft_strlengnl(s1) + ft_strlengnl(s2);
+	newstr = malloc(sizeof(char) * (newstrlen + 1));
+	if (!newstr)
+		return (NULL);
+	i = 0;
+	j = 0;
+	while (s1 && s1[i] != '\0')
 	{
-		if (str[i] == '\n')
-			return (i);
+		newstr[i] = s1[i];
 		i++;
 	}
-	return (-1);
+	while (s2 && s2[j] && s2[j] != '\n')
+		newstr[i++] = s2[j++];
+	if (s2 && s2[j] == '\n')
+		newstr[i++] = '\n';
+	newstr[i] = '\0';
+	free((char *)s1);
+	return (newstr);
 }
 
-char	*init_stash_from_leftover(char **leftover)
+int	ft_bufferreset(char *buffer)
 {
-	char	*stash;
+	int	i;
+	int	flag;
+	int	j;
 
-	if (*leftover)
+	i = 0;
+	j = 0;
+	flag = 0;
+	while (buffer[i])
 	{
-		stash = ft_strdup(*leftover);
-		free(*leftover);
-		*leftover = NULL;
+		if (flag == 1)
+			buffer[j++] = buffer[i];
+		if (buffer[i] == '\n')
+			flag = 1;
+		buffer[i] = 0;
+		i++;
 	}
-	else
-		stash = ft_strdup("");
-	return (stash);
+	return (flag);
 }
 
-char	*read_until_newline(int fd, char *stash)
-{
-	int		n_bytes;
-	char	*buf;
-	char	*tmp;
+/* World	/n Hello
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
-		return (free(stash), NULL);
-	buf = malloc(BUFFER_SIZE + 1);
-	if (!buf)
-		return (free(stash), NULL);
-	n_bytes = 1;
-	while (n_bytes > 0 && find_newline(stash) == -1)
-	{
-		n_bytes = read(fd, buf, BUFFER_SIZE);
-		if (n_bytes <= 0)
-			break ;
-		buf[n_bytes] = '\0';
-		tmp = ft_strjoin(stash, buf);
-		free(stash);
-		stash = tmp;
-	}
-	free(buf);
-	if (n_bytes < 0)
-		return (free(stash), NULL);
-	return (stash);
-}
+00000 0 Hello
 
-char	*extract(char *stash, char **leftover)
-{
-	char	*line;
-	int		newline_pos;
-	int		stash_len;
-	int		leftover_len;
-	int		line_len;
+j = 0
+i = 7
 
-	newline_pos = find_newline(stash);
-	stash_len = ft_strlen(stash);
-	if (newline_pos != -1)
-	{
-		line_len = newline_pos + 1;
-		leftover_len = stash_len - (newline_pos + 1);
-		line = ft_substr(stash, 0, line_len);
-		*leftover = ft_substr(stash, newline_pos + 1, leftover_len);
-	}
-	else
-	{
-		*leftover = NULL;
-		if (stash_len > 0)
-			line = ft_strdup(stash);
-		else
-			line = NULL;
-	}
-	return (line);
-}
+H0000 0 Hello
+
+j = 1
+
+H0000 0 0ello
+i = 8
+
+Hello 0 00000 */

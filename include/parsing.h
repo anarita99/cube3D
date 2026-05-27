@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adores <adores@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adores <adores@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/25 10:33:42 by adores            #+#    #+#             */
-/*   Updated: 2026/05/26 15:55:15 by adores           ###   ########.fr       */
+/*   Updated: 2026/05/27 16:16:23 by adores           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,19 @@ typedef struct s_config
 	char	*ea_path;
 	char	*f_rgb;
 	char	*c_rgb;
+	char	*line;
 } t_config;
+
+typedef enum s_types
+{
+	NO,
+	SO,
+	WE,
+	EA,
+	F,
+	C,
+	INVALID
+} t_types;
 
 //utils.c
 int		skip_space(char *line);

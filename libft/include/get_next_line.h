@@ -3,33 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leramos- <leramos-@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: adores <adores@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/06 12:36:14 by leramos-          #+#    #+#             */
-/*   Updated: 2025/10/27 12:07:48 by leramos-         ###   ########.fr       */
+/*   Created: 2025/05/03 12:13:42 by adores            #+#    #+#             */
+/*   Updated: 2026/05/27 14:53:51 by adores           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 42
-# endif
-
+# include <stdarg.h>
 # include <stdio.h>
+# include <stdlib.h>
 # include <unistd.h>
 # include <fcntl.h>
-# include <stdlib.h>
-# include <stddef.h>
-# include "libft.h"
 
-// Main
+char	*ft_strjoingnl(char const *s1, char const *s2);
+int		ft_bufferreset(char *buffer);
 char	*get_next_line(int fd);
 
-// Utils
-char	*init_stash_from_leftover(char **leftover);
-char	*read_until_newline(int fd, char *stash);
-char	*extract(char *stash, char **leftover);
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 50
+# endif
 
 #endif

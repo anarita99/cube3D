@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leramos- <leramos-@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: adores <adores@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/06 12:35:59 by leramos-          #+#    #+#             */
-/*   Updated: 2025/10/27 12:05:45 by leramos-         ###   ########.fr       */
+/*   Created: 2025/05/03 12:13:52 by adores            #+#    #+#             */
+/*   Updated: 2026/05/27 14:54:21 by adores           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,47 @@
 
 char	*get_next_line(int fd)
 {
-	static char	*leftover = NULL;
+	static char	buffer[BUFFER_SIZE];
 	char		*line;
-	char		*stash;
 
-	stash = init_stash_from_leftover(&leftover);
-	if (!stash)
+	if (fd < 0 || BUFFER_SIZE <= 0 || fd > FOPEN_MAX)
 		return (NULL);
-	stash = read_until_newline(fd, stash);
-	if (!stash)
-		return (free(stash), NULL);
-	line = extract(stash, &leftover);
-	free(stash);
-	if (!line || line[0] == '\0')
+	line = NULL;
+	while (*buffer || read(fd, buffer, BUFFER_SIZE) > 0)
 	{
-		free(line);
-		free(leftover);
-		leftover = NULL;
-		return (NULL);
+		line = ft_strjoingnl(line, buffer);
+		if (ft_bufferreset(buffer))
+			break ;
 	}
 	return (line);
 }
+
+/* #include <stdio.h>
+int main()
+{
+	char *gnl_fd;
+	int fd = open("test.txt", O_RDONLY | O_CREAT);
+	while ((gnl_fd = get_next_line(fd)) != NULL)
+	{
+		printf("%s", gnl_fd);
+		free(gnl_fd);	
+	}
+	printf("\n");
+	close(fd);
+} */
+/* HelloWorld
+GetNext
+Line
+
+buffer_size = 2
+
+line = NULL
+buffer = He
+
+line = He
+
+
+line = He
+buffer = ll
+
+line = Hell */
