@@ -6,7 +6,7 @@
 /*   By: adores <adores@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/25 10:25:13 by adores            #+#    #+#             */
-/*   Updated: 2026/05/28 16:28:02 by adores           ###   ########.fr       */
+/*   Updated: 2026/05/28 16:45:24 by adores           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,10 @@ t_types find_type(char *line)
 	else if (ft_strncmp(&line[i], "C", 1) == 0 && line[i + 1] == ' ')
 		return (C);
 	else
-		return(ft_putstr_fd("Error: Invalid config.\n", 2), INVALID);
+		return (ft_putstr_fd("Error: Invalid config.\n", 2), INVALID);
 }
 
-char *extract_config(char *line)
+char	*extract_config(char *line)
 {
 	int i;
 	i = skip_space(line);
@@ -59,8 +59,7 @@ char *extract_config(char *line)
 	return (&line[i]);
 }
 
-
-int	find_path_and_allocate(char *line, t_config *config, t_types type)
+static int	allocate_path(char *line, t_config *config, t_types type)
 {
 	char *path;
 
@@ -80,8 +79,7 @@ int	find_path_and_allocate(char *line, t_config *config, t_types type)
 	return (0);
 }
 
-
-int	find_colour_and_allocate(char *line, t_config *config, t_types type)
+static int	allocate_colour(char *line, t_config *config, t_types type)
 {
 	char *colour;
 
@@ -97,22 +95,54 @@ int	find_colour_and_allocate(char *line, t_config *config, t_types type)
 	return (0);
 }
 
-int	allocate_path(t_config *config, char *line)
+int	allocate_configs(t_config *config, char *line)
 {
 	t_types type;
 	type = find_type(line);
 	if (type >= NO && type <= EA)
 	{
-		if (find_path_and_allocate(line, config, type) == 1)
+		if (allocate_path(line, config, type) == 1)
 			return (1);
 	}
 	else if (type == C || type == F)
 	{
-		if (find_colour_and_allocate (line, config, type) == 1)
+		if (allocate_colour (line, config, type) == 1)
 			return (1);
 	}
 	return (0);
 }
+
+int	count_commas(char *s)
+{
+	int	i;
+	int	count;
+
+	i = 0;
+	count = 0;
+	while(s[i] != '\0')
+	{
+		if(s[i] == ',')
+			count++;
+		i++;
+	}
+}
+
+
+int	**split_and_transform_array(char **arr)
+{
+	int	**temp;
+	int	i;
+
+	i = 0;
+	arr = ft_split(arr, ',');
+	while(arr[i])
+	{
+		temp[i] = ft_atoi(arr[i]);
+		i++;
+	}
+	
+}
+
 
 int read_config(char *filename, t_config *config)
 {
@@ -126,7 +156,7 @@ int read_config(char *filename, t_config *config)
 	line = get_next_line(fd);
 	while(line)
 	{
-		if(line[0] != '\n' && allocate_path(config, line) == 1)
+		if(line[0] != '\n' && allocate_configs(config, line) == 1)
 		{
 			free(line);
 			break;

@@ -6,7 +6,7 @@
 /*   By: adores <adores@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/25 10:33:42 by adores            #+#    #+#             */
-/*   Updated: 2026/05/28 16:28:55 by adores           ###   ########.fr       */
+/*   Updated: 2026/05/28 16:30:46 by adores           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ typedef struct s_config
 	char	*so_path;
 	char	*we_path;
 	char	*ea_path;
-	char	*f_rgb;
-	char	*c_rgb;
+	int		**f_rgb;
+	int		**c_rgb;
 } t_config;
 
 typedef enum s_types
