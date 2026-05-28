@@ -6,7 +6,7 @@
 /*   By: adores <adores@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/25 10:25:13 by adores            #+#    #+#             */
-/*   Updated: 2026/05/27 16:18:21 by adores           ###   ########.fr       */
+/*   Updated: 2026/05/28 16:28:02 by adores           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,113 +39,76 @@ t_types find_type(char *line)
 		return (WE);
 	else if (ft_strncmp(&line[i], "EA", 2) == 0 && line[i + 2] == ' ')
 		return (EA);
-	else if (ft_strncmp(&line[i], "F", 2) == 0 && line[i + 1] == ' ')
+	else if (ft_strncmp(&line[i], "F", 1) == 0 && line[i + 1] == ' ')
 		return (F);
-	else if (ft_strncmp(&line[i], "C", 2) == 0 && line[i + 1] == ' ')
+	else if (ft_strncmp(&line[i], "C", 1) == 0 && line[i + 1] == ' ')
 		return (C);
 	else
-		return(ft_putstr_fd("Error: Invalid config.", 2), INVALID);
+		return(ft_putstr_fd("Error: Invalid config.\n", 2), INVALID);
 }
 
-char	*find_path(char *line, char *texture)
+char *extract_config(char *line)
 {
-	int	i;
-
+	int i;
 	i = skip_space(line);
-	if ((ft_strncmp(&line[i], texture, 2) == 0) && line[i + 2] == ' ')
-	{
-		i += 2;
-		i += skip_space(&line[i]);
-		find_new_line(&line[i]);
-		printf("%s\n", &line[i]);
-		return (&line[i]);
-	}
-	return (NULL);
+	while(line[i] != ' ')
+		i ++;
+	i += skip_space(&line[i]);
+	find_new_line(&line[i]);
+
+	return (&line[i]);
 }
 
-char	*find_colours(char *line, char configs)
-{
-	int	i;
 
-	i = skip_space(line);
-	if (line[i] == configs && line[i + 1] == ' ')
-	{
-		i += 2;
-		i += skip_space(&line[i]);
-		find_new_line(&line[i]);
-		printf("%s", &line[i]);
-		return (&line[i]);
-	}
-	return(NULL);
-}
-
-int	find_path_and_allocate (char *line, char **path, char *config)
+int	find_path_and_allocate(char *line, t_config *config, t_types type)
 {
-	if (*path == NULL)
-		*path = ft_strdup(find_path(line, config));
+	char *path;
+
+	path = ft_strdup(extract_config(line));
+	if(!path)
+		return (ft_putstr_fd("Error: Malloc error.\n", 2), 1);
+	if (type == NO && config->no_path == NULL)
+		config->no_path = path;
+	else if(type == SO && config->so_path == NULL)
+		config->so_path = path;
+	else if(type == WE && config->we_path == NULL)
+		config->we_path = path;
+	else if(type == EA && config->ea_path == NULL)
+		config->ea_path = path;
 	else
-	{
-		ft_putstr_fd("Error: Double path detected", 2);
-		return (1);
-	}
+		return (ft_putstr_fd("Error: Double path detected.\n", 2), 1);
 	return (0);
 }
 
-int	find_colour_and_allocate (char *line, t_config *config, char colour)
+
+int	find_colour_and_allocate(char *line, t_config *config, t_types type)
 {
-	if(colour == 'F')
-	{
-		if (config->f_rgb == NULL)
-			config->f_rgb = ft_strdup(find_colours(line, colour));
-		else
-		{
-			ft_putstr_fd("Error: Double colour detected", 2);
-			return (1);
-		}
-	}
-	else if(colour == 'C')
-	{
-		if (config->c_rgb == NULL)
-			config->c_rgb = ft_strdup(find_colours(line, colour));
-		else
-		{
-			ft_putstr_fd("Error: Double colour detected", 2);
-			return (1);
-		}
-	}
+	char *colour;
+
+	colour = ft_strdup(extract_config(line));
+	if(!colour)
+		return (ft_putstr_fd("Error: Malloc error.\n", 2), 1);
+	if (type == F && config->f_rgb == NULL)
+		config->f_rgb = colour;
+	else if (type == C && config->c_rgb == NULL)
+		config->c_rgb = colour;
+	else
+		return (ft_putstr_fd("Error: Double colour detected.\n", 2), 1);
 	return (0);
 }
 
 int	allocate_path(t_config *config, char *line)
 {
-	if (find_path(line, "NO") != NULL)
+	t_types type;
+	type = find_type(line);
+	if (type >= NO && type <= EA)
 	{
-		if (find_path_and_allocate(line, &config->no_path, "NO") == 1)
+		if (find_path_and_allocate(line, config, type) == 1)
 			return (1);
 	}
-	else if (find_path(line, "SO") != NULL)
+	else if (type == C || type == F)
 	{
-		if (find_path_and_allocate(line, &config->so_path, "SO") == 1)
-			return (1);
-	}
-	else if (find_path(line, "WE") != NULL)
-	{
-		if (find_path_and_allocate(line, &config->we_path, "WE") == 1)
-			return (1);
-	}
-	else if (find_path(line, "EA") != NULL)
-	{
-		if (find_path_and_allocate(line, &config->ea_path, "EA") == 1)
-			return (1);
-	}
-	else if (find_colours(line, 'F') != NULL)
-	{
-		if(find_colour_and_allocate(line, &config, 'F') == 1)
-			return (1);
-	}
-	else if (find_colours(line, 'C') != NULL)
-	{
-		if(find_colour_and_allocate(line, &config, 'C') == 1)
+		if (find_colour_and_allocate (line, config, type) == 1)
 			return (1);
 	}
 	return (0);
@@ -156,7 +119,6 @@ int read_config(char *filename, t_config *config)
 	char	*line;
 	int		fd;
 
-	//config = malloc(sizeof(t_config));
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
 		return (-1);
@@ -164,7 +126,7 @@ int read_config(char *filename, t_config *config)
 	line = get_next_line(fd);
 	while(line)
 	{
-		if(allocate_path(config, line) == 1)
+		if(line[0] != '\n' && allocate_path(config, line) == 1)
 		{
 			free(line);
 			break;
@@ -190,8 +152,11 @@ int main()
 {
 	t_config config;
 	char *filename = "maps/map.cub";
-	if(is_file_cub(filename) == 0)
+	if (is_file_cub(filename) == 0)
+	{
 		read_config(filename, &config);
-	print_config(config);
-	free_paths(&config);
+		print_config(config);
+		free_paths(&config);
+	}
+		
 }
