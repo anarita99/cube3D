@@ -6,7 +6,7 @@
 /*   By: adores <adores@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/29 12:16:34 by adores            #+#    #+#             */
-/*   Updated: 2026/05/29 15:16:33 by adores           ###   ########.fr       */
+/*   Updated: 2026/05/29 15:53:41 by adores           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,8 @@ int *get_colour_int(char *colour)
 	}
 	return (colour_code);
 }
+//formula pra transformar rgb em int
+//int rgb = ((r&0x0ff)<<16)|((g&0x0ff)<<8)|(b&0x0ff);
 
 int	allocate_colour(char *line, t_config *config, t_types type)
 {
