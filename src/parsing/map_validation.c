@@ -6,7 +6,7 @@
 /*   By: adores <adores@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/25 10:25:13 by adores            #+#    #+#             */
-/*   Updated: 2026/05/28 16:45:24 by adores           ###   ########.fr       */
+/*   Updated: 2026/05/29 14:57:21 by adores           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,23 +75,7 @@ static int	allocate_path(char *line, t_config *config, t_types type)
 	else if(type == EA && config->ea_path == NULL)
 		config->ea_path = path;
 	else
-		return (ft_putstr_fd("Error: Double path detected.\n", 2), 1);
-	return (0);
-}
-
-static int	allocate_colour(char *line, t_config *config, t_types type)
-{
-	char *colour;
-
-	colour = ft_strdup(extract_config(line));
-	if(!colour)
-		return (ft_putstr_fd("Error: Malloc error.\n", 2), 1);
-	if (type == F && config->f_rgb == NULL)
-		config->f_rgb = colour;
-	else if (type == C && config->c_rgb == NULL)
-		config->c_rgb = colour;
-	else
-		return (ft_putstr_fd("Error: Double colour detected.\n", 2), 1);
+		return (ft_putstr_fd("Error: Double path detected.\n", 2), free(path), 1);
 	return (0);
 }
 
@@ -112,39 +96,7 @@ int	allocate_configs(t_config *config, char *line)
 	return (0);
 }
 
-int	count_commas(char *s)
-{
-	int	i;
-	int	count;
-
-	i = 0;
-	count = 0;
-	while(s[i] != '\0')
-	{
-		if(s[i] == ',')
-			count++;
-		i++;
-	}
-}
-
-
-int	**split_and_transform_array(char **arr)
-{
-	int	**temp;
-	int	i;
-
-	i = 0;
-	arr = ft_split(arr, ',');
-	while(arr[i])
-	{
-		temp[i] = ft_atoi(arr[i]);
-		i++;
-	}
-	
-}
-
-
-int read_config(char *filename, t_config *config)
+int	read_config(char *filename, t_config *config)
 {
 	char	*line;
 	int		fd;
@@ -154,12 +106,14 @@ int read_config(char *filename, t_config *config)
 		return (-1);
 	init_configs(config);
 	line = get_next_line(fd);
-	while(line)
+	while (line)
 	{
-		if(line[0] != '\n' && allocate_configs(config, line) == 1)
+		if (line[0] != '\n' && allocate_configs(config, line) == 1)
 		{
 			free(line);
-			break;
+			close(fd);
+			return (1);
+			//break;
 		}
 		free(line);
 		line = get_next_line(fd);
@@ -168,14 +122,24 @@ int read_config(char *filename, t_config *config)
 	return (0);
 }
 
-void print_config(t_config config)
+void	print_config(t_config config)
 {
+	int i = 0;
 	printf("%s\n", config.no_path);
 	printf("%s\n", config.so_path);
 	printf("%s\n", config.we_path);
 	printf("%s\n", config.ea_path);
-	printf("%s\n", config.f_rgb);
-	printf("%s\n", config.c_rgb);
+	while(i < 3)
+	{
+		printf("%d\n", config.f_rgb[i]);
+		i++;
+	}
+	i = 0;
+	while(i < 3)
+	{
+		printf("%d\n", config.c_rgb[i]);
+		i++;
+	}
 }
 
 int main()
@@ -184,9 +148,10 @@ int main()
 	char *filename = "maps/map.cub";
 	if (is_file_cub(filename) == 0)
 	{
-		read_config(filename, &config);
-		print_config(config);
+		if(read_config(filename, &config) == 0)
+			print_config(config);
 		free_paths(&config);
 	}
 		
+
 }
