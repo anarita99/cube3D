@@ -6,7 +6,7 @@
 /*   By: adores <adores@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/25 10:33:42 by adores            #+#    #+#             */
-/*   Updated: 2026/06/01 12:04:09 by adores           ###   ########.fr       */
+/*   Updated: 2026/06/01 15:17:14 by adores           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ typedef enum s_types
 //utils.c
 int		skip_space(char *line);
 char	*find_new_line(char *str);
+int		count_words(char *str, char sep);
 void	free_paths(t_config *config);
 
 void	init_configs(t_config *config);

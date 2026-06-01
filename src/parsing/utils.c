@@ -6,7 +6,7 @@
 /*   By: adores <adores@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/26 14:17:27 by adores            #+#    #+#             */
-/*   Updated: 2026/06/01 12:08:14 by adores           ###   ########.fr       */
+/*   Updated: 2026/06/01 15:16:59 by adores           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,36 @@ char	*find_new_line(char *str)
 	return (str);
 }
 
+int	count_words(char *str, char sep)
+{
+	int	count;
+	int	inword;
+	int	i;
+
+	count = 0;
+	inword = 0;
+	i = 0;
+	while (str[i] != '\0')
+	{
+		if (str[i] != sep)
+		{
+			if (inword == 0)
+			{
+				inword = 1;
+				count++;
+			}
+		}
+		else
+			inword = 0;
+		i++;
+	}
+	return (count);
+}
+
 void	free_paths(t_config *config)
 {
 	free(config->no_path);
 	free(config->so_path);
 	free(config->we_path);
 	free(config->ea_path);
-	//free(config->f_rgb);
-	//free(config->c_rgb);
 }

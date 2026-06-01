@@ -6,7 +6,7 @@
 /*   By: adores <adores@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/25 10:25:13 by adores            #+#    #+#             */
-/*   Updated: 2026/06/01 12:07:15 by adores           ###   ########.fr       */
+/*   Updated: 2026/06/01 16:11:20 by adores           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,11 @@ static int	is_file_cub(char *filename)
 	cub = ".cub";
 	i = 0;
 	while (filename[i])
+	{
+		if(filename[i] == '/' && filename[i + 1] == '.')
+			return (1);
 		i++;
+	}
 	if (ft_strncmp(&filename[i - 4], cub, 5) == 0)
 		return (0);
 	return (1);
@@ -55,7 +59,6 @@ char	*extract_config(char *line)
 		i ++;
 	i += skip_space(&line[i]);
 	find_new_line(&line[i]);
-
 	return (&line[i]);
 }
 
@@ -64,8 +67,13 @@ static int	allocate_path(char *line, t_config *config, t_types type)
 	char *path;
 
 	path = ft_strdup(extract_config(line));
-	if(!path)
+	if (!path)
 		return (ft_putstr_fd("Error: Malloc error.\n", 2), 1);
+	if (access(path, O_RDONLY))
+	{
+		ft_putstr_fd("Error: No access to texture file.\n", 2);
+		return(free(path), 1);
+	}
 	if (type == NO && config->no_path == NULL)
 		config->no_path = path;
 	else if(type == SO && config->so_path == NULL)
@@ -75,7 +83,10 @@ static int	allocate_path(char *line, t_config *config, t_types type)
 	else if(type == EA && config->ea_path == NULL)
 		config->ea_path = path;
 	else
-		return (ft_putstr_fd("Error: Double path detected.\n", 2), free(path), 1);
+	{
+		ft_putstr_fd("Error: Double path detected.\n", 2);
+		return (free(path), 1);
+	}
 	return (0);
 }
 
@@ -93,7 +104,26 @@ int	allocate_configs(t_config *config, char *line)
 		if (allocate_colour (line, config, type) == 1)
 			return (1);
 	}
+	else
+		return (1);
 	return (0);
+}
+
+int	all_configs(t_config config)
+{
+	if (config.no_path == NULL)
+		return (1);
+	if (config.so_path == NULL)
+		return (1);
+	if (config.we_path == NULL)
+		return (1);
+	if (config.ea_path == NULL)
+		return (1);
+	if (config.f_rgb == -1)
+		return (1);
+	if (config.c_rgb == -1)
+		return (1);
+	return(0);
 }
 
 int	read_config(char *filename, t_config *config)
@@ -103,7 +133,7 @@ int	read_config(char *filename, t_config *config)
 
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
-		return (-1);
+		return (ft_putstr_fd("Error: Can't open file.\n", 2), 1);
 	init_configs(config);
 	line = get_next_line(fd);
 	while (line)
@@ -113,7 +143,6 @@ int	read_config(char *filename, t_config *config)
 			free(line);
 			close(fd);
 			return (1);
-			//break;
 		}
 		free(line);
 		line = get_next_line(fd);
@@ -134,16 +163,21 @@ void	print_config(t_config config)
 	printf("%d\n", config.c_rgb);
 }
 
-int main()
+int main(int ac, char **av)
 {
 	t_config config;
-	char *filename = "maps/map.cub";
-	if (is_file_cub(filename) == 0)
+	if (ac != 2)
+		return (ft_putstr_fd("Error: Invalid number of arguments.\n", 2), 1);
+	if (is_file_cub(av[1]) == 0)
 	{
-		if(read_config(filename, &config) == 0)
+		if (read_config(av[1], &config) == 0 && all_configs(config) == 0)
+		{
 			print_config(config);
+		}
 		free_paths(&config);
-	}
 		
-
+	}
+	else
+		return (ft_putstr_fd("Error: Wrong file.\n", 2), 1);
+	return (0);
 }

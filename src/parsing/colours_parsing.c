@@ -6,7 +6,7 @@
 /*   By: adores <adores@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/29 12:16:34 by adores            #+#    #+#             */
-/*   Updated: 2026/06/01 12:13:46 by adores           ###   ########.fr       */
+/*   Updated: 2026/06/01 16:12:15 by adores           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	*split_and_transform_array(char *line)
 	{
 		ft_freearray(splitted);
 		free(temp);
-		ft_putstr_fd("Error: Above limit for colour code.\n", 2);
+		ft_putstr_fd("Error: Above or under the limit for colour code.\n", 2);
 		return (NULL);
 	}
 	return (ft_freearray(splitted), temp);
@@ -78,13 +78,17 @@ int	rgb_to_int(int r, int g, int b)
 	return (rgb);
 }
 
+//formula pra transformar rgb em int
+// return (r << 16) | (g << 8) | b;
 int get_colour_int(char *colour)
 {
 	int	*colour_code;
 	int	rgb_code;
 
-	if(count_commas(colour) != 2)
+	if (count_words(colour, ',') != 3)
 		return (ft_putstr_fd("Error: Wrong colour code.\n", 2), -1);
+	if (count_words(colour, ' ') != 1)
+		return (ft_putstr_fd("Error: Too many words for a colour code.\n", 2), -1);
 	else
 	{
 		colour_code = split_and_transform_array(colour);
@@ -96,9 +100,6 @@ int get_colour_int(char *colour)
 	}
 	return (rgb_code);
 }
-//formula pra transformar rgb em int
-// return (r << 16) | (g << 8) | b;
-
 
 int	allocate_colour(char *line, t_config *config, t_types type)
 {

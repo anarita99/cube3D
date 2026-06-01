@@ -1,9 +1,14 @@
-   NO    ./path_to_the_north_texture
+   NO    ./textures/text.xpm
 
-SO   ./path_to_the_south_texture
-WE       ./path_to_the_west_texture
-EA                 ./path_to_the_east_texture
+SO   ./textures/text2.xpm
+WE       ./textures/text3.xpm
+EA                 ./textures/text4.xpm
 
-F 220,100,253
-C 225,25,0
+
+
+
+F               220,100,230
+
+C  20,30,65
+
 
