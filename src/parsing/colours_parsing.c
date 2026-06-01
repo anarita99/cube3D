@@ -6,7 +6,7 @@
 /*   By: adores <adores@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/29 12:16:34 by adores            #+#    #+#             */
-/*   Updated: 2026/05/29 15:53:41 by adores           ###   ########.fr       */
+/*   Updated: 2026/06/01 12:13:46 by adores           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,38 +70,51 @@ int	*split_and_transform_array(char *line)
 	return (ft_freearray(splitted), temp);
 }
 
-int *get_colour_int(char *colour)
+int	rgb_to_int(int r, int g, int b)
+{
+	int	rgb;
+
+	rgb = (r << 16) | (g << 8) | b;
+	return (rgb);
+}
+
+int get_colour_int(char *colour)
 {
 	int	*colour_code;
+	int	rgb_code;
 
 	if(count_commas(colour) != 2)
-		return (ft_putstr_fd("Error: Wrong colour code.\n", 2), NULL);
+		return (ft_putstr_fd("Error: Wrong colour code.\n", 2), -1);
 	else
 	{
 		colour_code = split_and_transform_array(colour);
 		if(!colour_code)
-			return(NULL);
+			return(-1);
+		rgb_code = rgb_to_int(colour_code[0], colour_code[1], colour_code[2]);
+		free(colour_code);
+		
 	}
-	return (colour_code);
+	return (rgb_code);
 }
 //formula pra transformar rgb em int
-//int rgb = ((r&0x0ff)<<16)|((g&0x0ff)<<8)|(b&0x0ff);
+// return (r << 16) | (g << 8) | b;
+
 
 int	allocate_colour(char *line, t_config *config, t_types type)
 {
 	char	*colour;
-	int		*colour_code;
+	int		colour_code;
 
 	colour = ft_strdup(extract_config(line));
 	if (!colour)
 		return (ft_putstr_fd("Error: Malloc error.\n", 2), 1);
 	colour_code = get_colour_int(colour);
 	free(colour);
-	if (colour_code == NULL)
+	if (colour_code == -1)
 		return (1);
-	if (type == F && config->f_rgb == NULL)
+	if (type == F && config->f_rgb == -1)
 		config->f_rgb = colour_code;
-	else if (type == C && config->c_rgb == NULL)
+	else if (type == C && config->c_rgb == -1)
 		config->c_rgb = colour_code;
 	else
 		return (ft_putstr_fd("Error: Double colour detected.\n", 2), 1);

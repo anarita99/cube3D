@@ -6,7 +6,7 @@
 /*   By: adores <adores@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/25 10:25:13 by adores            #+#    #+#             */
-/*   Updated: 2026/05/29 14:57:21 by adores           ###   ########.fr       */
+/*   Updated: 2026/06/01 12:07:15 by adores           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,22 +124,14 @@ int	read_config(char *filename, t_config *config)
 
 void	print_config(t_config config)
 {
-	int i = 0;
+
 	printf("%s\n", config.no_path);
 	printf("%s\n", config.so_path);
 	printf("%s\n", config.we_path);
 	printf("%s\n", config.ea_path);
-	while(i < 3)
-	{
-		printf("%d\n", config.f_rgb[i]);
-		i++;
-	}
-	i = 0;
-	while(i < 3)
-	{
-		printf("%d\n", config.c_rgb[i]);
-		i++;
-	}
+	
+	printf("%d\n", config.f_rgb);
+	printf("%d\n", config.c_rgb);
 }
 
 int main()

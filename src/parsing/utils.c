@@ -6,7 +6,7 @@
 /*   By: adores <adores@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/26 14:17:27 by adores            #+#    #+#             */
-/*   Updated: 2026/05/29 15:00:19 by adores           ###   ########.fr       */
+/*   Updated: 2026/06/01 12:08:14 by adores           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,6 @@ void	free_paths(t_config *config)
 	free(config->so_path);
 	free(config->we_path);
 	free(config->ea_path);
-	free(config->f_rgb);
-	free(config->c_rgb);
+	//free(config->f_rgb);
+	//free(config->c_rgb);
 }
