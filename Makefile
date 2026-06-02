@@ -6,7 +6,7 @@
 #    By: adores <adores@student.42lisboa.com>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/05/25 11:37:50 by adores            #+#    #+#              #
-#    Updated: 2026/05/29 14:21:53 by adores           ###   ########.fr        #
+#    Updated: 2026/06/02 14:47:32 by adores           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ LIBFT = $(LIBFT_DIR)/libft.a
 
 SRC_DIR = src/parsing/
 
-SRC_FILES = map_validation.c utils.c init.c colours_parsing.c
+SRC_FILES = map_validation.c utils.c init.c colours_parsing.c map.c
 
 SRC = $(addprefix $(SRC_DIR), $(SRC_FILES))
 

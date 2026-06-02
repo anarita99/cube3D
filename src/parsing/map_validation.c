@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_validation.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adores <adores@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adores <adores@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/25 10:25:13 by adores            #+#    #+#             */
-/*   Updated: 2026/06/02 10:15:28 by adores           ###   ########.fr       */
+/*   Updated: 2026/06/02 15:41:32 by adores           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,9 +92,10 @@ static int	allocate_path(char *line, t_config *config, t_types type)
 	return (0);
 }
 
-int	allocate_configs(t_config *config, char *line)
+int	allocate_configs(t_config *config, char *line, t_game game)
 {
 	t_types	type;
+	char	**map;
 
 	if (line[0] == '\n')
 		return (0);
@@ -111,7 +112,8 @@ int	allocate_configs(t_config *config, char *line)
 	}
 	else if (type == MAP)
 	{
-		printf("map\n");
+		printf("map func\n");
+		map = make_map_grid(line, game);
 		return (2);
 	}
 	else
@@ -136,36 +138,35 @@ int	all_configs(t_config config)
 	return(0);
 }
 
-int	read_config(char *filename, t_config *config)
+int	read_config(char *filename, t_game *game, t_config *config)
 {
 	char	*line;
-	int		fd;
 	int		ret;
 
-	fd = open(filename, O_RDONLY);
-	if (fd < 0)
+	game->fd = open(filename, O_RDONLY);
+	if (game->fd < 0)
 		return (ft_putstr_fd("Error: Can't open file.\n", 2), 1);
 	init_configs(config);
-	line = get_next_line(fd);
+	line = get_next_line(game->fd);
 	while (line)
 	{
-		ret = allocate_configs(config, line);
+		ret = allocate_configs(config, line, *game);
 		if (ret == 1)
 		{
 			free(line);
-			close(fd);
+			close(game->fd);
 			return (1);
 		}
 		if (ret == 2)
 		{
 			free(line);
-			close(fd);
+			close(game->fd);
 			return (0);
 		}
 		free(line);
-		line = get_next_line(fd);
+		line = get_next_line(game->fd);
 	}
-	close(fd);
+	close(game->fd);
 	return (0);
 }
 
@@ -184,11 +185,13 @@ void	print_config(t_config config)
 int main(int ac, char **av)
 {
 	t_config config;
+	t_game	game;
+
 	if (ac != 2)
 		return (ft_putstr_fd("Error: Invalid number of arguments.\n", 2), 1);
 	if (is_file_cub(av[1]) == 0)
 	{
-		if (read_config(av[1], &config) == 0 && all_configs(config) == 0)
+		if (read_config(av[1], &game, &config) == 0 && all_configs(config) == 0)
 		{
 			print_config(config);
 		}

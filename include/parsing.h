@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adores <adores@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adores <adores@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/25 10:33:42 by adores            #+#    #+#             */
-/*   Updated: 2026/06/02 09:50:57 by adores           ###   ########.fr       */
+/*   Updated: 2026/06/02 15:32:49 by adores           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,11 @@ typedef struct s_config
 	int		c_rgb;
 } t_config;
 
+typedef struct s_game
+{
+	int	fd;
+} t_game;
+
 typedef enum s_types
 {
 	NO,
@@ -51,5 +56,7 @@ void	free_paths(t_config *config);
 void	init_configs(t_config *config);
 int		allocate_colour(char *line, t_config *config, t_types type);
 char	*extract_config(char *line);
+
+char	**make_map_grid(char *line, t_game game);
 
 #endif
