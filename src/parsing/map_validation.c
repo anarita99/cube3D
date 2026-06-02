@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_validation.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adores <adores@student.42lisboa.com>       +#+  +:+       +#+        */
+/*   By: adores <adores@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/25 10:25:13 by adores            #+#    #+#             */
-/*   Updated: 2026/06/01 16:11:20 by adores           ###   ########.fr       */
+/*   Updated: 2026/06/02 10:15:28 by adores           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ t_types find_type(char *line)
 		return (F);
 	else if (ft_strncmp(&line[i], "C", 1) == 0 && line[i + 1] == ' ')
 		return (C);
+	else if (ft_strncmp(&line[i], "1", 1) == 0)
+		return (MAP);
 	else
 		return (ft_putstr_fd("Error: Invalid config.\n", 2), INVALID);
 }
@@ -92,7 +94,10 @@ static int	allocate_path(char *line, t_config *config, t_types type)
 
 int	allocate_configs(t_config *config, char *line)
 {
-	t_types type;
+	t_types	type;
+
+	if (line[0] == '\n')
+		return (0);
 	type = find_type(line);
 	if (type >= NO && type <= EA)
 	{
@@ -103,6 +108,11 @@ int	allocate_configs(t_config *config, char *line)
 	{
 		if (allocate_colour (line, config, type) == 1)
 			return (1);
+	}
+	else if (type == MAP)
+	{
+		printf("map\n");
+		return (2);
 	}
 	else
 		return (1);
@@ -130,6 +140,7 @@ int	read_config(char *filename, t_config *config)
 {
 	char	*line;
 	int		fd;
+	int		ret;
 
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
@@ -138,11 +149,18 @@ int	read_config(char *filename, t_config *config)
 	line = get_next_line(fd);
 	while (line)
 	{
-		if (line[0] != '\n' && allocate_configs(config, line) == 1)
+		ret = allocate_configs(config, line);
+		if (ret == 1)
 		{
 			free(line);
 			close(fd);
 			return (1);
+		}
+		if (ret == 2)
+		{
+			free(line);
+			close(fd);
+			return (0);
 		}
 		free(line);
 		line = get_next_line(fd);
