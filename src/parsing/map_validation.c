@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_validation.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adores <adores@student.42lisboa.com>       +#+  +:+       +#+        */
+/*   By: adores <adores@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/25 10:25:13 by adores            #+#    #+#             */
-/*   Updated: 2026/06/02 15:41:32 by adores           ###   ########.fr       */
+/*   Updated: 2026/06/03 12:21:30 by adores           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,10 +92,9 @@ static int	allocate_path(char *line, t_config *config, t_types type)
 	return (0);
 }
 
-int	allocate_configs(t_config *config, char *line, t_game game)
+int	allocate_configs(t_config *config, char *line)
 {
 	t_types	type;
-	char	**map;
 
 	if (line[0] == '\n')
 		return (0);
@@ -113,7 +112,7 @@ int	allocate_configs(t_config *config, char *line, t_game game)
 	else if (type == MAP)
 	{
 		printf("map func\n");
-		map = make_map_grid(line, game);
+		
 		return (2);
 	}
 	else
@@ -150,7 +149,7 @@ int	read_config(char *filename, t_game *game, t_config *config)
 	line = get_next_line(game->fd);
 	while (line)
 	{
-		ret = allocate_configs(config, line, *game);
+		ret = allocate_configs(config, line);
 		if (ret == 1)
 		{
 			free(line);
@@ -159,13 +158,12 @@ int	read_config(char *filename, t_game *game, t_config *config)
 		}
 		if (ret == 2)
 		{
-			free(line);
-			close(game->fd);
-			return (0);
+			break;
 		}
 		free(line);
 		line = get_next_line(game->fd);
 	}
+	game->map = make_map_grid(line, game->fd);
 	close(game->fd);
 	return (0);
 }
@@ -177,7 +175,6 @@ void	print_config(t_config config)
 	printf("%s\n", config.so_path);
 	printf("%s\n", config.we_path);
 	printf("%s\n", config.ea_path);
-	
 	printf("%d\n", config.f_rgb);
 	printf("%d\n", config.c_rgb);
 }
@@ -195,7 +192,7 @@ int main(int ac, char **av)
 		{
 			print_config(config);
 		}
-		free_paths(&config);
+		free_things(&config, &game);
 		
 	}
 	else
