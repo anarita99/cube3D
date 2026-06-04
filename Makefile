@@ -3,46 +3,67 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: adores <adores@student.42.fr>              +#+  +:+       +#+         #
+#    By: leramos- <leramos-@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2026/05/25 11:37:50 by adores            #+#    #+#              #
-#    Updated: 2026/05/25 11:37:53 by adores           ###   ########.fr        #
+#    Created: 2025/04/10 11:54:19 by leramos-          #+#    #+#              #
+#    Updated: 2026/06/02 17:27:14 by leramos-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
+# Project structure
 NAME = cub3D
+SRCS_DIR = src
+INCS_DIR = include
 
-CC = cc
-CFLAGS = -Wall -Wextra -Werror -g
-
-INCLUDES = -I include -I libft/include
-
+# Libft structure
 LIBFT_DIR = libft
-LIBFT = $(LIBFT_DIR)/libft.a
+LIBFT_SRCS_DIR = $(LIBFT_DIR)/src
+LIBFT_INCS_DIR = $(LIBFT_DIR)/include
 
-SRC = src/parsing/map_validation.c
+# MiniLibX structure
+MLX_DIR = minilibx-linux
+MLX_LIB = $(MLX_DIR)/libmlx.a
+MLX_DEPENDENCIES = -lXext -lX11 -lm
 
-OBJ = $(SRC:.c=.o)
+# Compiler and flags
+CC = cc
+CFLAGS = -Wall -Wextra -Werror -I$(INCS_DIR) -I$(LIBFT_INCS_DIR) -I$(MLX_DIR)
+AR = ar rcs
+RM = rm -f
 
-all: $(LIBFT) $(NAME)
+# Files
+FILES = main events exit
+LIBFT_LIB = $(LIBFT_DIR)/libft.a
 
-$(LIBFT):
-	$(MAKE) -C $(LIBFT_DIR)
+SRCS = $(addprefix $(SRCS_DIR)/, $(addsuffix .c, $(FILES)))
+OBJS = $(SRCS:.c=.o)
 
-$(NAME): $(OBJ)
-	$(CC) $(CFLAGS) $(OBJ) -L $(LIBFT_DIR) -lft -o $(NAME)
+# Rules
+all: $(LIBFT_LIB) $(NAME)
+
+$(LIBFT_LIB):
+	@make -C $(LIBFT_DIR)
+
+$(MLX_LIB):
+	@make -C $(MLX_DIR)
+
+$(NAME): $(OBJS) $(LIBFT_LIB) $(MLX_LIB)
+	$(CC) $(CFLAGS) $^ -L$(MLX_DIR) $(MLX_DEPENDENCIES) -o $(NAME)
 
 %.o: %.c
-	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	$(MAKE) -C $(LIBFT_DIR) clean
-	rm -f $(OBJ)
+	@make -C $(LIBFT_DIR) clean
+	@make -C $(MLX_DIR) clean
+	$(RM) $(OBJS)
 
 fclean: clean
-	$(MAKE) -C $(LIBFT_DIR) fclean
-	rm -f $(NAME)
+	@make -C $(LIBFT_DIR) fclean
+	@make -C $(MLX_DIR) clean
+	$(RM) $(NAME)
 
 re: fclean all
 
-.PHONY: all clean fclean re
+# Phony targets
+.PHONY: all bonus clean fclean re
