@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map_validation.c                                   :+:      :+:    :+:   */
+/*   file_validation.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adores <adores@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/25 10:25:13 by adores            #+#    #+#             */
-/*   Updated: 2026/06/03 12:21:30 by adores           ###   ########.fr       */
+/*   Updated: 2026/06/05 14:59:23 by adores           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ t_types find_type(char *line)
 	else if (ft_strncmp(&line[i], "1", 1) == 0)
 		return (MAP);
 	else
-		return (ft_putstr_fd("Error: Invalid config.\n", 2), INVALID);
+		return (ft_putstr_fd("Error\n Invalid config.\n", 2), INVALID);
 }
 
 char	*extract_config(char *line)
@@ -70,10 +70,10 @@ static int	allocate_path(char *line, t_config *config, t_types type)
 
 	path = ft_strdup(extract_config(line));
 	if (!path)
-		return (ft_putstr_fd("Error: Malloc error.\n", 2), 1);
+		return (ft_putstr_fd("Error\n Malloc error.\n", 2), 1);
 	if (access(path, O_RDONLY))
 	{
-		ft_putstr_fd("Error: No access to texture file.\n", 2);
+		ft_putstr_fd("Error\n No access to texture file.\n", 2);
 		return(free(path), 1);
 	}
 	if (type == NO && config->no_path == NULL)
@@ -86,7 +86,7 @@ static int	allocate_path(char *line, t_config *config, t_types type)
 		config->ea_path = path;
 	else
 	{
-		ft_putstr_fd("Error: Double path detected.\n", 2);
+		ft_putstr_fd("Error\n Double path detected.\n", 2);
 		return (free(path), 1);
 	}
 	return (0);
@@ -110,9 +110,7 @@ int	allocate_configs(t_config *config, char *line)
 			return (1);
 	}
 	else if (type == MAP)
-	{
-		printf("map func\n");
-		
+	{	
 		return (2);
 	}
 	else
@@ -137,14 +135,14 @@ int	all_configs(t_config config)
 	return(0);
 }
 
-int	read_config(char *filename, t_game *game, t_config *config)
+int	read_file(char *filename, t_game *game, t_config *config)
 {
 	char	*line;
 	int		ret;
 
 	game->fd = open(filename, O_RDONLY);
 	if (game->fd < 0)
-		return (ft_putstr_fd("Error: Can't open file.\n", 2), 1);
+		return (ft_putstr_fd("Error\n Can't open file.\n", 2), 1);
 	init_configs(config);
 	line = get_next_line(game->fd);
 	while (line)
@@ -157,26 +155,34 @@ int	read_config(char *filename, t_game *game, t_config *config)
 			return (1);
 		}
 		if (ret == 2)
-		{
 			break;
-		}
 		free(line);
 		line = get_next_line(game->fd);
 	}
 	game->map = make_map_grid(line, game->fd);
+	if(!game->map || valid_characters(game->map) == 1)
+	{
+		close(game->fd);
+		return (1);
+	}
 	close(game->fd);
 	return (0);
 }
 
-void	print_config(t_config config)
+void	print_config(t_config config, t_game game)
 {
-
 	printf("%s\n", config.no_path);
 	printf("%s\n", config.so_path);
 	printf("%s\n", config.we_path);
 	printf("%s\n", config.ea_path);
 	printf("%d\n", config.f_rgb);
 	printf("%d\n", config.c_rgb);
+	int i = 0;
+	while(game.map[i])
+	{
+		printf("%s\n", game.map[i]);
+		i++;
+	}
 }
 
 int main(int ac, char **av)
@@ -185,17 +191,17 @@ int main(int ac, char **av)
 	t_game	game;
 
 	if (ac != 2)
-		return (ft_putstr_fd("Error: Invalid number of arguments.\n", 2), 1);
+		return (ft_putstr_fd("Error\n Invalid number of arguments.\n", 2), 1);
 	if (is_file_cub(av[1]) == 0)
 	{
-		if (read_config(av[1], &game, &config) == 0 && all_configs(config) == 0)
+		if (read_file(av[1], &game, &config) == 0 && all_configs(config) == 0)
 		{
-			print_config(config);
+			print_config(config, game);
 		}
 		free_things(&config, &game);
 		
 	}
 	else
-		return (ft_putstr_fd("Error: Wrong file.\n", 2), 1);
+		return (ft_putstr_fd("Error\n Wrong file.\n", 2), 1);
 	return (0);
 }

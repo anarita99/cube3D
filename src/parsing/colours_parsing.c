@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   colours_parsing.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adores <adores@student.42lisboa.com>       +#+  +:+       +#+        */
+/*   By: adores <adores@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/29 12:16:34 by adores            #+#    #+#             */
-/*   Updated: 2026/06/01 16:12:15 by adores           ###   ########.fr       */
+/*   Updated: 2026/06/05 10:16:10 by adores           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	*split_and_transform_array(char *line)
 	{
 		ft_freearray(splitted);
 		free(temp);
-		ft_putstr_fd("Error: Above or under the limit for colour code.\n", 2);
+		ft_putstr_fd("Error\n Above or under the limit for colour code.\n", 2);
 		return (NULL);
 	}
 	return (ft_freearray(splitted), temp);
@@ -86,9 +86,9 @@ int get_colour_int(char *colour)
 	int	rgb_code;
 
 	if (count_words(colour, ',') != 3)
-		return (ft_putstr_fd("Error: Wrong colour code.\n", 2), -1);
+		return (ft_putstr_fd("Error\n Wrong colour code.\n", 2), -1);
 	if (count_words(colour, ' ') != 1)
-		return (ft_putstr_fd("Error: Too many words for a colour code.\n", 2), -1);
+		return (ft_putstr_fd("Error\n Too many words for a colour code.\n", 2), -1);
 	else
 	{
 		colour_code = split_and_transform_array(colour);
@@ -108,7 +108,7 @@ int	allocate_colour(char *line, t_config *config, t_types type)
 
 	colour = ft_strdup(extract_config(line));
 	if (!colour)
-		return (ft_putstr_fd("Error: Malloc error.\n", 2), 1);
+		return (ft_putstr_fd("Error\n Malloc error.\n", 2), 1);
 	colour_code = get_colour_int(colour);
 	free(colour);
 	if (colour_code == -1)
@@ -118,7 +118,7 @@ int	allocate_colour(char *line, t_config *config, t_types type)
 	else if (type == C && config->c_rgb == -1)
 		config->c_rgb = colour_code;
 	else
-		return (ft_putstr_fd("Error: Double colour detected.\n", 2), 1);
+		return (ft_putstr_fd("Error\n Double colour detected.\n", 2), 1);
 	return (0);
 }
 
