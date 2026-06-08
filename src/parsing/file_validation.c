@@ -6,7 +6,7 @@
 /*   By: adores <adores@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/25 10:25:13 by adores            #+#    #+#             */
-/*   Updated: 2026/06/05 14:59:23 by adores           ###   ########.fr       */
+/*   Updated: 2026/06/08 12:10:08 by adores           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,6 +165,7 @@ int	read_file(char *filename, t_game *game, t_config *config)
 		close(game->fd);
 		return (1);
 	}
+	game->map = put_map_rect(game->map);
 	close(game->fd);
 	return (0);
 }
@@ -189,6 +190,7 @@ int main(int ac, char **av)
 {
 	t_config config;
 	t_game	game;
+	int line;
 
 	if (ac != 2)
 		return (ft_putstr_fd("Error\n Invalid number of arguments.\n", 2), 1);
@@ -197,6 +199,10 @@ int main(int ac, char **av)
 		if (read_file(av[1], &game, &config) == 0 && all_configs(config) == 0)
 		{
 			print_config(config, game);
+			line = find_big_line(game.map);
+			printf("%d\n", line);
+			
+			
 		}
 		free_things(&config, &game);
 		

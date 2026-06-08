@@ -6,7 +6,7 @@
 /*   By: adores <adores@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/25 10:33:42 by adores            #+#    #+#             */
-/*   Updated: 2026/06/05 14:57:51 by adores           ###   ########.fr       */
+/*   Updated: 2026/06/08 12:12:30 by adores           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,5 +60,7 @@ char	*extract_config(char *line);
 
 char	**make_map_grid(char *line, int fd);
 int	valid_characters(char **map);
+int	find_big_line(char **map);
+char	**put_map_rect(char **map);
 
 #endif
