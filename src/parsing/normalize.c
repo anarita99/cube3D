@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   normalize.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adores <adores@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adores <adores@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/08 11:21:55 by adores            #+#    #+#             */
-/*   Updated: 2026/06/08 14:58:11 by adores           ###   ########.fr       */
+/*   Updated: 2026/06/09 16:43:49 by adores           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ char	**put_map_rect(char **map)
 		{
 			map_line = malloc(sizeof(char) * (size + 1));
 			if (!map_line)
-				return(NULL);
+				return(ft_putstr_fd(MALL_ERR, 2), NULL);
 			ft_memset(map_line, ' ', size);
 			map_line[size] = '\0';
 			ft_memcpy(map_line, map[i], j);
@@ -59,4 +59,57 @@ char	**put_map_rect(char **map)
 		}
 	}
 	return (map);
+}
+
+
+/*while(mapa)
+{
+	mapa[y][x];
+	if (mapa[y][x] == '0')
+		if (check_space(mapa) == -1)
+			return (-1);
+
+while(mapa)
+{
+	mapa[y][x];
+	if (mapa[y][x] == '0' && mapa[y][x + 1] == ' ')
+		return (-1);
+
+}
+}*/
+
+int	is_char(char **map, int i, int j, char c)
+{
+	if (map[i][j + 1] == c || map[i][j - 1] == c\
+ || map[i + 1][j] == c || map[i - 1][j] == c)
+		return (1);
+	return(0);
+}
+
+int	is_map_valid(char **map)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while(map[i])
+	{
+		j = 0;
+		while(map[i][j])
+		{
+			if (map[i][j] == '0')
+			{
+				if (is_char(map, i, j, ' ') == 1)
+					return (ft_putstr_fd("Error\n Invalid map.", 2), 1);
+			}
+			if (map[i][j] == 'E' || map[i][j] == 'W' || map[i][j] == 'N' || map[i][j] == 'S')
+			{
+				if (is_char(map, i, j, ' ') == 1)
+					return (ft_putstr_fd("Error\n Invalid map.", 2), 1);
+			}
+			//preciso de ver 1a e ultima linha
+			j++;
+		}
+		i++;
+	}
 }
