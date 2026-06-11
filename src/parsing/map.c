@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adores <adores@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adores <adores@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/02 13:59:09 by adores            #+#    #+#             */
-/*   Updated: 2026/06/05 15:03:18 by adores           ###   ########.fr       */
+/*   Updated: 2026/06/11 14:05:42 by adores           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,26 +90,30 @@ int	check_newline(char	*tmp)
 	return (0);
 }
 
-char	**make_map_grid(char *line, int fd)
+char	**make_map_grid(char *line, int fd, t_game *game)
 {
 	char	**map;
 	char	*tmp;
+	int		count;
 
 	tmp = NULL;
+	count = 0;
 	while (1)
 	{
 		tmp = map_line(tmp, line);
-		line = get_next_line(fd);	
+		line = get_next_line(fd);
+		count++;	
 		if (!line)
 			break;
 	}
 	if (check_newline(tmp) == 1)
-		return (ft_putstr_fd("Error\n New line detected in map.", 2), \
+		return (ft_putstr_fd("Error\n New line detected in map.\n", 2), \
 free(tmp), free(line), NULL);
 	map = ft_split(tmp, '\n');
 	if (!map)
 		return(free(tmp), NULL);
 	free(tmp);
+	game->map_h = count;
 	return (map);
 }
 
@@ -128,7 +132,7 @@ int	valid_characters(char **map)
 		{
 			if (map[i][j] != '1' && map[i][j] != '0' && map[i][j] != 'W' \
 && map[i][j] != 'E'&& map[i][j] != 'N' && map[i][j] != 'S' && map[i][j] != ' ')
-				return (ft_putstr_fd("Error\n Invalid character in map.", 2), 1);
+				return (ft_putstr_fd("Error\n Invalid character in map.\n", 2), 1);
 			if (map[i][j] == 'W' || map[i][j] == 'E' || map[i][j] == 'N' || map[i][j] == 'S')
 				count++;
 			j++;
@@ -136,6 +140,6 @@ int	valid_characters(char **map)
 		i++;
 	}
 	if (count == 0 || count > 1)
-		return(ft_putstr_fd("Error\n The game must have exactly one starting position.", 2), 1);
+		return(ft_putstr_fd("Error\n The game must have exactly one starting position.\n", 2), 1);
 	return (0);
 }

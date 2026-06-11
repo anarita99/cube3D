@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   file_validation.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adores <adores@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adores <adores@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/25 10:25:13 by adores            #+#    #+#             */
-/*   Updated: 2026/06/08 12:10:08 by adores           ###   ########.fr       */
+/*   Updated: 2026/06/11 15:39:36 by adores           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ static int	allocate_path(char *line, t_config *config, t_types type)
 
 	path = ft_strdup(extract_config(line));
 	if (!path)
-		return (ft_putstr_fd("Error\n Malloc error.\n", 2), 1);
+		return (ft_putstr_fd(MALL_ERR, 2), 1);
 	if (access(path, O_RDONLY))
 	{
 		ft_putstr_fd("Error\n No access to texture file.\n", 2);
@@ -92,31 +92,7 @@ static int	allocate_path(char *line, t_config *config, t_types type)
 	return (0);
 }
 
-int	allocate_configs(t_config *config, char *line)
-{
-	t_types	type;
 
-	if (line[0] == '\n')
-		return (0);
-	type = find_type(line);
-	if (type >= NO && type <= EA)
-	{
-		if (allocate_path(line, config, type) == 1)
-			return (1);
-	}
-	else if (type == C || type == F)
-	{
-		if (allocate_colour (line, config, type) == 1)
-			return (1);
-	}
-	else if (type == MAP)
-	{	
-		return (2);
-	}
-	else
-		return (1);
-	return (0);
-}
 
 int	all_configs(t_config config)
 {
@@ -135,38 +111,54 @@ int	all_configs(t_config config)
 	return(0);
 }
 
-int	read_file(char *filename, t_game *game, t_config *config)
+int	allocate_configs(t_config *config, char *line)
+{
+	t_types	type;
+
+	if (line[0] == '\n')
+		return (0);
+	type = find_type(line);
+	if (type >= NO && type <= EA)
+	{
+		if (allocate_path(line, config, type) == 1)
+			return (1);
+	}
+	else if (type == C || type == F)
+	{
+		if (allocate_colour (line, config, type) == 1)
+			return (1);
+	}
+	else if (all_configs(*config) == 0 && type == MAP)
+		return (2);
+	else
+		return (ft_putstr_fd("Error\n Invalid file.\n", 2), 1);
+	return (0);
+}
+
+int	read_file(t_game *game, t_config *config)
 {
 	char	*line;
 	int		ret;
 
-	game->fd = open(filename, O_RDONLY);
-	if (game->fd < 0)
-		return (ft_putstr_fd("Error\n Can't open file.\n", 2), 1);
-	init_configs(config);
 	line = get_next_line(game->fd);
 	while (line)
 	{
 		ret = allocate_configs(config, line);
 		if (ret == 1)
-		{
-			free(line);
-			close(game->fd);
-			return (1);
-		}
+			return (free(line), 1);
 		if (ret == 2)
 			break;
 		free(line);
 		line = get_next_line(game->fd);
 	}
-	game->map = make_map_grid(line, game->fd);
+	if(!line)
+		return (ft_putstr_fd("Error\n No map found.\n", 2), 1);
+	game->map = make_map_grid(line, game->fd, game);
 	if(!game->map || valid_characters(game->map) == 1)
-	{
-		close(game->fd);
 		return (1);
-	}
 	game->map = put_map_rect(game->map);
-	close(game->fd);
+	if (is_map_valid(game->map, game->map_h) == 1)
+		return (1);
 	return (0);
 }
 
@@ -194,15 +186,17 @@ int main(int ac, char **av)
 
 	if (ac != 2)
 		return (ft_putstr_fd("Error\n Invalid number of arguments.\n", 2), 1);
+	game.fd = open(av[1], O_RDONLY);
+	if (game.fd < 0)
+		return (ft_putstr_fd("Error\n Can't open file.\n", 2), 1);
+	init_configs(&config, &game);
 	if (is_file_cub(av[1]) == 0)
 	{
-		if (read_file(av[1], &game, &config) == 0 && all_configs(config) == 0)
+		if (read_file(&game, &config) == 0 && all_configs(config) == 0)
 		{
 			print_config(config, game);
 			line = find_big_line(game.map);
 			printf("%d\n", line);
-			
-			
 		}
 		free_things(&config, &game);
 		

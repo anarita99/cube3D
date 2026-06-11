@@ -6,7 +6,7 @@
 /*   By: adores <adores@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/08 11:21:55 by adores            #+#    #+#             */
-/*   Updated: 2026/06/09 16:43:49 by adores           ###   ########.fr       */
+/*   Updated: 2026/06/11 14:33:14 by adores           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int	is_char(char **map, int i, int j, char c)
 	return(0);
 }
 
-int	is_map_valid(char **map)
+int	is_map_valid(char **map, int height)
 {
 	int	i;
 	int	j;
@@ -97,19 +97,27 @@ int	is_map_valid(char **map)
 		j = 0;
 		while(map[i][j])
 		{
+			if (j == 0 && (map[i][j] != '1' && map[i][j] != ' '))
+					return (ft_putstr_fd("Error\n Invalid map2.\n", 2), 1);
+			if (i == 0 || i == height)
+			{
+				if (map[i][j] != '1' && map[i][j] != ' ' )
+					return (ft_putstr_fd("Error\n Invalid map1.\n", 2), 1);
+			}
 			if (map[i][j] == '0')
 			{
 				if (is_char(map, i, j, ' ') == 1)
-					return (ft_putstr_fd("Error\n Invalid map.", 2), 1);
+					return (ft_putstr_fd("Error\n Invalid map2.\n", 2), 1);
 			}
 			if (map[i][j] == 'E' || map[i][j] == 'W' || map[i][j] == 'N' || map[i][j] == 'S')
 			{
 				if (is_char(map, i, j, ' ') == 1)
-					return (ft_putstr_fd("Error\n Invalid map.", 2), 1);
+					return (ft_putstr_fd("Error\n Invalid map3.\n", 2), 1);
 			}
 			//preciso de ver 1a e ultima linha
 			j++;
 		}
 		i++;
 	}
+	return (0);
 }
