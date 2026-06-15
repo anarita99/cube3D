@@ -6,7 +6,7 @@
 /*   By: adores <adores@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/25 10:33:42 by adores            #+#    #+#             */
-/*   Updated: 2026/06/15 12:42:09 by adores           ###   ########.fr       */
+/*   Updated: 2026/06/15 16:03:07 by adores           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int		read_file(t_game *game, t_config *config);
 
 //init.c
 void	init_configs(t_config *config, t_game *game);
-
+int		count_commas(char *s);
 int		allocate_colour(char *line, t_config *config, t_types type);
 char	**make_map_grid(char *line, int fd, t_game *game);
 int		valid_characters(char **map);

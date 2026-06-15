@@ -6,7 +6,7 @@
 /*   By: adores <adores@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/26 14:17:27 by adores            #+#    #+#             */
-/*   Updated: 2026/06/15 14:03:13 by adores           ###   ########.fr       */
+/*   Updated: 2026/06/15 16:02:47 by adores           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,22 @@ char	*find_new_line(char *str)
 		i++;
 	}
 	return (str);
+}
+
+int	count_commas(char *s)
+{
+	int	i;
+	int	count;
+
+	i = 0;
+	count = 0;
+	while (s[i] != '\0')
+	{
+		if (s[i] == ',')
+			count++;
+		i++;
+	}
+	return (count);
 }
 
 int	count_words(char *str, char sep)

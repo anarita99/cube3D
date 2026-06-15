@@ -6,7 +6,7 @@
 /*   By: adores <adores@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/25 10:25:13 by adores            #+#    #+#             */
-/*   Updated: 2026/06/15 15:14:15 by adores           ###   ########.fr       */
+/*   Updated: 2026/06/15 15:54:08 by adores           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int	allocate_path(char *line, t_config *config, t_types type)
 	path = ft_strdup(extract_config(line));
 	if (!path)
 		return (ft_putstr_fd(MALL_ERR, 2), 1);
-	if (access(path, O_RDONLY))
+	if (access(path, R_OK))
 	{
 		ft_putstr_fd("Error\n No access to texture file.\n", 2);
 		return (free(path), 1);

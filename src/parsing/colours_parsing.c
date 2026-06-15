@@ -6,7 +6,7 @@
 /*   By: adores <adores@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/29 12:16:34 by adores            #+#    #+#             */
-/*   Updated: 2026/06/15 12:47:56 by adores           ###   ########.fr       */
+/*   Updated: 2026/06/15 16:07:52 by adores           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int	get_colour_int(char *colour)
 	int	*colour_code;
 	int	rgb_code;
 
-	if (count_words(colour, ',') != 3)
+	if (count_words(colour, ',') != 3 || count_commas(colour) != 2)
 		return (ft_putstr_fd("Error\n Wrong colour code.\n", 2), -1);
 	if (count_words(colour, ' ') != 1)
 	{
