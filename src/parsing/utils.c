@@ -6,7 +6,7 @@
 /*   By: adores <adores@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/26 14:17:27 by adores            #+#    #+#             */
-/*   Updated: 2026/06/11 15:12:59 by adores           ###   ########.fr       */
+/*   Updated: 2026/06/15 14:03:13 by adores           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 int	skip_space(char *line)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	while(line[i] == ' ')
+	while (line[i] == ' ')
 		i++;
 	return (i);
 }
@@ -27,9 +27,9 @@ char	*find_new_line(char *str)
 	int	i;
 
 	i = 0;
-	while(str[i] != '\0')
+	while (str[i] != '\0')
 	{
-		if(str[i] == '\n')
+		if (str[i] == '\n')
 			str[i] = '\0';
 		i++;
 	}

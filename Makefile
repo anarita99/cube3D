@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: adores <adores@student.42.fr>              +#+  +:+       +#+         #
+#    By: adores <adores@student.42lisboa.com>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/05/25 11:37:50 by adores            #+#    #+#              #
-#    Updated: 2026/06/08 11:36:53 by adores           ###   ########.fr        #
+#    Updated: 2026/06/15 11:50:09 by adores           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,11 +20,14 @@ INCLUDES = -I include -I libft/include
 LIBFT_DIR = libft
 LIBFT = $(LIBFT_DIR)/libft.a
 
-SRC_DIR = src/parsing/
-
-SRC_FILES = file_validation.c utils.c init.c colours_parsing.c map.c normalize.c
-
-SRC = $(addprefix $(SRC_DIR), $(SRC_FILES))
+SRC = src/main.c \
+	src/parsing/colours_parsing.c \
+	src/parsing/file_utils.c \
+	src/parsing/file_validation.c \
+	src/parsing/init.c \
+	src/parsing/map.c \
+	src/parsing/normalize.c \
+	src/parsing/utils.c 
 
 OBJ = $(SRC:.c=.o)
 

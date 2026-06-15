@@ -6,7 +6,7 @@
 /*   By: adores <adores@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/02 13:59:09 by adores            #+#    #+#             */
-/*   Updated: 2026/06/11 14:05:42 by adores           ###   ########.fr       */
+/*   Updated: 2026/06/15 13:01:01 by adores           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char	*map_line(char *s1, char *s2)
 	dst = malloc(buffer_size);
 	if (!dst)
 		return (NULL);
-	if(s1 && s2)
+	if (s1 && s2)
 	{
 		ft_strlcpy(dst, s1, buffer_size);
 		ft_strlcat(dst, s2, buffer_size);
@@ -36,50 +36,16 @@ char	*map_line(char *s1, char *s2)
 	return (dst);
 }
 
-/*char	**make_map_grid(char *line, int fd)
-{
-	char	**map;
-	char	*tmp;
-	int		new_line;
-
-	tmp = NULL;
-	new_line = 0;
-	tmp = map_line(tmp, line);
-	while (1)
-	{
-		line = get_next_line(fd);	
-		if (!line)
-			break;
-		if (line[0] == '\n')
-		{
-			new_line = 1;
-			free(line);
-		}
-		else
-		{
-			if (new_line == 1)
-				return (free(tmp), free(line), \
-ft_putstr_fd("Error\n New line detected in map.", 2), NULL);
-			tmp = map_line(tmp, line);
-		}
-	}
-	map = ft_split(tmp, '\n');
-	if (!map)
-		return(free(tmp), NULL);
-	free(tmp);
-	return (map);
-}*/
-
 int	check_newline(char	*tmp)
 {
 	int	i;
 
 	i = 0;
-	while(tmp[i])
+	while (tmp[i])
 	{
-		if(tmp[i] == '\n' && tmp[i + 1] == '\n')
+		if (tmp[i] == '\n' && tmp[i + 1] == '\n')
 		{
-			while(tmp[i] == '\n')
+			while (tmp[i] == '\n')
 				i++;
 			if (tmp[i] != '\0')
 				return (1);
@@ -102,16 +68,16 @@ char	**make_map_grid(char *line, int fd, t_game *game)
 	{
 		tmp = map_line(tmp, line);
 		line = get_next_line(fd);
-		count++;	
+		count++;
 		if (!line)
-			break;
+			break ;
 	}
 	if (check_newline(tmp) == 1)
 		return (ft_putstr_fd("Error\n New line detected in map.\n", 2), \
 free(tmp), free(line), NULL);
 	map = ft_split(tmp, '\n');
 	if (!map)
-		return(free(tmp), NULL);
+		return (free(tmp), NULL);
 	free(tmp);
 	game->map_h = count;
 	return (map);
@@ -123,23 +89,25 @@ int	valid_characters(char **map)
 	int	j;
 	int	count;
 
-	i = 0;
+	i = -1;
 	count = 0;
-	while(map[i])
+	while (map[++i])
 	{
-		j = 0;
-		while(map[i][j])
+		j = -1;
+		while (map[i][++j])
 		{
 			if (map[i][j] != '1' && map[i][j] != '0' && map[i][j] != 'W' \
-&& map[i][j] != 'E'&& map[i][j] != 'N' && map[i][j] != 'S' && map[i][j] != ' ')
-				return (ft_putstr_fd("Error\n Invalid character in map.\n", 2), 1);
-			if (map[i][j] == 'W' || map[i][j] == 'E' || map[i][j] == 'N' || map[i][j] == 'S')
+&& map[i][j] != 'E' && map[i][j] != 'N' && map[i][j] != 'S' && map[i][j] != ' ')
+				return (ft_putstr_fd("Error\n Invalid character.\n", 2), 1);
+			if (map[i][j] == 'W' || map[i][j] == 'E' || map[i][j] == 'N' \
+|| map[i][j] == 'S')
 				count++;
-			j++;
 		}
-		i++;
 	}
 	if (count == 0 || count > 1)
-		return(ft_putstr_fd("Error\n The game must have exactly one starting position.\n", 2), 1);
+	{
+		ft_putstr_fd("Error\n More than one starting position.\n", 2);
+		return (1);
+	}
 	return (0);
 }
