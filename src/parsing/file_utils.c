@@ -6,7 +6,7 @@
 /*   By: adores <adores@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/15 11:42:53 by adores            #+#    #+#             */
-/*   Updated: 2026/06/15 12:48:59 by adores           ###   ########.fr       */
+/*   Updated: 2026/06/15 14:49:29 by adores           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ t_types	find_type(char *line)
 	else if (ft_strncmp(&line[i], "1", 1) == 0)
 		return (MAP);
 	else
-		return (ft_putstr_fd("Error\n Invalid config.\n", 2), INVALID);
+		return (INVALID);
 }
 
 char	*extract_config(char *line)

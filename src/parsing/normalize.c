@@ -6,7 +6,7 @@
 /*   By: adores <adores@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/08 11:21:55 by adores            #+#    #+#             */
-/*   Updated: 2026/06/15 14:02:20 by adores           ###   ########.fr       */
+/*   Updated: 2026/06/15 15:16:44 by adores           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,22 +72,22 @@ int	is_char(char **map, int i, int j, char c)
 static int	check_errors(char **map, int i, int j, int height)
 {
 	if (j == 0 && (map[i][j] != '1' && map[i][j] != ' '))
-		return (ft_putstr_fd("Error\n Invalid map2.\n", 2), 1);
+		return (ft_putstr_fd("Error\n Invalid map.\n", 2), 1);
 	if (i == 0 || i == height)
 	{
 		if (map[i][j] != '1' && map[i][j] != ' ' )
-			return (ft_putstr_fd("Error\n Invalid map1.\n", 2), 1);
+			return (ft_putstr_fd("Error\n Invalid map.\n", 2), 1);
 	}
 	if (map[i][j] == '0')
 	{
 		if (is_char(map, i, j, ' ') == 1)
-			return (ft_putstr_fd("Error\n Invalid map2.\n", 2), 1);
+			return (ft_putstr_fd("Error\n Invalid map.\n", 2), 1);
 	}
 	if (map[i][j] == 'E' || map[i][j] == 'W' || map[i][j] == 'N' \
 || map[i][j] == 'S')
 	{
 		if (is_char(map, i, j, ' ') == 1)
-			return (ft_putstr_fd("Error\n Invalid map3.\n", 2), 1);
+			return (ft_putstr_fd("Error\n Invalid map.\n", 2), 1);
 	}
 	return (0);
 }
@@ -111,38 +111,3 @@ int	is_map_valid(char **map, int height)
 	}
 	return (0);
 }
-
-/*int	is_map_valid(char **map, int height)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while(map[i])
-	{
-		j = 0;
-		while(map[i][j])
-		{
-			if (j == 0 && (map[i][j] != '1' && map[i][j] != ' '))
-					return (ft_putstr_fd("Error\n Invalid map2.\n", 2), 1);
-			if (i == 0 || i == height)
-			{
-				if (map[i][j] != '1' && map[i][j] != ' ' )
-					return (ft_putstr_fd("Error\n Invalid map1.\n", 2), 1);
-			}
-			if (map[i][j] == '0')
-			{
-				if (is_char(map, i, j, ' ') == 1)
-					return (ft_putstr_fd("Error\n Invalid map2.\n", 2), 1);
-			}
-			if (map[i][j] == 'E' || map[i][j] == 'W' || map[i][j] == 'N' || map[i][j] == 'S')
-			{
-				if (is_char(map, i, j, ' ') == 1)
-					return (ft_putstr_fd("Error\n Invalid map3.\n", 2), 1);
-			}
-			j++;
-		}
-		i++;
-	}
-	return (0);
-}*/

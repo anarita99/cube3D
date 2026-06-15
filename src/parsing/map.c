@@ -6,7 +6,7 @@
 /*   By: adores <adores@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/02 13:59:09 by adores            #+#    #+#             */
-/*   Updated: 2026/06/15 13:01:01 by adores           ###   ########.fr       */
+/*   Updated: 2026/06/15 14:12:43 by adores           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ int	valid_characters(char **map)
 	}
 	if (count == 0 || count > 1)
 	{
-		ft_putstr_fd("Error\n More than one starting position.\n", 2);
+		ft_putstr_fd("Error\n Needs exactly one starting position.\n", 2);
 		return (1);
 	}
 	return (0);
