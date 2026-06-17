@@ -6,7 +6,7 @@
 /*   By: leramos- <leramos-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/25 10:33:42 by adores            #+#    #+#             */
-/*   Updated: 2026/06/02 14:08:37 by leramos-         ###   ########.fr       */
+/*   Updated: 2026/06/17 15:52:01 by leramos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,19 @@ typedef struct s_img
 	int		endian;
 }			t_img;
 
+typedef struct s_vector
+{
+	double	x;
+	double	y;
+}			t_vector;
+
+typedef struct s_player
+{
+	t_vector	loc;
+	t_vector	dir;
+}				t_player;
+
+
 typedef struct s_data
 {
 	void		*mlx;
@@ -79,10 +92,13 @@ typedef struct s_data
 	t_img		*img;
 	int			width;
 	int			height;
+	t_player	player;
+	t_vector	plane;
 }				t_data;
 
 // Render
-int		draw_elements(void *param);
+// int		render(void *param);
+int	render_frame(void *param);
 
 // Events
 int		destroy_handler(void *param);
