@@ -6,20 +6,20 @@
 /*   By: adores <adores@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/29 12:16:34 by adores            #+#    #+#             */
-/*   Updated: 2026/06/15 16:07:52 by adores           ###   ########.fr       */
+/*   Updated: 2026/06/17 15:20:17 by adores           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-int	is_valid_code(int *num)
+int	is_num(char *str)
 {
 	int	i;
 
 	i = 0;
-	while (i < 3)
+	while (str[i])
 	{
-		if (num[i] < 0 || num[i] > 255)
+		if (!ft_isdigit(str[i]))
 			return (1);
 		i++;
 	}
@@ -32,24 +32,23 @@ int	*split_and_transform_array(char *line)
 	int		i;
 	char	**splitted;
 
-	i = 0;
+	i = -1;
 	temp = malloc(sizeof(int) * 3);
 	if (!temp)
 		return (ft_putstr_fd(MALL_ERR, 2), NULL);
 	splitted = ft_split(line, ',');
 	if (!splitted)
 		return (ft_putstr_fd(MALL_ERR, 2), NULL);
-	while (splitted[i])
+	while (splitted[++i])
 	{
-		temp[i] = ft_atoi(splitted[i]);
-		i++;
-	}
-	if (is_valid_code(temp) == 1)
-	{
-		ft_freearray(splitted);
-		free(temp);
-		ft_putstr_fd("Error\n Above or under the limit for colour code.\n", 2);
-		return (NULL);
+		if (is_num(splitted[i]) == 0)
+		{
+			temp[i] = ft_atoi(splitted[i]);
+			if (temp[i] < 255)
+				continue ;
+		}
+		ft_putstr_fd("Error\n Wrong colour code.\n", 2);
+		return (ft_freearray(splitted), free(temp), NULL);
 	}
 	return (ft_freearray(splitted), temp);
 }
