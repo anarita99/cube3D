@@ -6,7 +6,7 @@
 #    By: adores <adores@student.42lisboa.com>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/05/25 11:37:50 by adores            #+#    #+#              #
-#    Updated: 2026/06/15 11:50:09 by adores           ###   ########.fr        #
+#    Updated: 2026/06/16 11:04:55 by adores           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ INCLUDES = -I include -I libft/include
 LIBFT_DIR = libft
 LIBFT = $(LIBFT_DIR)/libft.a
 
-SRC = src/main.c \
+SRC = src/main2.c \
 	src/parsing/colours_parsing.c \
 	src/parsing/file_utils.c \
 	src/parsing/file_validation.c \
