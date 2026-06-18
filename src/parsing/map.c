@@ -6,7 +6,7 @@
 /*   By: adores <adores@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/02 13:59:09 by adores            #+#    #+#             */
-/*   Updated: 2026/06/15 14:12:43 by adores           ###   ########.fr       */
+/*   Updated: 2026/06/18 11:51:55 by adores           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@ int	check_newline(char	*tmp)
 	i = 0;
 	while (tmp[i])
 	{
-		if (tmp[i] == '\n' && tmp[i + 1] == '\n')
+		if (tmp[i] == '\n' && (tmp[i + 1] == '\n' || tmp[i + 1] == ' '))
 		{
-			while (tmp[i] == '\n')
+			while (tmp[i] == '\n' || tmp[i] == ' ')
 				i++;
 			if (tmp[i] != '\0')
 				return (1);

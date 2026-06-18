@@ -6,7 +6,7 @@
 /*   By: adores <adores@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/08 11:21:55 by adores            #+#    #+#             */
-/*   Updated: 2026/06/15 15:16:44 by adores           ###   ########.fr       */
+/*   Updated: 2026/06/18 11:30:45 by adores           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ static int	check_errors(char **map, int i, int j, int height)
 	}
 	if (map[i][j] == '0')
 	{
-		if (is_char(map, i, j, ' ') == 1)
+		if (is_char(map, i, j, ' ') == 1 || is_char(map, i, j, '\0'))
 			return (ft_putstr_fd("Error\n Invalid map.\n", 2), 1);
 	}
 	if (map[i][j] == 'E' || map[i][j] == 'W' || map[i][j] == 'N' \
