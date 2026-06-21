@@ -85,98 +85,75 @@ int	render(void *param)
 	return (0);
 }
 
-static int	dda_loop(
-	double	*sidedist_x,
-	double	*sidedist_y,
-	int		*map_x,
-	int		*map_y,
-	int		step_x,
-	int		step_y,
-	double	deltadist_x,
-	double	deltadist_y
-)
+static t_raycast_data	init_raycast_data(t_data *data, size_t current_x)
 {
-	int		side;
-	bool	hit;
+	t_raycast_data	rc;
+	double			camera_x;
+	t_vector		ray_dir;
 
-	hit = false;
-	while (hit == false)
-	{
-		// Jump to next map square, either in x-direction, or in y-direction
-		if (*sidedist_x < *sidedist_y)
-		{
-			*sidedist_x += deltadist_x;
-			*map_x += step_x;
-			side = 0;
-		}
-		else
-		{
-			*sidedist_y += deltadist_y;
-			*map_y += step_y;
-			side = 1;
-		}
-
-		// Check if ray has hit a wall
-		if (g_world_map[*map_x][*map_y] > 0)
-			hit = true;
-	}
-	return (side);
-}
-
-static void	raycasting_loop(size_t current_x)
-{
-	double		camera_x;
-	t_vector	ray_dir;
-	t_vector	delta_distance;
-	t_vector	side_distance;
-	t_vector	step;
-	t_vector	map;
-
-	camera_x = 2.0 * x / data->width - 1.0;
+	camera_x = 2.0 * current_x / data->width - 1.0;
 	ray_dir.x = data->player.dir.x + data->plane.x * camera_x;
 	ray_dir.y = data->player.dir.y + data->plane.y * camera_x;
-	delta_distance.x = fabs(1.0 / ray_dir.x);
-	delta_distance.y = fabs(1.0 / ray_dir.y);
-	map.x = (int)data->player.loc.x;
-	map.y = (int)data->player.loc.y;
+	rc.delta_distance.x = fabs(1.0 / ray_dir.x);
+	rc.delta_distance.y = fabs(1.0 / ray_dir.y);
+	rc.map.x = (int)data->player.loc.x;
+	rc.map.y = (int)data->player.loc.y;
 	if (ray_dir.x < 0)
 	{
-		step.x = -1;
-		side_distance.x = (data->player.loc.x - map.x) * delta_distance.x;
+		rc.step.x = -1;
+		rc.side_distance.x = (data->player.loc.x - rc.map.x) * rc.delta_distance.x;
 	}
 	else
 	{
-		step.x = 1;
-		side_distance.x = (map.x + 1.0 - data->player.loc.x) * delta_distance.x;
+		rc.step.x = 1;
+		rc.side_distance.x = (rc.map.x + 1.0 - data->player.loc.x) * rc.delta_distance.x;
 	}
 
 	if (ray_dir.y < 0)
 	{
-		step.y = -1;
-		side_distance.y = (data->player.loc.y - map.y) * delta_distance.y;
+		rc.step.y = -1;
+		rc.side_distance.y = (data->player.loc.y - rc.map.y) * rc.delta_distance.y;
 	}
 	else
 	{
-		step.y = 1;
-		side_distance.y = (map.y + 1.0 - data->player.loc.y) * delta_distance.y;
+		rc.step.y = 1;
+		rc.side_distance.y = (rc.map.y + 1.0 - data->player.loc.y) * rc.delta_distance.y;
 	}
+	return (rc);
+}
+
+static int	dda_loop(t_raycast_data *rc)
+{
+	int		side;
+
+	while (true)
+	{
+		// Jump to next map square, either in x-direction, or in y-direction
+		if (rc->side_distance.x < rc->side_distance.y)
+		{
+			rc->side_distance.x += rc->delta_distance.x;
+			rc->map.x += rc->step.x;
+			side = 0;
+		}
+		else
+		{
+			rc->side_distance.y += rc->delta_distance.y;
+			rc->map.y += rc->step.y;
+			side = 1;
+		}
+
+		// Check if ray has hit a wall
+		if (g_world_map[(int)rc->map.y][(int)rc->map.x] > 0)
+			break;
+	}
+	return (side);
 }
 
 int	render_frame(void *param)
 {
-	t_data	*data;
+	t_data			*data;
+	t_raycast_data	rc;
 	size_t	x;
-	int		map_x;
-	int		map_y;
-	double	camera_x;
-	double	raydir_x;
-	double	raydir_y;
-	double	sidedist_x;
-	double	sidedist_y;
-	double	deltadist_x;
-	double	deltadist_y;
-	int		step_x;
-	int		step_y;
 	int		side;
 	double	perpwalldist;
 	int		line_height;
@@ -185,22 +162,18 @@ int	render_frame(void *param)
 
 	data = (t_data *)param;
 
-
-	// Raycasting Loop
+	// Per column Raycasting Pass
 	x = 0;
 	while (x < (size_t)data->width)
 	{
-		raycasting_loop(x);
-
-		// DDA Loop
-		side = dda_loop(&sidedist_x, &sidedist_y, &map_x, &map_y,
-			step_x, step_y, deltadist_x, deltadist_y);
+		rc = init_raycast_data(data, x);
+		side = dda_loop(&rc);
 
 		// After hitting a wall
 		if (side == 0)
-			perpwalldist = sidedist_x - deltadist_x;
+			perpwalldist = rc.side_distance.x - rc.delta_distance.x;
 		else
-			perpwalldist = sidedist_y - deltadist_y;
+			perpwalldist = rc.side_distance.y - rc.delta_distance.y;
 		
 		line_height = data->height / perpwalldist;
 		draw_start = -line_height / 2 + data->height / 2;

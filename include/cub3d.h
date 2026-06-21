@@ -78,6 +78,14 @@ typedef struct s_vector
 	double	y;
 }			t_vector;
 
+typedef struct s_raycast_data
+{
+	t_vector	delta_distance;
+	t_vector	side_distance;
+	t_vector	step;
+	t_vector	map;
+}				t_raycast_data;
+
 typedef struct s_player
 {
 	t_vector	loc;

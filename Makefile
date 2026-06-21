@@ -6,17 +6,16 @@
 #    By: leramos- <leramos-@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/10 11:54:19 by leramos-          #+#    #+#              #
-#    Updated: 2026/06/17 16:34:41 by leramos-         ###   ########.fr        #
+#    Updated: 2026/06/02 17:27:14 by leramos-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
+# Project structure
 NAME = cub3D
+SRCS_DIR = src
+INCS_DIR = include
 
-CC = cc
-CFLAGS = -Wall -Wextra -Werror -g
-
-INCLUDES = -I include -I libft/include
-
+# Libft structure
 LIBFT_DIR = libft
 LIBFT_SRCS_DIR = $(LIBFT_DIR)/src
 LIBFT_INCS_DIR = $(LIBFT_DIR)/include
@@ -33,7 +32,7 @@ AR = ar rcs
 RM = rm -f
 
 # Files
-FILES = main events render exit
+FILES = main render events exit
 LIBFT_LIB = $(LIBFT_DIR)/libft.a
 
 SRCS = $(addprefix $(SRCS_DIR)/, $(addsuffix .c, $(FILES)))
@@ -42,23 +41,29 @@ OBJS = $(SRCS:.c=.o)
 # Rules
 all: $(LIBFT_LIB) $(NAME)
 
-$(LIBFT):
-	$(MAKE) -C $(LIBFT_DIR)
+$(LIBFT_LIB):
+	@make -C $(LIBFT_DIR)
 
-$(NAME): $(OBJ)
-	$(CC) $(CFLAGS) $(OBJ) -L $(LIBFT_DIR) -lft -o $(NAME)
+$(MLX_LIB):
+	@make -C $(MLX_DIR)
+
+$(NAME): $(OBJS) $(LIBFT_LIB) $(MLX_LIB)
+	$(CC) $(CFLAGS) $^ -L$(MLX_DIR) $(MLX_DEPENDENCIES) -o $(NAME)
 
 %.o: %.c
-	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	$(MAKE) -C $(LIBFT_DIR) clean
-	rm -f $(OBJ)
+	@make -C $(LIBFT_DIR) clean
+	@make -C $(MLX_DIR) clean
+	$(RM) $(OBJS)
 
 fclean: clean
-	$(MAKE) -C $(LIBFT_DIR) fclean
-	rm -f $(NAME)
+	@make -C $(LIBFT_DIR) fclean
+	@make -C $(MLX_DIR) clean
+	$(RM) $(NAME)
 
 re: fclean all
 
-.PHONY: all clean fclean re
+# Phony targets
+.PHONY: all bonus clean fclean re
