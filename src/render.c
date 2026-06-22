@@ -6,40 +6,20 @@
 /*   By: leramos- <leramos-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/17 14:59:20 by leramos-          #+#    #+#             */
-/*   Updated: 2026/06/17 16:08:13 by leramos-         ###   ########.fr       */
+/*   Updated: 2026/06/22 14:32:06 by leramos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-// Fake hardcoded map for testing
-// 0 = empty space, 1 = wall
-static int	g_world_map[24][24] = {
-	{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
-};
+static int	is_wall_tile(const char **map, int map_width, int map_height, int x, int y)
+{
+	if (y < 0 || x < 0 || y >= map_height || x >= map_width)
+		return (1);
+	if (!map[y] || map[y][x] == '\0')
+		return (1);
+	return (map[y][x] == '1');
+}
 
 static void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 {
@@ -58,6 +38,24 @@ static void	draw_vertical_line(t_data *data, int x, int top, int bottom, int col
 	{
 		my_mlx_pixel_put(data->img, x, current_y, color);
 		current_y++;
+	}
+}
+
+static void	clear_img(t_data *data)
+{
+	int	x;
+	int	y;
+
+	x = 0;
+	while (x < data->width)
+	{
+		y = 0;
+		while (y < data->height)
+		{
+			my_mlx_pixel_put(data->img, x, y, 0x00000000);
+			y++;
+		}
+		x++;
 	}
 }
 
@@ -122,7 +120,7 @@ static t_raycast_data	init_raycast_data(t_data *data, size_t current_x)
 	return (rc);
 }
 
-static int	dda_loop(t_raycast_data *rc)
+static int	dda_loop(t_raycast_data *rc, const char **map, int map_width, int map_height)
 {
 	int		side;
 
@@ -143,7 +141,7 @@ static int	dda_loop(t_raycast_data *rc)
 		}
 
 		// Check if ray has hit a wall
-		if (g_world_map[(int)rc->map.y][(int)rc->map.x] > 0)
+		if (is_wall_tile(map, map_width, map_height, (int)rc->map.x, (int)rc->map.y))
 			break;
 	}
 	return (side);
@@ -161,13 +159,13 @@ int	render_frame(void *param)
 	int		draw_end;
 
 	data = (t_data *)param;
-
+	clear_img(data);
 	// Per column Raycasting Pass
 	x = 0;
 	while (x < (size_t)data->width)
 	{
 		rc = init_raycast_data(data, x);
-		side = dda_loop(&rc);
+		side = dda_loop(&rc, data->map.grid, data->map.width, data->map.height);
 
 		// After hitting a wall
 		if (side == 0)
