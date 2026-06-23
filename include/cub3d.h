@@ -40,8 +40,11 @@
 // Game Settings
 # define GAME_TITLE "Cub3D"
 # define PLAYER_FOV 66
-# define WIN_WIDTH 800
-# define WIN_HEIGHT 600
+# define WIN_WIDTH 400
+# define WIN_HEIGHT 300
+# define COLOR_CEILING 0x0000FFFF
+# define COLOR_WALL 0x00FF0000
+# define COLOR_FLOOR 0x0000FF00
 
 // Errors
 # define ERR_INVALID_ARG_COUNT 1

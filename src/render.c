@@ -147,6 +147,16 @@ static int	dda_loop(t_raycast_data *rc, const char **map, int map_width, int map
 	return (side);
 }
 
+static void	draw_image(t_data *data, size_t x, int wall_start, int wall_end)
+{
+	if (wall_start > 0)
+		draw_vertical_line(data, x, 0, wall_start - 1, COLOR_CEILING);
+	draw_vertical_line(data, x, wall_start, wall_end, COLOR_WALL);
+	if (wall_end < data->height - 1)
+		draw_vertical_line(data, x, wall_end + 1, data->height - 1, COLOR_FLOOR);
+	mlx_put_image_to_window(data->mlx, data->win, data->img->img, 0, 0);
+}
+
 int	render_frame(void *param)
 {
 	t_data			*data;
@@ -177,13 +187,14 @@ int	render_frame(void *param)
 		draw_start = -line_height / 2 + data->height / 2;
 		draw_end = line_height / 2 + data->height / 2;
 		
+		if (draw_start >= data->height || draw_end < 0)
+			return (0);
 		if (draw_start < 0)
 			draw_start = 0;
 		if (draw_end >= data->height)
 			draw_end = data->height - 1;
 
-		draw_vertical_line(data, x, draw_start, draw_end, 0x00FF0000);
-		mlx_put_image_to_window(data->mlx, data->win, data->img->img, 0, 0);
+		draw_image(data, x, draw_start, draw_end);
 
 		x++;
 	}
