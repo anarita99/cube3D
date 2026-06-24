@@ -6,20 +6,11 @@
 /*   By: leramos- <leramos-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/17 12:05:44 by leramos-          #+#    #+#             */
-/*   Updated: 2026/06/24 14:32:13 by leramos-         ###   ########.fr       */
+/*   Updated: 2026/06/24 15:06:23 by leramos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
-
-static int	is_wall_tile(const char **map, int map_width, int map_height, int x, int y)
-{
-	if (y < 0 || x < 0 || y >= map_height || x >= map_width)
-		return (1);
-	if (!map[y] || map[y][x] == '\0')
-		return (1);
-	return (map[y][x] == '1');
-}
+#include "runtime.h"
 
 static void	move_player(t_data *data, int keycode)
 {
@@ -57,8 +48,7 @@ static void	move_player(t_data *data, int keycode)
 		new.y = current.y - (step * data->player.dir.y);
 	}
 
-	if (is_wall_tile(data->map.grid, data->map.width, data->map.height, (int)new.x, (int)new.y))
-			
+	if (is_wall_tile(data->map, (int)new.x, (int)new.y))
 	{
 		new.x = current.x;
 		new.y = current.y;

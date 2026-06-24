@@ -6,7 +6,7 @@
 /*   By: leramos- <leramos-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/25 10:33:42 by adores            #+#    #+#             */
-/*   Updated: 2026/06/22 15:08:52 by leramos-         ###   ########.fr       */
+/*   Updated: 2026/06/24 15:08:07 by leramos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 # include <math.h>
 # include <sys/time.h>
 
-// MinilibX + Libft
+// MinilibX + X11 + Libft
 # include <mlx.h>
 # include <X11/X.h>
 # include <X11/keysym.h>
@@ -40,8 +40,8 @@
 // Game Settings
 # define GAME_TITLE "Cub3D"
 # define PLAYER_FOV 66
-# define WIN_WIDTH 400
-# define WIN_HEIGHT 300
+# define WIN_WIDTH 1000
+# define WIN_HEIGHT 800
 # define COLOR_CEILING 0x0000FFFF
 # define COLOR_WALL 0x00FF0000
 # define COLOR_FLOOR 0x0000FF00
@@ -72,14 +72,6 @@ typedef struct s_vector
 	double	y;
 }			t_vector;
 
-typedef struct s_raycast_data
-{
-	t_vector	delta_distance;
-	t_vector	side_distance;
-	t_vector	step;
-	t_vector	map;
-}				t_raycast_data;
-
 typedef struct s_player
 {
 	t_vector	loc;
@@ -105,12 +97,9 @@ typedef struct s_data
 	t_vector	plane;
 }				t_data;
 
-// Render
-int	render_frame(void *param);
-
-// Events
-int		key_handler(int keycode, void *param);
-int		destroy_handler(void *param);
+// Modules
+# include <parsing.h>
+# include <runtime.h>
 
 // Exit
 void	cleanup_and_exit(int status_code, const char *error_msg, t_data *data);

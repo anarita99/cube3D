@@ -6,20 +6,11 @@
 /*   By: leramos- <leramos-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/17 14:59:20 by leramos-          #+#    #+#             */
-/*   Updated: 2026/06/22 14:32:06 by leramos-         ###   ########.fr       */
+/*   Updated: 2026/06/24 15:05:16 by leramos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
-
-static int	is_wall_tile(const char **map, int map_width, int map_height, int x, int y)
-{
-	if (y < 0 || x < 0 || y >= map_height || x >= map_width)
-		return (1);
-	if (!map[y] || map[y][x] == '\0')
-		return (1);
-	return (map[y][x] == '1');
-}
+#include "runtime.h"
 
 static void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 {
@@ -120,7 +111,7 @@ static t_raycast_data	init_raycast_data(t_data *data, size_t current_x)
 	return (rc);
 }
 
-static int	dda_loop(t_raycast_data *rc, const char **map, int map_width, int map_height)
+static int	dda_loop(t_raycast_data *rc, t_map map)
 {
 	int		side;
 
@@ -141,7 +132,7 @@ static int	dda_loop(t_raycast_data *rc, const char **map, int map_width, int map
 		}
 
 		// Check if ray has hit a wall
-		if (is_wall_tile(map, map_width, map_height, (int)rc->map.x, (int)rc->map.y))
+		if (is_wall_tile(map, (int)rc->map.x, (int)rc->map.y))
 			break;
 	}
 	return (side);
@@ -175,7 +166,7 @@ int	render_frame(void *param)
 	while (x < (size_t)data->width)
 	{
 		rc = init_raycast_data(data, x);
-		side = dda_loop(&rc, data->map.grid, data->map.width, data->map.height);
+		side = dda_loop(&rc, data->map);
 
 		// After hitting a wall
 		if (side == 0)

@@ -6,7 +6,7 @@
 #    By: leramos- <leramos-@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/10 11:54:19 by leramos-          #+#    #+#              #
-#    Updated: 2026/06/02 17:27:14 by leramos-         ###   ########.fr        #
+#    Updated: 2026/06/24 15:06:41 by leramos-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,7 @@ INCS_DIR = include
 LIBFT_DIR = libft
 LIBFT_SRCS_DIR = $(LIBFT_DIR)/src
 LIBFT_INCS_DIR = $(LIBFT_DIR)/include
+LIBFT_LIB = $(LIBFT_DIR)/libft.a
 
 # MiniLibX structure
 MLX_DIR = minilibx-linux
@@ -32,8 +33,15 @@ AR = ar rcs
 RM = rm -f
 
 # Files
-FILES = main render events exit
-LIBFT_LIB = $(LIBFT_DIR)/libft.a
+MAIN 			= 	main exit
+PARSING 		= 	init colours_parsing, file_utils, file_validation \
+					map normalize utils
+RUNTIME 		= 	game events render utils
+
+FILES 			= 	$(MAIN) \
+					$(addprefix runtime/, $(RUNTIME))
+SRCS 			= 	$(addprefix $(SRCS_DIR)/, $(addsuffix .c, $(FILES)))
+OBJS 			= 	$(SRCS:.c=.o)
 
 SRCS = $(addprefix $(SRCS_DIR)/, $(addsuffix .c, $(FILES)))
 OBJS = $(SRCS:.c=.o)
