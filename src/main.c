@@ -6,7 +6,7 @@
 /*   By: leramos- <leramos-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 15:42:08 by leramos-          #+#    #+#             */
-/*   Updated: 2026/06/22 15:07:51 by leramos-         ###   ########.fr       */
+/*   Updated: 2026/06/24 14:31:53 by leramos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static const char	*g_world_map[] = {
 	"100000000000101000000001",
 	"100000000000000000000001",
 	"100000000000000000000001",
-	"100000000000000000000001",
+	"100000000000E00000000001",
 	"100000000000000000000001",
 	"100000000000000000000001",
 	"100000000000000000000001",
@@ -39,6 +39,60 @@ static const char	*g_world_map[] = {
 	"100000000000000000000001",
 	"111111111111111111111111"
 };
+
+
+static int	get_player_info(t_data *data)
+{
+	int	x;
+	int	y;
+	
+	y = 0;
+	while (y < data->map.height)
+	{
+		x = 0;
+		while (x < data->map.width)
+		{
+			if (data->map.grid[y][x] == 'N')
+			{
+				data->player.loc.x = x;
+				data->player.loc.y = y;
+				data->player.dir.x = 0.0;
+				data->player.dir.y = -1.0;
+				return (0);
+			}
+
+			if (data->map.grid[y][x] == 'S')
+			{
+				data->player.loc.x = x;
+				data->player.loc.y = y;
+				data->player.dir.x = 0.0;
+				data->player.dir.y = 1.0;
+				return (0);
+			}
+
+			if (data->map.grid[y][x] == 'E')
+			{
+				data->player.loc.x = x;
+				data->player.loc.y = y;
+				data->player.dir.x = 1.0;
+				data->player.dir.y = 0.0;
+				return (0);
+			}
+
+			if (data->map.grid[y][x] == 'W')
+			{
+				data->player.loc.x = x;
+				data->player.loc.y = y;
+				data->player.dir.x = -1.0;
+				data->player.dir.y = 0.0;
+				return (0);
+			}
+			x++;
+		}
+		y++;
+	}
+	return (-1);
+}
 
 int	main(void)
 {
@@ -59,12 +113,10 @@ int	main(void)
 	data.map.width = 24;
 	data.map.height = 24;
 	
-	data.player.loc.x = 1.0;
-	data.player.loc.y = 1.0;
-	data.player.dir.x = 0.0;
-	data.player.dir.y = 1.0;
-	data.plane.x = 1.0;
-	data.plane.y = 0.0;
+	if (get_player_info(&data) == -1)
+		return (1);
+	data.plane.x = -data.player.dir.y;
+	data.plane.y = data.player.dir.x;
 
 	mlx_hook(data.win, DestroyNotify, NoEventMask, destroy_handler, &data);
 	mlx_hook(data.win, KeyPress, KeyPressMask, key_handler, &data);

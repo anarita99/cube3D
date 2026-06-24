@@ -6,7 +6,7 @@
 /*   By: leramos- <leramos-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/17 12:05:44 by leramos-          #+#    #+#             */
-/*   Updated: 2026/06/22 15:04:04 by leramos-         ###   ########.fr       */
+/*   Updated: 2026/06/24 14:32:13 by leramos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,36 +35,26 @@ static void	move_player(t_data *data, int keycode)
 
 	if (keycode == XK_d)
 	{
-		new.x = current.x + step;
-		new.y = current.y;
-		
-		// if (is_wall_tile(data->map.grid, data->map.width, data->map.height, (int)new.x, (int)new.y))
-		// 	new.x = current.x;
+		new.x = current.x + (step * data->plane.x);
+		new.y = current.y + (step * data->plane.y);
 	}
 		
 	else if (keycode == XK_a)
 	{
-		new.x = current.x - step;
-		new.y = current.y;
-		// if (is_wall_tile(data->map.grid, data->map.width, data->map.height, (int)new.x, (int)new.y))
-		// 	new.x = current.x;
+		new.x = current.x - (step * data->plane.x);
+		new.y = current.y - (step * data->plane.y);
 	}
 		
 	else if (keycode == XK_w)
 	{
-		new.x = current.x;
-		new.y = current.y + step;
-		
-		// if (is_wall_tile(data->map.grid, data->map.width, data->map.height, (int)new.x, (int)new.y))
-		// 	new.y = current.y;
+		new.x = current.x + (step * data->player.dir.x);
+		new.y = current.y + (step * data->player.dir.y);
 	}
 
 	else if (keycode == XK_s)
 	{
-		new.x = current.x;
-		new.y = current.y - step;
-		// if (is_wall_tile(data->map.grid, data->map.width, data->map.height, (int)new.x, (int)new.y))
-		// 	new.y = current.y;
+		new.x = current.x - (step * data->player.dir.x);
+		new.y = current.y - (step * data->player.dir.y);
 	}
 
 	if (is_wall_tile(data->map.grid, data->map.width, data->map.height, (int)new.x, (int)new.y))
