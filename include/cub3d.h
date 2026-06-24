@@ -6,7 +6,7 @@
 /*   By: leramos- <leramos-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/25 10:33:42 by adores            #+#    #+#             */
-/*   Updated: 2026/06/17 15:52:01 by leramos-         ###   ########.fr       */
+/*   Updated: 2026/06/24 16:16:17 by leramos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,16 @@
 # include <stdio.h>
 # include <string.h>
 
-// INT_MAX, Math, gettimeofday
+// INT_MAX, Math, gettimeofday, bool
 # include <limits.h>
 # include <math.h>
 # include <sys/time.h>
+# include <stdbool.h>
 
-// MinilibX + Libft
+// MinilibX + X11 + Libft
 # include <mlx.h>
+# include <X11/X.h>
+# include <X11/keysym.h>
 # include "libft.h"
 # include "ft_printf.h"
 # include "get_next_line.h"
@@ -38,8 +41,11 @@
 // Game Settings
 # define GAME_TITLE "Cub3D"
 # define PLAYER_FOV 66
-# define WIN_WIDTH 800
-# define WIN_HEIGHT 600
+# define WIN_WIDTH 1000
+# define WIN_HEIGHT 800
+# define COLOR_CEILING 0x0000FFFF
+# define COLOR_WALL 0x00FF0000
+# define COLOR_FLOOR 0x0000FF00
 
 // Errors
 # define ERR_INVALID_ARG_COUNT 1
@@ -49,17 +55,6 @@
 # define ERR_CANT_READ_FILE 5
 # define ERR_CANT_INIT_MAP 6
 # define ERR_CANT_READ_IMG 7
-
-// Events & Masks
-# define DESTROY_EVENT 17
-# define NO_MASK 0L
-
-// Key Values
-# define K_ESC 65307
-# define K_W 119
-# define K_A 97
-# define K_S 115
-# define K_D 100
 
 // Structs
 
@@ -82,8 +77,15 @@ typedef struct s_player
 {
 	t_vector	loc;
 	t_vector	dir;
+	char		orientation;
 }				t_player;
 
+typedef struct s_map
+{
+	const char		**grid;
+	int				width;
+	int				height;
+}					t_map;
 
 typedef struct s_data
 {
@@ -92,16 +94,14 @@ typedef struct s_data
 	t_img		*img;
 	int			width;
 	int			height;
+	t_map		map;
 	t_player	player;
 	t_vector	plane;
 }				t_data;
 
-// Render
-// int		render(void *param);
-int	render_frame(void *param);
-
-// Events
-int		destroy_handler(void *param);
+// Modules
+# include <parsing.h>
+# include <runtime.h>
 
 // Exit
 void	cleanup_and_exit(int status_code, const char *error_msg, t_data *data);
