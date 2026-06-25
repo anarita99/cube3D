@@ -6,7 +6,7 @@
 /*   By: adores <adores@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/15 11:39:36 by adores            #+#    #+#             */
-/*   Updated: 2026/06/25 12:15:22 by adores           ###   ########.fr       */
+/*   Updated: 2026/06/25 16:12:33 by adores           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	main(int ac, char **av)
 	data.fd = open(av[1], O_RDONLY);
 	if (data.fd < 0)
 		return (ft_putstr_fd("Error\n Can't open file.\n", 2), 1);
-	init_configs(&config, &map);
+	init(&config, &map, &data);
 	if (is_file_cub(av[1]) == 0)
 	{
 		if (read_file(&data, &config, &map) == 0 && all_configs(config) == 0)

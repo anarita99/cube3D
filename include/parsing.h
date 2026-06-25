@@ -6,7 +6,7 @@
 /*   By: adores <adores@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/25 10:33:42 by adores            #+#    #+#             */
-/*   Updated: 2026/06/25 13:59:41 by adores           ###   ########.fr       */
+/*   Updated: 2026/06/25 16:11:18 by adores           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <stdio.h>
 
 # define MALL_ERR "Error\n Malloc failed.\n"
+# define PL_POS "Error\n Needs exactly one starting position.\n"
 
 typedef struct s_config
 {
@@ -65,11 +66,11 @@ int		all_configs(t_config config);
 int	read_file(t_data *data, t_config *config, t_map *map);
 
 //init.c
-void	init_configs(t_config *config, t_map *map);
+void	init(t_config *config, t_map *map, t_data *data);
 int		count_commas(char *s);
 int		allocate_colour(char *line, t_config *config, t_types type);
 char	**make_map_grid(char *line, int fd, t_map *map);
-int		valid_characters(char **map);
+int		valid_characters(char **map, t_data *data);
 int		find_big_line(char **map);
 int		put_map_rect(t_map *map);
 int		is_map_valid(char **map, int height);

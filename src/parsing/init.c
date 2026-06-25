@@ -6,13 +6,13 @@
 /*   By: adores <adores@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/26 15:54:38 by adores            #+#    #+#             */
-/*   Updated: 2026/06/25 13:31:42 by adores           ###   ########.fr       */
+/*   Updated: 2026/06/25 16:10:27 by adores           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	init_configs(t_config *config, t_map *map)
+void	init(t_config *config, t_map *map, t_data *data)
 {
 	config->no_path = NULL;
 	config->so_path = NULL;
@@ -23,4 +23,5 @@ void	init_configs(t_config *config, t_map *map)
 	map->grid = NULL;
 	map->height = 0;
 	map->width = 0;
+	data->player.orientation = '\0'; 
 }

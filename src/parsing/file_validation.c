@@ -6,7 +6,7 @@
 /*   By: adores <adores@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/25 10:25:13 by adores            #+#    #+#             */
-/*   Updated: 2026/06/25 14:00:37 by adores           ###   ########.fr       */
+/*   Updated: 2026/06/25 16:07:05 by adores           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int	read_file(t_data *data, t_config *config, t_map *map)
 	if (!line)
 		return (ft_putstr_fd("Error\n No map found.\n", 2), 1);
 	map->grid = make_map_grid(line, data->fd, map);
-	if (!map->grid || valid_characters(map->grid) == 1)
+	if (!map->grid || valid_characters(map->grid, data) == 1)
 		return (1);
 	if (put_map_rect(map) == 1)
 		return (1);
