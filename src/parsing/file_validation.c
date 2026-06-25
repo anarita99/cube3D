@@ -6,11 +6,11 @@
 /*   By: adores <adores@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/25 10:25:13 by adores            #+#    #+#             */
-/*   Updated: 2026/06/15 15:54:08 by adores           ###   ########.fr       */
+/*   Updated: 2026/06/25 16:07:05 by adores           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parsing.h"
+#include "cub3d.h"
 
 static int	allocate_path(char *line, t_config *config, t_types type)
 {
@@ -64,12 +64,12 @@ static int	allocate_configs(t_config *config, char *line)
 	return (0);
 }
 
-int	read_file(t_game *game, t_config *config)
+int	read_file(t_data *data, t_config *config, t_map *map)
 {
 	char	*line;
 	int		ret;
 
-	line = get_next_line(game->fd);
+	line = get_next_line(data->fd);
 	while (line)
 	{
 		ret = allocate_configs(config, line);
@@ -78,15 +78,16 @@ int	read_file(t_game *game, t_config *config)
 		if (ret == 2)
 			break ;
 		free(line);
-		line = get_next_line(game->fd);
+		line = get_next_line(data->fd);
 	}
 	if (!line)
 		return (ft_putstr_fd("Error\n No map found.\n", 2), 1);
-	game->map = make_map_grid(line, game->fd, game);
-	if (!game->map || valid_characters(game->map) == 1)
+	map->grid = make_map_grid(line, data->fd, map);
+	if (!map->grid || valid_characters(map->grid, data) == 1)
 		return (1);
-	game->map = put_map_rect(game->map);
-	if (is_map_valid(game->map, game->map_h) == 1)
+	if (put_map_rect(map) == 1)
+		return (1);
+	if (is_map_valid(map->grid, map->height) == 1)
 		return (1);
 	return (0);
 }

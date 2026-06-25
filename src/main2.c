@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   main2.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adores <adores@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/15 11:39:36 by adores            #+#    #+#             */
-/*   Updated: 2026/06/15 12:44:20 by adores           ###   ########.fr       */
+/*   Updated: 2026/06/25 16:12:33 by adores           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parsing.h"
+#include "cub3d.h"
 
-void	print_config(t_config config, t_game game)
+void	print_config(t_config config, t_map map)
 {
 	int	i;
 
@@ -23,9 +23,9 @@ void	print_config(t_config config, t_game game)
 	printf("%s\n", config.ea_path);
 	printf("%d\n", config.f_rgb);
 	printf("%d\n", config.c_rgb);
-	while (game.map[i])
+	while (map.grid[i])
 	{
-		printf("%s\n", game.map[i]);
+		printf("%s\n", map.grid[i]);
 		i++;
 	}
 }
@@ -33,24 +33,26 @@ void	print_config(t_config config, t_game game)
 int	main(int ac, char **av)
 {
 	t_config	config;
-	t_game		game;
+	t_data		data;
+	t_map		map;
+	
 	int			line;
 
 	if (ac != 2)
 		return (ft_putstr_fd("Error\n Invalid number of arguments.\n", 2), 1);
-	game.fd = open(av[1], O_RDONLY);
-	if (game.fd < 0)
+	data.fd = open(av[1], O_RDONLY);
+	if (data.fd < 0)
 		return (ft_putstr_fd("Error\n Can't open file.\n", 2), 1);
-	init_configs(&config, &game);
+	init(&config, &map, &data);
 	if (is_file_cub(av[1]) == 0)
 	{
-		if (read_file(&game, &config) == 0 && all_configs(config) == 0)
+		if (read_file(&data, &config, &map) == 0 && all_configs(config) == 0)
 		{
-			print_config(config, game);
-			line = find_big_line(game.map);
+			print_config(config, map);
+			line = find_big_line(map.grid);
 			printf("%d\n", line);
 		}
-		free_things(&config, &game);
+		free_things(&config, &data, &map);
 	}
 	else
 		return (ft_putstr_fd("Error\n Wrong file.\n", 2), 1);
