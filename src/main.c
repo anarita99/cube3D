@@ -3,90 +3,97 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leramos- <leramos-@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: adores <adores@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/15 11:39:36 by adores            #+#    #+#             */
-/*   Updated: 2026/06/24 16:15:07 by leramos-         ###   ########.fr       */
+/*   Updated: 2026/06/25 16:56:29 by adores           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
 // Fake hardcoded map for testing
-static const char	*g_world_map[] = {
-	"111111111111111111111111",
-	"100000000000000000000001",
-	"100000000000000000000001",
-	"100000000000000000000001",
-	"100111000000000000000001",
-	"100101000000000000000001",
-	"100101000000000000000001",
-	"100000000000111000000001",
-	"100000000000101000000001",
-	"100000000000101000000001",
-	"100000000000000000000001",
-	"100000000000000000000001",
-	"100000000000E00000000001",
-	"100000000000000000000001",
-	"100000000000000000000001",
-	"100000000000000000000001",
-	"100000000000000000000001",
-	"100000000000000000000001",
-	"100000000000000000000001",
-	"100000000000000000000001",
-	"100000000000000000000001",
-	"100000000000000000000001",
-	"100000000000000000000001",
-	"111111111111111111111111"
-};
 
-static int	get_player_info(t_data *data)
+void	print_config(t_config config, t_map map)
 {
-	int		x;
-	int		y;
-	char	tile;
-	
-	y = 0;
-	while (y < data->map.height)
+	int	i;
+
+	i = 0;
+	printf("%s\n", config.no_path);
+	printf("%s\n", config.so_path);
+	printf("%s\n", config.we_path);
+	printf("%s\n", config.ea_path);
+	printf("%d\n", config.f_rgb);
+	printf("%d\n", config.c_rgb);
+	while (map.grid[i])
 	{
-		x = 0;
-		while (x < data->map.width)
-		{
-			tile = data->map.grid[y][x];
-			if (tile == 'N' || tile == 'S' || tile == 'E' || tile == 'W')
-			{
-				data->player.loc.x = x;
-				data->player.loc.y = y;
-				data->player.orientation = tile;
-				return (0);
-			}
-			x++;
-		}
-		y++;
+		printf("%s\n", map.grid[i]);
+		i++;
 	}
-	return (-1);
 }
 
-int	main(void)
+int	main(int ac, char **av)
 {
 	t_data		data;
+	t_config	config;
 
 	data.width = WIN_WIDTH;
 	data.height = WIN_HEIGHT;
 
-
+	if (ac != 2)
+		return (ft_putstr_fd("Error\n Invalid number of arguments.\n", 2), 1);
+	data.fd = open(av[1], O_RDONLY);
+	if (data.fd < 0)
+		return (ft_putstr_fd("Error\n Can't open file.\n", 2), 1);
+	init(&config, &data.map, &data);
+	if (is_file_cub(av[1]) == 0)
+	{
+		if (read_file(&data, &config, &data.map) == 0 && all_configs(config) == 0)
+		{
+			print_config(config, data.map);
+		}
+		close(data.fd);
+	}
+	else
+		return (ft_putstr_fd("Error\n Wrong file.\n", 2), 1);
 	
 	// Substitui isto pela tua parte
 	// Podes simplesmente meter a function acima (get_player_info) no teu codigo
 	// E depois apaga a function acima (get_player_info) e o g_world_map
-	data.map.grid = g_world_map;
-	data.map.width = 24;
-	data.map.height = 24;
-	if (get_player_info(&data) == -1)
-		return (1);
 	// --------------------
-
-
+	
 	game(&data);
+	free_things(&config, &data.map);
 	return (0);
 }
+
+
+/*
+int	main(int ac, char **av)
+{
+	t_config	config;
+	t_data		data;
+	t_map		map;
+	
+	int			line;
+
+	if (ac != 2)
+		return (ft_putstr_fd("Error\n Invalid number of arguments.\n", 2), 1);
+	data.fd = open(av[1], O_RDONLY);
+	if (data.fd < 0)
+		return (ft_putstr_fd("Error\n Can't open file.\n", 2), 1);
+	init(&config, &map, &data);
+	if (is_file_cub(av[1]) == 0)
+	{
+		if (read_file(&data, &config, &map) == 0 && all_configs(config) == 0)
+		{
+			print_config(config, map);
+			line = find_big_line(map.grid);
+			printf("%d\n", line);
+		}
+		free_things(&config, &data, &map);
+	}
+	else
+		return (ft_putstr_fd("Error\n Wrong file.\n", 2), 1);
+	return (0);
+}*/

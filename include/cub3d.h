@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leramos- <leramos-@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: adores <adores@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/25 10:33:42 by adores            #+#    #+#             */
-/*   Updated: 2026/06/24 16:16:17 by leramos-         ###   ########.fr       */
+/*   Updated: 2026/06/25 16:17:39 by adores           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,13 +82,14 @@ typedef struct s_player
 
 typedef struct s_map
 {
-	const char		**grid;
+	char			**grid;
 	int				width;
 	int				height;
 }					t_map;
 
 typedef struct s_data
 {
+	int			fd;
 	void		*mlx;
 	void		*win;
 	t_img		*img;

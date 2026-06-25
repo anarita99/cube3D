@@ -6,7 +6,7 @@
 /*   By: adores <adores@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/25 10:33:42 by adores            #+#    #+#             */
-/*   Updated: 2026/06/25 16:11:18 by adores           ###   ########.fr       */
+/*   Updated: 2026/06/25 16:56:07 by adores           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ typedef enum s_types
 int		skip_space(char *line);
 char	*find_new_line(char *str);
 int		count_words(char *str, char sep);
-void	free_things(t_config *config, t_data *data, t_map *map);
+void	free_things(t_config *config, t_map *map);
 
 //file_utils.c
 int		is_file_cub(char *filename);

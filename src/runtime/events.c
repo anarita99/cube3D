@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   events.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leramos- <leramos-@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: adores <adores@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/17 12:05:44 by leramos-          #+#    #+#             */
-/*   Updated: 2026/06/24 15:06:23 by leramos-         ###   ########.fr       */
+/*   Updated: 2026/06/25 16:46:10 by adores           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ int	destroy_handler(void *param)
 
 	data = (t_data *)param;
 	ft_printf("Window closed by user. Exiting.\n");
+	
 	cleanup_and_exit(0, NULL, data);
 	return (0);
 }
