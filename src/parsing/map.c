@@ -6,11 +6,11 @@
 /*   By: adores <adores@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/02 13:59:09 by adores            #+#    #+#             */
-/*   Updated: 2026/06/18 11:51:55 by adores           ###   ########.fr       */
+/*   Updated: 2026/06/25 14:20:48 by adores           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parsing.h"
+#include "cub3d.h"
 
 char	*map_line(char *s1, char *s2)
 {
@@ -56,9 +56,9 @@ int	check_newline(char	*tmp)
 	return (0);
 }
 
-char	**make_map_grid(char *line, int fd, t_game *game)
+char	**make_map_grid(char *line, int fd, t_map *map)
 {
-	char	**map;
+	char	**grid;
 	char	*tmp;
 	int		count;
 
@@ -75,12 +75,12 @@ char	**make_map_grid(char *line, int fd, t_game *game)
 	if (check_newline(tmp) == 1)
 		return (ft_putstr_fd("Error\n New line detected in map.\n", 2), \
 free(tmp), free(line), NULL);
-	map = ft_split(tmp, '\n');
-	if (!map)
+	grid = ft_split(tmp, '\n');
+	if (!grid)
 		return (free(tmp), NULL);
 	free(tmp);
-	game->map_h = count;
-	return (map);
+	map->height = count;
+	return (grid);
 }
 
 int	valid_characters(char **map)

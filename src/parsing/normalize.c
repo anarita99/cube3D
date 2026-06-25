@@ -6,11 +6,11 @@
 /*   By: adores <adores@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/08 11:21:55 by adores            #+#    #+#             */
-/*   Updated: 2026/06/18 11:30:45 by adores           ###   ########.fr       */
+/*   Updated: 2026/06/25 13:59:24 by adores           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parsing.h"
+#include "cub3d.h"
 
 int	find_big_line(char **map)
 {
@@ -32,33 +32,32 @@ int	find_big_line(char **map)
 	return (tmp);
 }
 
-char	**put_map_rect(char **map)
+int	put_map_rect(t_map *map)
 {
 	int		i;
 	int		j;
-	int		size;
 	char	*map_line;
 
-	size = find_big_line(map);
+	map->width = find_big_line(map->grid);
 	i = -1;
-	while (map[++i])
+	while (map->grid[++i])
 	{
 		j = 0;
-		while (map[i][j])
+		while (map->grid[i][j])
 			j++;
-		if (j != size)
+		if (j != map->width)
 		{
-			map_line = malloc(sizeof(char) * (size + 1));
+			map_line = malloc(sizeof(char) * (map->width + 1));
 			if (!map_line)
-				return (ft_putstr_fd(MALL_ERR, 2), NULL);
-			ft_memset(map_line, ' ', size);
-			map_line[size] = '\0';
-			ft_memcpy(map_line, map[i], j);
-			free(map[i]);
-			map[i] = map_line;
+				return (ft_putstr_fd(MALL_ERR, 2), 1);
+			ft_memset(map_line, ' ', map->width);
+			map_line[map->width] = '\0';
+			ft_memcpy(map_line, map->grid[i], j);
+			free(map->grid[i]);
+			map->grid[i] = map_line;
 		}
 	}
-	return (map);
+	return (0);
 }
 
 int	is_char(char **map, int i, int j, char c)

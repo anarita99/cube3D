@@ -6,11 +6,11 @@
 /*   By: adores <adores@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/26 14:17:27 by adores            #+#    #+#             */
-/*   Updated: 2026/06/15 16:02:47 by adores           ###   ########.fr       */
+/*   Updated: 2026/06/25 12:08:18 by adores           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parsing.h"
+#include "cub3d.h"
 
 int	skip_space(char *line)
 {
@@ -78,12 +78,12 @@ int	count_words(char *str, char sep)
 	return (count);
 }
 
-void	free_things(t_config *config, t_game *game)
+void	free_things(t_config *config, t_data *data, t_map *map)
 {
 	free(config->no_path);
 	free(config->so_path);
 	free(config->we_path);
 	free(config->ea_path);
-	ft_freearray(game->map);
-	close(game->fd);
+	ft_freearray(map->grid);
+	close(data->fd);
 }

@@ -6,7 +6,7 @@
 /*   By: adores <adores@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/25 10:33:42 by adores            #+#    #+#             */
-/*   Updated: 2026/06/15 16:03:07 by adores           ###   ########.fr       */
+/*   Updated: 2026/06/25 13:59:41 by adores           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,12 @@ typedef struct s_config
 	int		c_rgb;
 }	t_config;
 
-typedef struct s_game
+/*typedef struct s_game
 {
 	int		fd;
 	char	**map;
 	int		map_h;
-}	t_game;
+}	t_game;*/
 
 typedef enum s_types
 {
@@ -53,7 +53,7 @@ typedef enum s_types
 int		skip_space(char *line);
 char	*find_new_line(char *str);
 int		count_words(char *str, char sep);
-void	free_things(t_config *config, t_game *game);
+void	free_things(t_config *config, t_data *data, t_map *map);
 
 //file_utils.c
 int		is_file_cub(char *filename);
@@ -62,16 +62,16 @@ char	*extract_config(char *line);
 int		all_configs(t_config config);
 
 //file_validation.c
-int		read_file(t_game *game, t_config *config);
+int	read_file(t_data *data, t_config *config, t_map *map);
 
 //init.c
-void	init_configs(t_config *config, t_game *game);
+void	init_configs(t_config *config, t_map *map);
 int		count_commas(char *s);
 int		allocate_colour(char *line, t_config *config, t_types type);
-char	**make_map_grid(char *line, int fd, t_game *game);
+char	**make_map_grid(char *line, int fd, t_map *map);
 int		valid_characters(char **map);
 int		find_big_line(char **map);
-char	**put_map_rect(char **map);
+int		put_map_rect(t_map *map);
 int		is_map_valid(char **map, int height);
 
 #endif
