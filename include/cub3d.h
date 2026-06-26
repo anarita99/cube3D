@@ -6,7 +6,7 @@
 /*   By: adores <adores@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/25 10:33:42 by adores            #+#    #+#             */
-/*   Updated: 2026/06/25 16:17:39 by adores           ###   ########.fr       */
+/*   Updated: 2026/06/26 14:50:15 by adores           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,16 @@ typedef struct s_map
 	int				height;
 }					t_map;
 
+typedef struct s_config
+{
+	char	*no_path;
+	char	*so_path;
+	char	*we_path;
+	char	*ea_path;
+	int		f_rgb;
+	int		c_rgb;
+}	t_config;
+
 typedef struct s_data
 {
 	int			fd;
@@ -98,11 +108,12 @@ typedef struct s_data
 	t_map		map;
 	t_player	player;
 	t_vector	plane;
+	t_config	config;
 }				t_data;
 
 // Modules
-# include <parsing.h>
-# include <runtime.h>
+# include "parsing.h"
+# include "runtime.h"
 
 // Exit
 void	cleanup_and_exit(int status_code, const char *error_msg, t_data *data);

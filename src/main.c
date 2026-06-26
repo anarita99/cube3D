@@ -6,7 +6,7 @@
 /*   By: adores <adores@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/15 11:39:36 by adores            #+#    #+#             */
-/*   Updated: 2026/06/25 16:56:29 by adores           ###   ########.fr       */
+/*   Updated: 2026/06/26 14:55:43 by adores           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ void	print_config(t_config config, t_map map)
 int	main(int ac, char **av)
 {
 	t_data		data;
-	t_config	config;
 
 	data.width = WIN_WIDTH;
 	data.height = WIN_HEIGHT;
@@ -45,12 +44,12 @@ int	main(int ac, char **av)
 	data.fd = open(av[1], O_RDONLY);
 	if (data.fd < 0)
 		return (ft_putstr_fd("Error\n Can't open file.\n", 2), 1);
-	init(&config, &data.map, &data);
+	init(&data.config, &data.map, &data);
 	if (is_file_cub(av[1]) == 0)
 	{
-		if (read_file(&data, &config, &data.map) == 0 && all_configs(config) == 0)
+		if (read_file(&data, &data.config, &data.map) == 0 && all_configs(data.config) == 0)
 		{
-			print_config(config, data.map);
+			print_config(data.config, data.map);
 		}
 		close(data.fd);
 	}
@@ -63,7 +62,7 @@ int	main(int ac, char **av)
 	// --------------------
 	
 	game(&data);
-	free_things(&config, &data.map);
+	free_things(&data.config, &data.map);
 	return (0);
 }
 

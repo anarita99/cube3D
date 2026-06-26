@@ -6,7 +6,7 @@
 /*   By: adores <adores@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/25 10:33:42 by adores            #+#    #+#             */
-/*   Updated: 2026/06/25 16:56:07 by adores           ###   ########.fr       */
+/*   Updated: 2026/06/26 14:50:05 by adores           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # define MALL_ERR "Error\n Malloc failed.\n"
 # define PL_POS "Error\n Needs exactly one starting position.\n"
 
-typedef struct s_config
+/*typedef struct s_config
 {
 	char	*no_path;
 	char	*so_path;
@@ -29,7 +29,7 @@ typedef struct s_config
 	char	*ea_path;
 	int		f_rgb;
 	int		c_rgb;
-}	t_config;
+}	t_config;*/
 
 /*typedef struct s_game
 {

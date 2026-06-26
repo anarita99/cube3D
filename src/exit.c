@@ -6,7 +6,7 @@
 /*   By: adores <adores@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 14:03:44 by leramos-          #+#    #+#             */
-/*   Updated: 2026/06/25 16:47:59 by adores           ###   ########.fr       */
+/*   Updated: 2026/06/26 13:54:25 by adores           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,6 @@ void	cleanup_and_exit(int status_code, const char *error_msg, t_data *data)
 		if (error_msg)
 			ft_printf("%s\n", error_msg);
 	}
+	free_things(&data->config, &data->map);
 	exit(status_code);
 }
