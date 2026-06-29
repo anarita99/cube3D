@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   colours_parsing.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adores <adores@student.42lisboa.com>       +#+  +:+       +#+        */
+/*   By: leramos- <leramos-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/29 12:16:34 by adores            #+#    #+#             */
-/*   Updated: 2026/06/26 14:54:09 by adores           ###   ########.fr       */
+/*   Updated: 2026/06/29 14:01:37 by leramos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,22 +86,22 @@ int	get_colour_int(char *colour)
 	return (rgb_code);
 }
 
-int	allocate_colour(char *line, t_config *config, t_types type)
+int	allocate_colour(char *line, t_assets *assets, t_types type)
 {
 	char	*colour;
 	int		colour_code;
 
-	colour = ft_strdup(extract_config(line));
+	colour = ft_strdup(extract_assets(line));
 	if (!colour)
 		return (ft_putstr_fd("Error\n Malloc error.\n", 2), 1);
 	colour_code = get_colour_int(colour);
 	free(colour);
 	if (colour_code == -1)
 		return (1);
-	if (type == F && config->f_rgb == -1)
-		config->f_rgb = colour_code;
-	else if (type == C && config->c_rgb == -1)
-		config->c_rgb = colour_code;
+	if (type == F && assets->floor_rgb == -1)
+		assets->floor_rgb = colour_code;
+	else if (type == C && assets->ceiling_rgb == -1)
+		assets->ceiling_rgb = colour_code;
 	else
 		return (ft_putstr_fd("Error\n Double colour detected.\n", 2), 1);
 	return (0);

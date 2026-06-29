@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adores <adores@student.42lisboa.com>       +#+  +:+       +#+        */
+/*   By: leramos- <leramos-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/26 14:17:27 by adores            #+#    #+#             */
-/*   Updated: 2026/06/25 16:41:49 by adores           ###   ########.fr       */
+/*   Updated: 2026/06/29 14:00:49 by leramos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,12 +78,12 @@ int	count_words(char *str, char sep)
 	return (count);
 }
 
-void	free_things(t_config *config, t_map *map)
+void	free_things(t_assets *assets, t_map *map)
 {
-	free(config->no_path);
-	free(config->so_path);
-	free(config->we_path);
-	free(config->ea_path);
+	free(assets->no_path);
+	free(assets->so_path);
+	free(assets->we_path);
+	free(assets->ea_path);
 	ft_freearray(map->grid);
 	//close(data->fd);
 }

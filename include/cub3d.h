@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adores <adores@student.42lisboa.com>       +#+  +:+       +#+        */
+/*   By: leramos- <leramos-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/25 10:33:42 by adores            #+#    #+#             */
-/*   Updated: 2026/06/26 14:50:15 by adores           ###   ########.fr       */
+/*   Updated: 2026/06/29 14:27:13 by leramos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,15 +87,15 @@ typedef struct s_map
 	int				height;
 }					t_map;
 
-typedef struct s_config
+typedef struct s_assets
 {
 	char	*no_path;
 	char	*so_path;
 	char	*we_path;
 	char	*ea_path;
-	int		f_rgb;
-	int		c_rgb;
-}	t_config;
+	int		floor_rgb;
+	int		ceiling_rgb;
+}	t_assets;
 
 typedef struct s_data
 {
@@ -105,10 +105,10 @@ typedef struct s_data
 	t_img		*img;
 	int			width;
 	int			height;
+	t_assets	assets;
 	t_map		map;
 	t_player	player;
 	t_vector	plane;
-	t_config	config;
 }				t_data;
 
 // Modules

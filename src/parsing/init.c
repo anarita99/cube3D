@@ -3,25 +3,35 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adores <adores@student.42lisboa.com>       +#+  +:+       +#+        */
+/*   By: leramos- <leramos-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/26 15:54:38 by adores            #+#    #+#             */
-/*   Updated: 2026/06/25 16:10:27 by adores           ###   ########.fr       */
+/*   Updated: 2026/06/29 14:32:47 by leramos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	init(t_config *config, t_map *map, t_data *data)
+void	init(t_assets *assets, t_map *map, t_data *data)
 {
-	config->no_path = NULL;
-	config->so_path = NULL;
-	config->ea_path = NULL;
-	config->we_path = NULL;
-	config->f_rgb = -1;
-	config->c_rgb = -1;
+	assets->no_path = NULL;
+	assets->so_path = NULL;
+	assets->ea_path = NULL;
+	assets->we_path = NULL;
+	assets->floor_rgb = -1;
+	assets->ceiling_rgb = -1;
 	map->grid = NULL;
 	map->height = 0;
 	map->width = 0;
+	data->fd = -1;
+	data->mlx = NULL;
+	data->win = NULL;
+	data->img = NULL;
+	data->plane.x = 0.0;
+	data->plane.y = 0.0;
+	data->player.loc.x = 0.0;
+	data->player.loc.y = 0.0;
+	data->player.dir.x = 0.0;
+	data->player.dir.y = 0.0;
 	data->player.orientation = '\0'; 
 }

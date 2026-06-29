@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adores <adores@student.42lisboa.com>       +#+  +:+       +#+        */
+/*   By: leramos- <leramos-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/25 10:33:42 by adores            #+#    #+#             */
-/*   Updated: 2026/06/26 14:50:05 by adores           ###   ########.fr       */
+/*   Updated: 2026/06/29 14:00:29 by leramos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,23 +20,6 @@
 
 # define MALL_ERR "Error\n Malloc failed.\n"
 # define PL_POS "Error\n Needs exactly one starting position.\n"
-
-/*typedef struct s_config
-{
-	char	*no_path;
-	char	*so_path;
-	char	*we_path;
-	char	*ea_path;
-	int		f_rgb;
-	int		c_rgb;
-}	t_config;*/
-
-/*typedef struct s_game
-{
-	int		fd;
-	char	**map;
-	int		map_h;
-}	t_game;*/
 
 typedef enum s_types
 {
@@ -54,21 +37,21 @@ typedef enum s_types
 int		skip_space(char *line);
 char	*find_new_line(char *str);
 int		count_words(char *str, char sep);
-void	free_things(t_config *config, t_map *map);
+void	free_things(t_assets *assets, t_map *map);
 
 //file_utils.c
 int		is_file_cub(char *filename);
 t_types	find_type(char *line);
-char	*extract_config(char *line);
-int		all_configs(t_config config);
+char	*extract_assets(char *line);
+int		all_assets(t_assets assets);
 
 //file_validation.c
-int	read_file(t_data *data, t_config *config, t_map *map);
+int	read_file(t_data *data, t_assets *assets, t_map *map);
 
 //init.c
-void	init(t_config *config, t_map *map, t_data *data);
+void	init(t_assets *assets, t_map *map, t_data *data);
 int		count_commas(char *s);
-int		allocate_colour(char *line, t_config *config, t_types type);
+int		allocate_colour(char *line, t_assets *assets, t_types type);
 char	**make_map_grid(char *line, int fd, t_map *map);
 int		valid_characters(char **map, t_data *data);
 int		find_big_line(char **map);

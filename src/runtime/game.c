@@ -6,7 +6,7 @@
 /*   By: leramos- <leramos-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 15:42:08 by leramos-          #+#    #+#             */
-/*   Updated: 2026/06/24 16:14:25 by leramos-         ###   ########.fr       */
+/*   Updated: 2026/06/29 14:13:23 by leramos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,18 @@ void	game(t_data *data)
 	t_img	img;
 
 	data->mlx = mlx_init();
+	if (!data->mlx)
+		cleanup_and_exit(1, "Cannot initialize MiniLibX.", data);
 	data->win = mlx_new_window(data->mlx, data->width, data->height, GAME_TITLE);
+	if (!data->win)
+		cleanup_and_exit(1, "Cannot create window.", data);
 	data->img = &img;
 	data->img->img = mlx_new_image(data->mlx, data->width, data->height);
+	if (!data->img->img)
+		cleanup_and_exit(1, "Cannot create image.", data);
 	data->img->addr = mlx_get_data_addr(data->img->img, &data->img->bits_per_pixel, &data->img->line_len, &data->img->endian);
+	if (!data->img->addr)
+		cleanup_and_exit(1, "Cannot access image data.", data);
 	if (data->player.orientation == 'N')
 	{
 		data->player.dir.x = 0.0;

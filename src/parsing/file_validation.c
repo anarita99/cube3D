@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   file_validation.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adores <adores@student.42lisboa.com>       +#+  +:+       +#+        */
+/*   By: leramos- <leramos-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/25 10:25:13 by adores            #+#    #+#             */
-/*   Updated: 2026/06/26 14:53:57 by adores           ###   ########.fr       */
+/*   Updated: 2026/06/29 14:33:53 by leramos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static int	allocate_path(char *line, t_config *config, t_types type)
+static int	allocate_path(char *line, t_assets *assets, t_types type)
 {
 	char	*path;
 
-	path = ft_strdup(extract_config(line));
+	path = ft_strdup(extract_assets(line));
 	if (!path)
 		return (ft_putstr_fd(MALL_ERR, 2), 1);
 	if (access(path, R_OK))
@@ -24,14 +24,14 @@ static int	allocate_path(char *line, t_config *config, t_types type)
 		ft_putstr_fd("Error\n No access to texture file.\n", 2);
 		return (free(path), 1);
 	}
-	if (type == NO && config->no_path == NULL)
-		config->no_path = path;
-	else if (type == SO && config->so_path == NULL)
-		config->so_path = path;
-	else if (type == WE && config->we_path == NULL)
-		config->we_path = path;
-	else if (type == EA && config->ea_path == NULL)
-		config->ea_path = path;
+	if (type == NO && assets->no_path == NULL)
+		assets->no_path = path;
+	else if (type == SO && assets->so_path == NULL)
+		assets->so_path = path;
+	else if (type == WE && assets->we_path == NULL)
+		assets->we_path = path;
+	else if (type == EA && assets->ea_path == NULL)
+		assets->ea_path = path;
 	else
 	{
 		ft_putstr_fd("Error\n Double path detected.\n", 2);
@@ -40,7 +40,7 @@ static int	allocate_path(char *line, t_config *config, t_types type)
 	return (0);
 }
 
-static int	allocate_configs(t_config *config, char *line)
+static int	allocate_assets(t_assets *assets, char *line)
 {
 	t_types	type;
 
@@ -49,22 +49,22 @@ static int	allocate_configs(t_config *config, char *line)
 	type = find_type(line);
 	if (type >= NO && type <= EA)
 	{
-		if (allocate_path(line, config, type) == 1)
+		if (allocate_path(line, assets, type) == 1)
 			return (1);
 	}
 	else if (type == C || type == F)
 	{
-		if (allocate_colour (line, config, type) == 1)
+		if (allocate_colour (line, assets, type) == 1)
 			return (1);
 	}
-	else if (all_configs(*config) == 0 && type == MAP)
+	else if (all_assets(*assets) == 0 && type == MAP)
 		return (2);
 	else
 		return (ft_putstr_fd("Error\n Invalid file.\n", 2), 1);
 	return (0);
 }
 
-int	read_file(t_data *data, t_config *config, t_map *map)
+int	read_file(t_data *data, t_assets *assets, t_map *map)
 {
 	char	*line;
 	int		ret;
@@ -72,7 +72,7 @@ int	read_file(t_data *data, t_config *config, t_map *map)
 	line = get_next_line(data->fd);
 	while (line)
 	{
-		ret = allocate_configs(config, line);
+		ret = allocate_assets(assets, line);
 		if (ret == 1)
 			return (free(line), 1);
 		if (ret == 2)

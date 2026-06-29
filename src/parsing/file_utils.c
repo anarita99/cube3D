@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   file_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adores <adores@student.42lisboa.com>       +#+  +:+       +#+        */
+/*   By: leramos- <leramos-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/15 11:42:53 by adores            #+#    #+#             */
-/*   Updated: 2026/06/25 12:24:18 by adores           ###   ########.fr       */
+/*   Updated: 2026/06/29 14:00:58 by leramos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ t_types	find_type(char *line)
 		return (INVALID);
 }
 
-char	*extract_config(char *line)
+char	*extract_assets(char *line)
 {
 	int	i;
 
@@ -65,19 +65,19 @@ char	*extract_config(char *line)
 	return (&line[i]);
 }
 
-int	all_configs(t_config config)
+int	all_assets(t_assets assets)
 {
-	if (config.no_path == NULL)
+	if (assets.no_path == NULL)
 		return (1);
-	if (config.so_path == NULL)
+	if (assets.so_path == NULL)
 		return (1);
-	if (config.we_path == NULL)
+	if (assets.we_path == NULL)
 		return (1);
-	if (config.ea_path == NULL)
+	if (assets.ea_path == NULL)
 		return (1);
-	if (config.f_rgb == -1)
+	if (assets.floor_rgb == -1)
 		return (1);
-	if (config.c_rgb == -1)
+	if (assets.ceiling_rgb == -1)
 		return (1);
 	return (0);
 }

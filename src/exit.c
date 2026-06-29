@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adores <adores@student.42lisboa.com>       +#+  +:+       +#+        */
+/*   By: leramos- <leramos-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 14:03:44 by leramos-          #+#    #+#             */
-/*   Updated: 2026/06/26 13:54:25 by adores           ###   ########.fr       */
+/*   Updated: 2026/06/29 14:01:45 by leramos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,6 @@ void	cleanup_and_exit(int status_code, const char *error_msg, t_data *data)
 		if (error_msg)
 			ft_printf("%s\n", error_msg);
 	}
-	free_things(&data->config, &data->map);
+	free_things(&data->assets, &data->map);
 	exit(status_code);
 }
