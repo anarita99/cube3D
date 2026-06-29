@@ -6,7 +6,7 @@
 /*   By: leramos- <leramos-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/17 14:59:20 by leramos-          #+#    #+#             */
-/*   Updated: 2026/06/24 15:05:16 by leramos-         ###   ########.fr       */
+/*   Updated: 2026/06/29 14:38:06 by leramos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,10 +141,10 @@ static int	dda_loop(t_raycast_data *rc, t_map map)
 static void	draw_image(t_data *data, size_t x, int wall_start, int wall_end)
 {
 	if (wall_start > 0)
-		draw_vertical_line(data, x, 0, wall_start - 1, COLOR_CEILING);
-	draw_vertical_line(data, x, wall_start, wall_end, COLOR_WALL);
+		draw_vertical_line(data, x, 0, wall_start - 1, data->assets.ceiling_rgb);
+	draw_vertical_line(data, x, wall_start, wall_end, 0x00FF0000);
 	if (wall_end < data->height - 1)
-		draw_vertical_line(data, x, wall_end + 1, data->height - 1, COLOR_FLOOR);
+		draw_vertical_line(data, x, wall_end + 1, data->height - 1, data->assets.floor_rgb);
 	mlx_put_image_to_window(data->mlx, data->win, data->img->img, 0, 0);
 }
 
