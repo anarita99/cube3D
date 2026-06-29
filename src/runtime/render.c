@@ -6,7 +6,7 @@
 /*   By: leramos- <leramos-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/17 14:59:20 by leramos-          #+#    #+#             */
-/*   Updated: 2026/06/29 14:38:06 by leramos-         ###   ########.fr       */
+/*   Updated: 2026/06/29 14:51:28 by leramos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,6 +161,28 @@ int	render_frame(void *param)
 
 	data = (t_data *)param;
 	clear_img(data);
+	if (data->player.orientation == 'N')
+	{
+		data->player.dir.x = 0.0;
+		data->player.dir.y = -1.0;
+	}
+	else if (data->player.orientation == 'S')
+	{
+		data->player.dir.x = 0.0;
+		data->player.dir.y = 1.0;
+	}
+	else if (data->player.orientation == 'E')
+	{
+		data->player.dir.x = 1.0;
+		data->player.dir.y = 0.0;
+	}
+	else if (data->player.orientation == 'W')
+	{
+		data->player.dir.x = -1.0;
+		data->player.dir.y = 0.0;
+	}
+	data->plane.x = -data->player.dir.y;
+	data->plane.y = data->player.dir.x;
 	// Per column Raycasting Pass
 	x = 0;
 	while (x < (size_t)data->width)

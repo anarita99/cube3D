@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   events.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adores <adores@student.42lisboa.com>       +#+  +:+       +#+        */
+/*   By: leramos- <leramos-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/17 12:05:44 by leramos-          #+#    #+#             */
-/*   Updated: 2026/06/25 16:46:10 by adores           ###   ########.fr       */
+/*   Updated: 2026/06/29 14:50:17 by leramos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,41 @@ static void	move_player(t_data *data, int keycode)
 	data->player.loc.y = new.y;
 }
 
+static void	move_camera(t_data *data, int keycode)
+{
+	if (data->player.orientation == 'N')
+	{
+		if (keycode == XK_Left)
+			data->player.orientation = 'W';
+		else if (keycode == XK_Right)
+			data->player.orientation = 'E';
+	}
+
+	else if (data->player.orientation == 'E')
+	{
+		if (keycode == XK_Left)
+			data->player.orientation = 'N';
+		else if (keycode == XK_Right)
+			data->player.orientation = 'S';
+	}
+
+	else if (data->player.orientation == 'S')
+	{
+		if (keycode == XK_Left)
+			data->player.orientation = 'E';
+		else if (keycode == XK_Right)
+			data->player.orientation = 'W';
+	}
+
+	else if (data->player.orientation == 'W')
+	{
+		if (keycode == XK_Left)
+			data->player.orientation = 'S';
+		else if (keycode == XK_Right)
+			data->player.orientation = 'N';
+	}
+}
+
 int	key_handler(int keycode, void *param)
 {
 	t_data	*data;
@@ -75,6 +110,8 @@ int	key_handler(int keycode, void *param)
 	data = (t_data *)param;
 	if (keycode == XK_Escape)
 		destroy_handler(data);
+	else if (keycode == XK_Left || keycode == XK_Right)
+		move_camera(data, keycode);
 	else
 		move_player(data, keycode);
 	return (0);
