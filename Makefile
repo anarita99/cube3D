@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: adores <adores@student.42lisboa.com>       +#+  +:+       +#+         #
+#    By: leramos- <leramos-@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/10 11:54:19 by leramos-          #+#    #+#              #
-#    Updated: 2026/06/25 16:29:37 by adores           ###   ########.fr        #
+#    Updated: 2026/06/29 14:42:41 by leramos-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,8 +33,8 @@ AR = ar rcs
 RM = rm -f
 
 # Files
-MAIN 			= 	main exit
-PARSING 		= 	init colours_parsing file_utils file_validation \
+MAIN 			= 	main init exit
+PARSING 		= 	colours_parsing file_utils file_validation \
 					map normalize utils
 RUNTIME 		= 	game events render utils
 

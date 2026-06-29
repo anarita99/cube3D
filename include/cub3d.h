@@ -6,7 +6,7 @@
 /*   By: leramos- <leramos-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/25 10:33:42 by adores            #+#    #+#             */
-/*   Updated: 2026/06/29 14:38:04 by leramos-         ###   ########.fr       */
+/*   Updated: 2026/06/29 14:43:37 by leramos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,8 @@ typedef struct s_data
 # include "parsing.h"
 # include "runtime.h"
 
-// Exit
+// Functions
+void	init(t_data *data);
 void	cleanup_and_exit(int status_code, const char *error_msg, t_data *data);
 
 #endif

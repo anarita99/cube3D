@@ -6,7 +6,7 @@
 /*   By: leramos- <leramos-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/25 10:33:42 by adores            #+#    #+#             */
-/*   Updated: 2026/06/29 14:00:29 by leramos-         ###   ########.fr       */
+/*   Updated: 2026/06/29 14:42:09 by leramos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,6 @@ int		all_assets(t_assets assets);
 //file_validation.c
 int	read_file(t_data *data, t_assets *assets, t_map *map);
 
-//init.c
-void	init(t_assets *assets, t_map *map, t_data *data);
 int		count_commas(char *s);
 int		allocate_colour(char *line, t_assets *assets, t_types type);
 char	**make_map_grid(char *line, int fd, t_map *map);

@@ -6,7 +6,7 @@
 /*   By: leramos- <leramos-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/15 11:39:36 by adores            #+#    #+#             */
-/*   Updated: 2026/06/29 14:33:45 by leramos-         ###   ########.fr       */
+/*   Updated: 2026/06/29 14:43:50 by leramos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	main(int ac, char **av)
 
 	if (ac != 2)
 		return (ft_putstr_fd("Error\n Invalid number of arguments.\n", 2), 1);
-	init(&data.assets, &data.map, &data);
+	init(&data);
 	data.fd = open(av[1], O_RDONLY);
 	if (data.fd < 0)
 		return (ft_putstr_fd("Error\n Can't open file.\n", 2), 1);
