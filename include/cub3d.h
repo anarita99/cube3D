@@ -6,7 +6,7 @@
 /*   By: leramos- <leramos-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/25 10:33:42 by adores            #+#    #+#             */
-/*   Updated: 2026/06/29 14:43:37 by leramos-         ###   ########.fr       */
+/*   Updated: 2026/06/29 14:59:25 by leramos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,12 +84,20 @@ typedef struct s_map
 	int				height;
 }					t_map;
 
+typedef struct s_texture
+{
+    t_img	img;
+	char	*path;
+    int     width;
+    int     height;
+}   t_texture;
+
 typedef struct s_assets
 {
-	char	*no_path;
-	char	*so_path;
-	char	*we_path;
-	char	*ea_path;
+	t_texture	no;
+	t_texture	so;
+	t_texture	we;
+	t_texture	ea;
 	int		floor_rgb;
 	int		ceiling_rgb;
 }	t_assets;

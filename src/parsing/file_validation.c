@@ -6,7 +6,7 @@
 /*   By: leramos- <leramos-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/25 10:25:13 by adores            #+#    #+#             */
-/*   Updated: 2026/06/29 14:33:53 by leramos-         ###   ########.fr       */
+/*   Updated: 2026/06/29 14:59:54 by leramos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,14 @@ static int	allocate_path(char *line, t_assets *assets, t_types type)
 		ft_putstr_fd("Error\n No access to texture file.\n", 2);
 		return (free(path), 1);
 	}
-	if (type == NO && assets->no_path == NULL)
-		assets->no_path = path;
-	else if (type == SO && assets->so_path == NULL)
-		assets->so_path = path;
-	else if (type == WE && assets->we_path == NULL)
-		assets->we_path = path;
-	else if (type == EA && assets->ea_path == NULL)
-		assets->ea_path = path;
+	if (type == NO && assets->no.path == NULL)
+		assets->no.path = path;
+	else if (type == SO && assets->so.path == NULL)
+		assets->so.path = path;
+	else if (type == WE && assets->we.path == NULL)
+		assets->we.path = path;
+	else if (type == EA && assets->ea.path == NULL)
+		assets->ea.path = path;
 	else
 	{
 		ft_putstr_fd("Error\n Double path detected.\n", 2);

@@ -6,7 +6,7 @@
 /*   By: leramos- <leramos-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/26 15:54:38 by adores            #+#    #+#             */
-/*   Updated: 2026/06/29 14:43:26 by leramos-         ###   ########.fr       */
+/*   Updated: 2026/06/29 14:59:09 by leramos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 void	init(t_data *data)
 {
-	data->assets.no_path = NULL;
-	data->assets.so_path = NULL;
-	data->assets.ea_path = NULL;
-	data->assets.we_path = NULL;
+	data->assets.no.path = NULL;
+	data->assets.so.path = NULL;
+	data->assets.ea.path = NULL;
+	data->assets.we.path = NULL;
 	data->assets.floor_rgb = -1;
 	data->assets.ceiling_rgb = -1;
 	data->map.grid = NULL;

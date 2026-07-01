@@ -6,7 +6,7 @@
 /*   By: leramos- <leramos-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/26 14:17:27 by adores            #+#    #+#             */
-/*   Updated: 2026/06/29 14:00:49 by leramos-         ###   ########.fr       */
+/*   Updated: 2026/06/29 15:00:00 by leramos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,10 +80,10 @@ int	count_words(char *str, char sep)
 
 void	free_things(t_assets *assets, t_map *map)
 {
-	free(assets->no_path);
-	free(assets->so_path);
-	free(assets->we_path);
-	free(assets->ea_path);
+	free(assets->no.path);
+	free(assets->so.path);
+	free(assets->we.path);
+	free(assets->ea.path);
 	ft_freearray(map->grid);
 	//close(data->fd);
 }

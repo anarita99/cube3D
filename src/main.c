@@ -6,7 +6,7 @@
 /*   By: leramos- <leramos-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/15 11:39:36 by adores            #+#    #+#             */
-/*   Updated: 2026/06/29 14:43:50 by leramos-         ###   ########.fr       */
+/*   Updated: 2026/06/29 14:59:33 by leramos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@ void	print_assets(t_assets assets, t_map map)
 	int	i;
 
 	i = 0;
-	printf("%s\n", assets.no_path);
-	printf("%s\n", assets.so_path);
-	printf("%s\n", assets.we_path);
-	printf("%s\n", assets.ea_path);
+	printf("%s\n", assets.no.path);
+	printf("%s\n", assets.so.path);
+	printf("%s\n", assets.we.path);
+	printf("%s\n", assets.ea.path);
 	printf("%d\n", assets.floor_rgb);
 	printf("%d\n", assets.ceiling_rgb);
 	while (map.grid[i])

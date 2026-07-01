@@ -6,7 +6,7 @@
 /*   By: leramos- <leramos-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/15 11:42:53 by adores            #+#    #+#             */
-/*   Updated: 2026/06/29 14:00:58 by leramos-         ###   ########.fr       */
+/*   Updated: 2026/06/29 14:59:44 by leramos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,13 +67,13 @@ char	*extract_assets(char *line)
 
 int	all_assets(t_assets assets)
 {
-	if (assets.no_path == NULL)
+	if (assets.no.path == NULL)
 		return (1);
-	if (assets.so_path == NULL)
+	if (assets.so.path == NULL)
 		return (1);
-	if (assets.we_path == NULL)
+	if (assets.we.path == NULL)
 		return (1);
-	if (assets.ea_path == NULL)
+	if (assets.ea.path == NULL)
 		return (1);
 	if (assets.floor_rgb == -1)
 		return (1);
