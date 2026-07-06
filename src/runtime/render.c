@@ -6,7 +6,7 @@
 /*   By: leramos- <leramos-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/17 14:59:20 by leramos-          #+#    #+#             */
-/*   Updated: 2026/07/01 16:28:40 by leramos-         ###   ########.fr       */
+/*   Updated: 2026/07/06 14:22:53 by leramos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -228,6 +228,7 @@ int	render_frame(void *param)
 		double	texture_pos;
 		size_t	y;
 		int	color;
+		t_img	texture_to_use;
 		
 		if (side == 0)
 			wall_x = data->player.loc.y + perpwalldist * rc.ray_dir.y;
@@ -250,7 +251,48 @@ int	render_frame(void *param)
 		{
 			texture_y = (int)(texture_pos) & (texture_height - 1);
 			texture_pos += step;
-			color = get_texture_pixel(&data->assets.ea.img, texture_x, texture_y);
+			// see here which texture to use of the four, and then use on the function below:
+			// side == 0 - x-side wall was hit
+			if (side == 1)
+			{
+				if (data->player.orientation == 'N')
+					texture_to_use = data->assets.so.img;
+				else if (data->player.orientation == 'S')
+					texture_to_use = data->assets.no.img;
+				else if (data->player.orientation == 'E')
+					texture_to_use = data->assets.we.img;
+				else if (data->player.orientation == 'W')
+					texture_to_use = data->assets.ea.img;
+				
+			}
+			else
+			{
+				if (rc.ray_dir.x <= 0)
+				{
+					if (data->player.orientation == 'N')
+						texture_to_use = data->assets.we.img;
+					else if (data->player.orientation == 'S')
+						texture_to_use = data->assets.ea.img;
+					else if (data->player.orientation == 'E')
+						texture_to_use = data->assets.no.img;
+					else if (data->player.orientation == 'W')
+						texture_to_use = data->assets.so.img;
+				}
+
+				else if (rc.ray_dir.x > 0)
+				{
+					if (data->player.orientation == 'N')
+						texture_to_use = data->assets.ea.img;
+					else if (data->player.orientation == 'S')
+						texture_to_use = data->assets.we.img;
+					else if (data->player.orientation == 'E')
+						texture_to_use = data->assets.so.img;
+					else if (data->player.orientation == 'W')
+						texture_to_use = data->assets.no.img;
+				}
+			}
+			color = get_texture_pixel(&texture_to_use, texture_x, texture_y);
+			// color = get_texture_pixel(&data->assets.ea.img, texture_x, texture_y);
 			my_mlx_pixel_put(data->img, x, y, color);
 			y++;
 		}
