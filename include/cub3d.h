@@ -6,7 +6,7 @@
 /*   By: leramos- <leramos-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/25 10:33:42 by adores            #+#    #+#             */
-/*   Updated: 2026/06/29 14:59:25 by leramos-         ###   ########.fr       */
+/*   Updated: 2026/07/06 15:52:25 by leramos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@
 # define PLAYER_FOV 66
 # define WIN_WIDTH 1000
 # define WIN_HEIGHT 800
+# define TEXTURE_RES 64
 
 // Errors
 # define ERR_INVALID_ARG_COUNT 1

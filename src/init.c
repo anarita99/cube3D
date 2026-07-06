@@ -6,18 +6,25 @@
 /*   By: leramos- <leramos-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/26 15:54:38 by adores            #+#    #+#             */
-/*   Updated: 2026/06/29 14:59:09 by leramos-         ###   ########.fr       */
+/*   Updated: 2026/07/06 15:19:38 by leramos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
+static void	init_texture(t_texture *texture)
+{
+	texture->path = NULL;
+	texture->width = TEXTURE_RES;
+	texture->height = TEXTURE_RES;
+}
+
 void	init(t_data *data)
 {
-	data->assets.no.path = NULL;
-	data->assets.so.path = NULL;
-	data->assets.ea.path = NULL;
-	data->assets.we.path = NULL;
+	init_texture(&data->assets.no);
+	init_texture(&data->assets.so);
+	init_texture(&data->assets.we);
+	init_texture(&data->assets.ea);
 	data->assets.floor_rgb = -1;
 	data->assets.ceiling_rgb = -1;
 	data->map.grid = NULL;

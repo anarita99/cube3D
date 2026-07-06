@@ -6,7 +6,7 @@
 #    By: leramos- <leramos-@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/10 11:54:19 by leramos-          #+#    #+#              #
-#    Updated: 2026/06/29 14:42:41 by leramos-         ###   ########.fr        #
+#    Updated: 2026/07/06 15:22:05 by leramos-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,7 @@ RM = rm -f
 MAIN 			= 	main init exit
 PARSING 		= 	colours_parsing file_utils file_validation \
 					map normalize utils
-RUNTIME 		= 	game events render utils
+RUNTIME 		= 	game events render utils draw_utils
 
 FILES 			= 	$(MAIN) \
 					$(addprefix parsing/, $(PARSING)) \

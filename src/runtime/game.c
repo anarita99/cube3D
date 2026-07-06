@@ -6,11 +6,18 @@
 /*   By: leramos- <leramos-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 15:42:08 by leramos-          #+#    #+#             */
-/*   Updated: 2026/07/06 14:14:03 by leramos-         ###   ########.fr       */
+/*   Updated: 2026/07/06 15:09:06 by leramos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "runtime.h"
+
+// Todo
+//
+// change var names (principalmente side to a bool)
+// norminette
+// leaks
+// norminette again
 
 void	game(t_data *data)
 {
