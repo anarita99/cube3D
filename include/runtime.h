@@ -6,7 +6,7 @@
 /*   By: leramos- <leramos-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/25 10:33:42 by adores            #+#    #+#             */
-/*   Updated: 2026/06/24 16:16:19 by leramos-         ###   ########.fr       */
+/*   Updated: 2026/07/01 13:12:47 by leramos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 
 typedef struct s_raycast_data
 {
+	t_vector	ray_dir;
 	t_vector	delta_distance;
 	t_vector	side_distance;
 	t_vector	step;

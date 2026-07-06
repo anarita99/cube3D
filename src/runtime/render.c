@@ -6,7 +6,7 @@
 /*   By: leramos- <leramos-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/17 14:59:20 by leramos-          #+#    #+#             */
-/*   Updated: 2026/06/29 14:51:28 by leramos-         ###   ########.fr       */
+/*   Updated: 2026/07/01 16:28:40 by leramos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,16 +78,16 @@ static t_raycast_data	init_raycast_data(t_data *data, size_t current_x)
 {
 	t_raycast_data	rc;
 	double			camera_x;
-	t_vector		ray_dir;
+	
 
 	camera_x = 2.0 * current_x / data->width - 1.0;
-	ray_dir.x = data->player.dir.x + data->plane.x * camera_x;
-	ray_dir.y = data->player.dir.y + data->plane.y * camera_x;
-	rc.delta_distance.x = fabs(1.0 / ray_dir.x);
-	rc.delta_distance.y = fabs(1.0 / ray_dir.y);
+	rc.ray_dir.x = data->player.dir.x + data->plane.x * camera_x;
+	rc.ray_dir.y = data->player.dir.y + data->plane.y * camera_x;
+	rc.delta_distance.x = fabs(1.0 / rc.ray_dir.x);
+	rc.delta_distance.y = fabs(1.0 / rc.ray_dir.y);
 	rc.map.x = (int)data->player.loc.x;
 	rc.map.y = (int)data->player.loc.y;
-	if (ray_dir.x < 0)
+	if (rc.ray_dir.x < 0)
 	{
 		rc.step.x = -1;
 		rc.side_distance.x = (data->player.loc.x - rc.map.x) * rc.delta_distance.x;
@@ -98,7 +98,7 @@ static t_raycast_data	init_raycast_data(t_data *data, size_t current_x)
 		rc.side_distance.x = (rc.map.x + 1.0 - data->player.loc.x) * rc.delta_distance.x;
 	}
 
-	if (ray_dir.y < 0)
+	if (rc.ray_dir.y < 0)
 	{
 		rc.step.y = -1;
 		rc.side_distance.y = (data->player.loc.y - rc.map.y) * rc.delta_distance.y;
@@ -146,6 +146,16 @@ static void	draw_image(t_data *data, size_t x, int wall_start, int wall_end)
 	if (wall_end < data->height - 1)
 		draw_vertical_line(data, x, wall_end + 1, data->height - 1, data->assets.floor_rgb);
 	mlx_put_image_to_window(data->mlx, data->win, data->img->img, 0, 0);
+}
+
+static int get_texture_pixel(t_img *tex_img, int x, int y)
+{
+	char    *pixel;
+
+	x = x % 64;
+	y = y % 64;
+	pixel = tex_img->addr + (y * tex_img->line_len + x * (tex_img->bits_per_pixel / 8));
+	return (*(int *)pixel);
 }
 
 int	render_frame(void *param)
@@ -206,8 +216,44 @@ int	render_frame(void *param)
 			draw_start = 0;
 		if (draw_end >= data->height)
 			draw_end = data->height - 1;
-
+		
 		draw_image(data, x, draw_start, draw_end);
+		
+		// newwwwwwwwwwwwwwwwwwwww
+		double	wall_x;
+		int		texture_x, texture_y;
+		double	step;
+		int texture_width = 64;
+		int	texture_height = 64;
+		double	texture_pos;
+		size_t	y;
+		int	color;
+		
+		if (side == 0)
+			wall_x = data->player.loc.y + perpwalldist * rc.ray_dir.y;
+		else
+			wall_x = data->player.loc.x + perpwalldist * rc.ray_dir.x;
+		wall_x -= floor(wall_x);
+
+		
+		texture_x = (int)(wall_x * (double)texture_width);
+		if (side == 0 && rc.ray_dir.x > 0)
+			texture_x = texture_width - texture_x - 1;
+		if (side == 1 && rc.ray_dir.y < 0)
+			texture_x = texture_width - texture_x - 1;
+		
+		step = 1.0 * (texture_height) / line_height;
+		texture_pos = (draw_start - data->height / 2 + line_height / 2) * step;
+
+		y = draw_start;
+		while ((int)y < draw_end)
+		{
+			texture_y = (int)(texture_pos) & (texture_height - 1);
+			texture_pos += step;
+			color = get_texture_pixel(&data->assets.ea.img, texture_x, texture_y);
+			my_mlx_pixel_put(data->img, x, y, color);
+			y++;
+		}
 
 		x++;
 	}
