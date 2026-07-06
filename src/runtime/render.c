@@ -6,7 +6,7 @@
 /*   By: leramos- <leramos-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/17 14:59:20 by leramos-          #+#    #+#             */
-/*   Updated: 2026/07/06 14:22:53 by leramos-         ###   ########.fr       */
+/*   Updated: 2026/07/06 14:31:59 by leramos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,9 +142,9 @@ static void	draw_image(t_data *data, size_t x, int wall_start, int wall_end)
 {
 	if (wall_start > 0)
 		draw_vertical_line(data, x, 0, wall_start - 1, data->assets.ceiling_rgb);
-	draw_vertical_line(data, x, wall_start, wall_end, 0x00FF0000);
+	// draw_vertical_line(data, x, wall_start, wall_end, 0x00FF0000);
 	if (wall_end < data->height - 1)
-		draw_vertical_line(data, x, wall_end + 1, data->height - 1, data->assets.floor_rgb);
+		draw_vertical_line(data, x, wall_end, data->height - 1, data->assets.floor_rgb);
 	mlx_put_image_to_window(data->mlx, data->win, data->img->img, 0, 0);
 }
 
