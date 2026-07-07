@@ -39,6 +39,14 @@ void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
 void	draw_vertical_line(t_data *data, int x, int top, int bottom, int color);
 void	clear_img(t_data *data);
 
+// Draw
+void	draw_ceiling_floor(t_data *data, int x, int wall_start, int wall_end);
+void	draw_textured_wall(t_data *data, int x, int wall_start, int wall_end, t_raycast_data *rc, double perpwalldist, int line_height);
+
+// Movement
+void	move_camera(t_data *data, int keycode);
+void	move_player(t_data *data, int keycode);
+
 // Render
 int		render_frame(void *param);
 

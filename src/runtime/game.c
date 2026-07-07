@@ -26,7 +26,6 @@ void	game(t_data *data)
 	init_mlx_window(data);
 	init_render_image(data, &img);
 	load_textures(data);
-
 	mlx_hook(data->win, DestroyNotify, NoEventMask, destroy_handler, data);
 	mlx_hook(data->win, KeyPress, KeyPressMask, key_handler, data);
 	mlx_loop_hook(data->mlx, render_frame, data);

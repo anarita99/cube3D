@@ -36,7 +36,8 @@ RM = rm -f
 MAIN 			= 	main init exit
 PARSING 		= 	colours_parsing file_utils file_validation \
 					map normalize utils
-RUNTIME 		= 	game events render utils draw_utils mlx_init
+RUNTIME 		= 	game events render utils draw draw_utils mlx_init \
+					movement
 
 FILES 			= 	$(MAIN) \
 					$(addprefix parsing/, $(PARSING)) \

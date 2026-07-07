@@ -60,7 +60,7 @@ typedef struct s_img
 {
 	void	*ptr;
 	char	*addr;
-	int		bits_per_pixel;
+	int		bpp;
 	int		line_len;
 	int		endian;
 }			t_img;

@@ -16,8 +16,8 @@ void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 {
 	char	*dst;
 
-	dst = img->addr + (y * img->line_len + x * (img->bits_per_pixel / 8));
-	*(unsigned int*)dst = color;
+	dst = img->addr + (y * img->line_len + x * (img->bpp / 8));
+	*(unsigned int *)dst = color;
 }
 
 void	draw_vertical_line(t_data *data, int x, int top, int bottom, int color)

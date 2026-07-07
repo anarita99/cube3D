@@ -27,6 +27,6 @@ int	get_texture_color(t_img *tex_img, int x, int y)
 
 	x = x % TEXTURE_RES;
 	y = y % TEXTURE_RES;
-	color = tex_img->addr + (y * tex_img->line_len + x * (tex_img->bits_per_pixel / 8));
+	color = tex_img->addr + (y * tex_img->line_len + x * (tex_img->bpp / 8));
 	return (*(int *)color);
 }

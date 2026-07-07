@@ -34,7 +34,6 @@ static t_raycast_data	init_raycast_data(t_data *data, size_t current_x)
 		rc.step.x = 1;
 		rc.side_distance.x = (rc.map.x + 1.0 - data->player.loc.x) * rc.delta_distance.x;
 	}
-
 	if (rc.ray_dir.y < 0)
 	{
 		rc.step.y = -1;
@@ -67,7 +66,6 @@ static void	dda_loop(t_raycast_data *rc, t_map map)
 			rc->map.y += rc->step.y;
 			rc->side = true;
 		}
-
 		// Check if ray has hit a wall
 		if (is_wall_tile(map, (int)rc->map.x, (int)rc->map.y))
 			break ;
@@ -98,89 +96,6 @@ static void	update_player_vectors(t_data *data)
 	}
 	data->plane.x = -data->player.dir.y;
 	data->plane.y = data->player.dir.x;
-}
-
-static void	draw_ceiling_floor(t_data *data, int x, int wall_start, int wall_end)
-{
-	if (wall_start > 0)
-		draw_vertical_line(data, x, 0, wall_start - 1, data->assets.ceiling_rgb);
-	if (wall_end < data->height - 1)
-		draw_vertical_line(data, x, wall_end, data->height - 1, data->assets.floor_rgb);
-}
-
-static void	draw_textured_wall(t_data *data, int x, int wall_start, int wall_end, t_raycast_data *rc, double perpwalldist, int line_height)
-{
-	double		wall_x;
-	int			texture_x;
-	int			texture_y;
-	double		step;
-	double		texture_pos;
-	size_t		y;
-	int			color;
-	t_texture	texture_to_use;
-	
-	if (rc->side == 0)
-		wall_x = data->player.loc.y + perpwalldist * rc->ray_dir.y;
-	else
-		wall_x = data->player.loc.x + perpwalldist * rc->ray_dir.x;
-	wall_x -= floor(wall_x);
-	if (rc->side == true)
-	{
-		if (data->player.orientation == 'N')
-			texture_to_use = data->assets.so;
-		else if (data->player.orientation == 'S')
-			texture_to_use = data->assets.no;
-		else if (data->player.orientation == 'E')
-			texture_to_use = data->assets.we;
-		else if (data->player.orientation == 'W')
-			texture_to_use = data->assets.ea;
-		
-	}
-	else
-	{
-		if (rc->ray_dir.x <= 0)
-		{
-			if (data->player.orientation == 'N')
-				texture_to_use = data->assets.we;
-			else if (data->player.orientation == 'S')
-				texture_to_use = data->assets.ea;
-			else if (data->player.orientation == 'E')
-				texture_to_use = data->assets.no;
-			else if (data->player.orientation == 'W')
-				texture_to_use = data->assets.so;
-		}
-
-		else if (rc->ray_dir.x > 0)
-		{
-			if (data->player.orientation == 'N')
-				texture_to_use = data->assets.ea;
-			else if (data->player.orientation == 'S')
-				texture_to_use = data->assets.we;
-			else if (data->player.orientation == 'E')
-				texture_to_use = data->assets.so;
-			else if (data->player.orientation == 'W')
-				texture_to_use = data->assets.no;
-		}
-	}
-	
-	texture_x = (int)(wall_x * (double)texture_to_use.width);
-	if (rc->side == false && rc->ray_dir.x > 0)
-		texture_x = texture_to_use.width - texture_x - 1;
-	if (rc->side == true && rc->ray_dir.y < 0)
-		texture_x = texture_to_use.width - texture_x - 1;
-	
-	step = 1.0 * (texture_to_use.height) / line_height;
-	texture_pos = (wall_start - data->height / 2 + line_height / 2) * step;
-
-	y = wall_start;
-	while ((int)y < wall_end)
-	{
-		texture_y = (int)(texture_pos) & (texture_to_use.height - 1);
-		texture_pos += step;
-		color = get_texture_color(&texture_to_use.img, texture_x, texture_y);
-		my_mlx_pixel_put(data->img, x, y, color);
-		y++;
-	}
 }
 
 int	render_frame(void *param)
