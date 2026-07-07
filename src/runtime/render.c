@@ -222,6 +222,6 @@ int	render_frame(void *param)
 		draw_textured_wall(data, x, wall_start, wall_end, &rc, perpwalldist, line_height);
 		x++;
 	}
-	mlx_put_image_to_window(data->mlx, data->win, data->img->img, 0, 0);
+	mlx_put_image_to_window(data->mlx, data->win, data->img->ptr, 0, 0);
 	return (0);
 }

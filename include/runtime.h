@@ -25,6 +25,11 @@ typedef struct s_raycast_data
 	bool		side;
 }				t_raycast_data;
 
+// MLX Initialization
+void	init_mlx_window(t_data *data);
+void	init_render_image(t_data *data, t_img *img);
+void	load_textures(t_data *data);
+
 // Utils
 bool	is_wall_tile(t_map map, int x, int y);
 int		get_texture_color(t_img *tex_img, int x, int y);
