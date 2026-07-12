@@ -105,8 +105,7 @@ int	render_frame(void *param)
 	size_t			x;
 	double			perpwalldist;
 	int				line_height;
-	int				wall_start;
-	int				wall_end;
+	t_range			wall_range;
 
 	data = (t_data *)param;
 	clear_img(data);
@@ -125,16 +124,16 @@ int	render_frame(void *param)
 			perpwalldist = rc.side_distance.y - rc.delta_distance.y;
 
 		line_height = data->height / perpwalldist;
-		wall_start = -line_height / 2 + data->height / 2;
-		wall_end = line_height / 2 + data->height / 2;
-		if (wall_start >= data->height || wall_end < 0)
+		wall_range.start = -line_height / 2 + data->height / 2;
+		wall_range.end = line_height / 2 + data->height / 2;
+		if (wall_range.start >= data->height || wall_range.end < 0)
 			return (0);
-		if (wall_start < 0)
-			wall_start = 0;
-		if (wall_end >= data->height)
-			wall_end = data->height - 1;
-		draw_ceiling_floor(data, x, wall_start, wall_end);
-		draw_textured_wall(data, x, wall_start, wall_end, &rc, perpwalldist, line_height);
+		if (wall_range.start < 0)
+			wall_range.start = 0;
+		if (wall_range.end >= data->height)
+			wall_range.end = data->height - 1;
+		draw_ceiling_floor(data, x, wall_range);
+		draw_textured_wall(data, x, wall_range, &rc, perpwalldist, line_height);
 		x++;
 	}
 	mlx_put_image_to_window(data->mlx, data->win, data->img->ptr, 0, 0);

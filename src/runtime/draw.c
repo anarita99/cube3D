@@ -12,66 +12,22 @@
 
 #include "runtime.h"
 
-void	draw_ceiling_floor(t_data *data, int x, int c_end, int f_start)
+void	draw_ceiling_floor(t_data *data, int x, t_range wall)
 {
-	if (c_end > 0)
-		draw_vertical_line(data, x, 0, c_end - 1, data->assets.ceiling_rgb);
-	if (f_start < data->height - 1)
-		draw_vertical_line(
-			data, x, f_start, data->height - 1, data->assets.floor_rgb);
-}
+	t_range	range;
 
-static t_texture	get_front_texture(t_data *data)
-{
-	if (data->player.orientation == 'N')
-		return (data->assets.so);
-	else if (data->player.orientation == 'S')
-		return (data->assets.no);
-	else if (data->player.orientation == 'E')
-		return (data->assets.we);
-	else
-		return (data->assets.ea);
-}
-
-static t_texture	get_left_texture(t_data *data)
-{
-	if (data->player.orientation == 'N')
-		return (data->assets.ea);
-	else if (data->player.orientation == 'S')
-		return (data->assets.we);
-	else if (data->player.orientation == 'E')
-		return (data->assets.no);
-	else
-		return (data->assets.so);
-}
-
-static t_texture	get_right_texture(t_data *data)
-{
-	if (data->player.orientation == 'N')
-		return (data->assets.we);
-	else if (data->player.orientation == 'S')
-		return (data->assets.ea);
-	else if (data->player.orientation == 'E')
-		return (data->assets.so);
-	else
-		return (data->assets.no);
-}
-
-static t_texture	select_wall_texture(t_data *data, t_raycast_data *rc)
-{
-	if (rc->side == true)
-		return (get_front_texture(data));
-	else if (rc->ray_dir.x <= 0)
-		return (get_left_texture(data));
-	else
-		return (get_right_texture(data));
+	range.start = 0;
+	range.end = wall.start - 1;
+	draw_vertical_line(data, x, range, data->assets.ceiling_rgb);
+	range.start = wall.end;
+	range.end = data->height - 1;
+	draw_vertical_line(data, x, range, data->assets.floor_rgb);
 }
 
 void	draw_textured_wall(
 	t_data *data,
 	int x,
-	int wall_start,
-	int wall_end,
+	t_range	wall,
 	t_raycast_data *rc,
 	double perpwalldist,
 	int line_height
@@ -100,10 +56,10 @@ void	draw_textured_wall(
 		texture_x = texture_to_use.width - texture_x - 1;
 	
 	step = 1.0 * (texture_to_use.height) / line_height;
-	texture_pos = (wall_start - data->height / 2 + line_height / 2) * step;
+	texture_pos = (wall.start - data->height / 2 + line_height / 2) * step;
 
-	y = wall_start;
-	while ((int)y < wall_end)
+	y = wall.start;
+	while ((int)y < wall.end)
 	{
 		texture_y = (int)(texture_pos) & (texture_to_use.height - 1);
 		texture_pos += step;

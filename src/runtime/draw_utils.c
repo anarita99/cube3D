@@ -20,12 +20,12 @@ void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
-void	draw_vertical_line(t_data *data, int x, int top, int bottom, int color)
+void	draw_vertical_line(t_data *data, int x, t_range range, int color)
 {
 	int	current_y;
 
-	current_y = top;
-	while (current_y <= bottom)
+	current_y = range.start;
+	while (current_y <= range.end)
 	{
 		my_mlx_pixel_put(data->img, x, current_y, color);
 		current_y++;

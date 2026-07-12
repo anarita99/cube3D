@@ -37,7 +37,7 @@ MAIN 			= 	main init exit
 PARSING 		= 	colours_parsing file_utils file_validation \
 					map normalize utils
 RUNTIME 		= 	game events render utils draw draw_utils mlx_init \
-					movement
+					movement draw_textures
 
 FILES 			= 	$(MAIN) \
 					$(addprefix parsing/, $(PARSING)) \
