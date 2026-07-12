@@ -103,9 +103,7 @@ int	render_frame(void *param)
 	t_data			*data;
 	t_raycast_data	rc;
 	size_t			x;
-	double			perpwalldist;
-	int				line_height;
-	t_range			wall_range;
+	t_wall_data		wall;
 
 	data = (t_data *)param;
 	clear_img(data);
@@ -119,21 +117,21 @@ int	render_frame(void *param)
 
 		// After hitting a wall: Compute Wall Metrics
 		if (rc.side == false)
-			perpwalldist = rc.side_distance.x - rc.delta_distance.x;
+			wall.perpwalldist = rc.side_distance.x - rc.delta_distance.x;
 		else
-			perpwalldist = rc.side_distance.y - rc.delta_distance.y;
+			wall.perpwalldist = rc.side_distance.y - rc.delta_distance.y;
 
-		line_height = data->height / perpwalldist;
-		wall_range.start = -line_height / 2 + data->height / 2;
-		wall_range.end = line_height / 2 + data->height / 2;
-		if (wall_range.start >= data->height || wall_range.end < 0)
+		wall.line_height = data->height / wall.perpwalldist;
+		wall.range.start = -wall.line_height / 2 + data->height / 2;
+		wall.range.end = wall.line_height / 2 + data->height / 2;
+		if (wall.range.start >= data->height || wall.range.end < 0)
 			return (0);
-		if (wall_range.start < 0)
-			wall_range.start = 0;
-		if (wall_range.end >= data->height)
-			wall_range.end = data->height - 1;
-		draw_ceiling_floor(data, x, wall_range);
-		draw_textured_wall(data, x, wall_range, &rc, perpwalldist, line_height);
+		if (wall.range.start < 0)
+			wall.range.start = 0;
+		if (wall.range.end >= data->height)
+			wall.range.end = data->height - 1;
+		draw_ceiling_floor(data, x, wall.range);
+		draw_textured_wall(data, x, &rc, wall);
 		x++;
 	}
 	mlx_put_image_to_window(data->mlx, data->win, data->img->ptr, 0, 0);

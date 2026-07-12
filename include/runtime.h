@@ -21,6 +21,13 @@ typedef	struct s_range
 	int	end;
 }	t_range;
 
+typedef struct s_wall_data
+{
+	t_range	range;
+	double	perpwalldist;
+	int		line_height;
+}			t_wall_data;
+
 typedef struct s_raycast_data
 {
 	t_vector	ray_dir;
@@ -50,7 +57,7 @@ t_texture	select_wall_texture(t_data *data, t_raycast_data *rc);
 
 // Draw
 void	draw_ceiling_floor(t_data *data, int x, t_range wall);
-void	draw_textured_wall(t_data *data, int x, t_range wall, t_raycast_data *rc, double perpwalldist, int line_height);
+void	draw_textured_wall(t_data *data, int x, t_raycast_data *rc, t_wall_data	wall);
 
 // Movement
 void	move_camera(t_data *data, int keycode);
