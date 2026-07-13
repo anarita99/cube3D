@@ -6,7 +6,7 @@
 /*   By: leramos- <leramos-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/25 10:33:42 by adores            #+#    #+#             */
-/*   Updated: 2026/07/13 14:39:53 by leramos-         ###   ########.fr       */
+/*   Updated: 2026/07/13 15:34:54 by leramos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,12 @@ typedef struct s_raycast_data
 
 // MLX Initialization
 void	init_mlx_window(t_data *data);
-void	init_render_image(t_data *data, t_img *img);
+void	init_render_image(t_data *data);
 void	load_textures(t_data *data);
 
 // Utils
 bool	is_wall_tile(t_map map, int x, int y);
-int		get_texture_color(t_img *tex_img, int x, int y);
+int		get_texture_color(t_img tex_img, int x, int y);
 
 // Draw Utils
 void	my_mlx_pixel_put(t_img *img, int x, int y, int color);

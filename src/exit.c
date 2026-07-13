@@ -6,16 +6,32 @@
 /*   By: leramos- <leramos-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 14:03:44 by leramos-          #+#    #+#             */
-/*   Updated: 2026/06/29 14:01:45 by leramos-         ###   ########.fr       */
+/*   Updated: 2026/07/13 15:35:46 by leramos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
+static void	cleanup_textures(t_data *data)
+{
+	if (data->assets.no.img.ptr)
+		mlx_destroy_image(data->mlx, data->assets.no.img.ptr);
+	if (data->assets.so.img.ptr)
+		mlx_destroy_image(data->mlx, data->assets.so.img.ptr);
+	if (data->assets.we.img.ptr)
+		mlx_destroy_image(data->mlx, data->assets.we.img.ptr);
+	if (data->assets.ea.img.ptr)
+		mlx_destroy_image(data->mlx, data->assets.ea.img.ptr);
+	
+}
+
 static void	cleanup_mlx(t_data *data)
 {
 	if (!(data->mlx))
 		return ;
+	cleanup_textures(data);
+	if (data->img.ptr)
+		mlx_destroy_image(data->mlx, data->img.ptr);
 	if (data->win)
 		mlx_destroy_window(data->mlx, data->win);
 	mlx_destroy_display(data->mlx);

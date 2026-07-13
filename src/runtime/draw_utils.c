@@ -6,7 +6,7 @@
 /*   By: leramos- <leramos-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/06 14:53:44 by leramos-          #+#    #+#             */
-/*   Updated: 2026/07/06 15:52:24 by leramos-         ###   ########.fr       */
+/*   Updated: 2026/07/13 15:36:50 by leramos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	draw_vertical_line(t_data *data, int x, t_range range, int color)
 	current_y = range.start;
 	while (current_y <= range.end)
 	{
-		my_mlx_pixel_put(data->img, x, current_y, color);
+		my_mlx_pixel_put(&data->img, x, current_y, color);
 		current_y++;
 	}
 }
@@ -43,7 +43,7 @@ void	clear_img(t_data *data)
 		y = 0;
 		while (y < data->height)
 		{
-			my_mlx_pixel_put(data->img, x, y, 0x00000000);
+			my_mlx_pixel_put(&data->img, x, y, 0x00000000);
 			y++;
 		}
 		x++;

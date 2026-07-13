@@ -6,7 +6,7 @@
 /*   By: leramos- <leramos-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 15:42:08 by leramos-          #+#    #+#             */
-/*   Updated: 2026/07/06 15:09:06 by leramos-         ###   ########.fr       */
+/*   Updated: 2026/07/13 15:39:38 by leramos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,8 @@
 
 void	game(t_data *data)
 {
-	t_img	img;
-
 	init_mlx_window(data);
-	init_render_image(data, &img);
+	init_render_image(data);
 	load_textures(data);
 	mlx_hook(data->win, DestroyNotify, NoEventMask, destroy_handler, data);
 	mlx_hook(data->win, KeyPress, KeyPressMask, key_handler, data);

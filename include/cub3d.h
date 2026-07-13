@@ -6,7 +6,7 @@
 /*   By: leramos- <leramos-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/25 10:33:42 by adores            #+#    #+#             */
-/*   Updated: 2026/07/06 15:52:25 by leramos-         ###   ########.fr       */
+/*   Updated: 2026/07/13 15:31:07 by leramos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ typedef struct s_data
 	int			fd;
 	void		*mlx;
 	void		*win;
-	t_img		*img;
+	t_img		img;
 	int			width;
 	int			height;
 	t_assets	assets;

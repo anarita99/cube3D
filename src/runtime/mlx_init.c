@@ -6,7 +6,7 @@
 /*   By: leramos- <leramos-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/25 10:33:42 by leramos-          #+#    #+#             */
-/*   Updated: 2026/07/06 15:52:25 by leramos-         ###   ########.fr       */
+/*   Updated: 2026/07/13 15:38:00 by leramos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,18 +23,17 @@ void	init_mlx_window(t_data *data)
 		cleanup_and_exit(1, "Cannot create window.", data);
 }
 
-void	init_render_image(t_data *data, t_img *img)
+void	init_render_image(t_data *data)
 {
-	data->img = img;
-	data->img->ptr = mlx_new_image(data->mlx, data->width, data->height);
-	if (!data->img->ptr)
+	data->img.ptr = mlx_new_image(data->mlx, data->width, data->height);
+	if (!data->img.ptr)
 		cleanup_and_exit(1, "Cannot create image.", data);
-	data->img->addr = mlx_get_data_addr(
-			data->img->ptr,
-			&data->img->bpp,
-			&data->img->line_len,
-			&data->img->endian);
-	if (!data->img->addr)
+	data->img.addr = mlx_get_data_addr(
+			data->img.ptr,
+			&data->img.bpp,
+			&data->img.line_len,
+			&data->img.endian);
+	if (!data->img.addr)
 		cleanup_and_exit(1, "Cannot access image data.", data);
 }
 

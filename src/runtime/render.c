@@ -6,7 +6,7 @@
 /*   By: leramos- <leramos-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/17 14:59:20 by leramos-          #+#    #+#             */
-/*   Updated: 2026/07/13 14:48:37 by leramos-         ###   ########.fr       */
+/*   Updated: 2026/07/13 15:32:11 by leramos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,6 @@ int	render_frame(void *param)
 		render_column(data, x);
 		x++;
 	}
-	mlx_put_image_to_window(data->mlx, data->win, data->img->ptr, 0, 0);
+	mlx_put_image_to_window(data->mlx, data->win, data->img.ptr, 0, 0);
 	return (0);
 }

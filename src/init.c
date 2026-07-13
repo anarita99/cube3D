@@ -6,7 +6,7 @@
 /*   By: leramos- <leramos-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/26 15:54:38 by adores            #+#    #+#             */
-/*   Updated: 2026/07/06 15:19:38 by leramos-         ###   ########.fr       */
+/*   Updated: 2026/07/13 15:39:07 by leramos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ void	init(t_data *data)
 	data->fd = -1;
 	data->mlx = NULL;
 	data->win = NULL;
-	data->img = NULL;
 	data->plane.x = 0.0;
 	data->plane.y = 0.0;
 	data->player.loc.x = 0.0;

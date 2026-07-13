@@ -6,7 +6,7 @@
 /*   By: leramos- <leramos-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/06 14:53:44 by leramos-          #+#    #+#             */
-/*   Updated: 2026/07/13 15:07:56 by leramos-         ###   ########.fr       */
+/*   Updated: 2026/07/13 15:40:32 by leramos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,8 @@ void	draw_textured_wall(t_data *data, int x, t_raycast_data *rc, t_wall_data	wal
 	while ((int)y < wall.range.end)
 	{
 		draw_data.texture_pixel.y = (int)(draw_data.texture_pos) & (texture.height - 1);
-		draw_data.color = get_texture_color(&texture.img, draw_data.texture_pixel.x, draw_data.texture_pixel.y);
-		my_mlx_pixel_put(data->img, x, y, draw_data.color);
+		draw_data.color = get_texture_color(texture.img, draw_data.texture_pixel.x, draw_data.texture_pixel.y);
+		my_mlx_pixel_put(&data->img, x, y, draw_data.color);
 		draw_data.texture_pos += draw_data.step;
 		y++;
 	}

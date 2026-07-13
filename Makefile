@@ -6,7 +6,7 @@
 #    By: leramos- <leramos-@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/10 11:54:19 by leramos-          #+#    #+#              #
-#    Updated: 2026/07/13 15:08:08 by leramos-         ###   ########.fr        #
+#    Updated: 2026/07/13 15:23:19 by leramos-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -74,6 +74,9 @@ fclean: clean
 	$(RM) $(NAME)
 
 re: fclean all
+
+valgrind: ${NAME} $(SUPP_FILE)
+	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --quiet --tool=memcheck --keep-debuginfo=yes ./$(NAME) maps/map.cub
 
 # Phony targets
 .PHONY: all bonus clean fclean re
