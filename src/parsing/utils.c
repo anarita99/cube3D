@@ -6,7 +6,7 @@
 /*   By: leramos- <leramos-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/26 14:17:27 by adores            #+#    #+#             */
-/*   Updated: 2026/06/29 15:00:00 by leramos-         ###   ########.fr       */
+/*   Updated: 2026/07/13 15:53:00 by leramos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,14 +76,4 @@ int	count_words(char *str, char sep)
 		i++;
 	}
 	return (count);
-}
-
-void	free_things(t_assets *assets, t_map *map)
-{
-	free(assets->no.path);
-	free(assets->so.path);
-	free(assets->we.path);
-	free(assets->ea.path);
-	ft_freearray(map->grid);
-	//close(data->fd);
 }

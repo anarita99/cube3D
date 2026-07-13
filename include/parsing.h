@@ -6,7 +6,7 @@
 /*   By: leramos- <leramos-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/25 10:33:42 by adores            #+#    #+#             */
-/*   Updated: 2026/07/13 15:44:51 by leramos-         ###   ########.fr       */
+/*   Updated: 2026/07/13 16:08:43 by leramos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include "get_next_line.h"
 # include <fcntl.h>
 # include <stdio.h>
+# include <common.h>
 
 # define MALL_ERR "Error\n Malloc failed.\n"
 # define PL_POS "Error\n Needs exactly one starting position.\n"
@@ -37,7 +38,6 @@ typedef enum s_types
 int		skip_space(char *line);
 char	*find_new_line(char *str);
 int		count_words(char *str, char sep);
-void	free_things(t_assets *assets, t_map *map);
 
 //file_utils.c
 int		is_file_cub(char *filename);

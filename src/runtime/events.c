@@ -6,11 +6,11 @@
 /*   By: leramos- <leramos-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/17 12:05:44 by leramos-          #+#    #+#             */
-/*   Updated: 2026/06/29 14:50:17 by leramos-         ###   ########.fr       */
+/*   Updated: 2026/07/13 16:09:45 by leramos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "runtime.h"
+#include "cub3d.h"
 
 int	key_handler(int keycode, void *param)
 {

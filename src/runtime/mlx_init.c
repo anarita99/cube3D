@@ -6,11 +6,11 @@
 /*   By: leramos- <leramos-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/25 10:33:42 by leramos-          #+#    #+#             */
-/*   Updated: 2026/07/13 15:38:00 by leramos-         ###   ########.fr       */
+/*   Updated: 2026/07/13 16:10:26 by leramos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "runtime.h"
+#include "cub3d.h"
 
 void	init_mlx_window(t_data *data)
 {

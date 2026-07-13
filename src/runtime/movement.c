@@ -6,7 +6,7 @@
 /*   By: leramos- <leramos-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/06 14:53:44 by leramos-          #+#    #+#             */
-/*   Updated: 2026/07/13 14:35:59 by leramos-         ###   ########.fr       */
+/*   Updated: 2026/07/13 16:11:03 by leramos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	move_player(t_data *data, int keycode)
 	t_vector	delta;
 	t_vector	new;
 
-	delta = compute_move_delta(data, keycode, 0.4);
+	delta = compute_move_delta(data, keycode, 0.1);
 	new.x = data->player.loc.x + delta.x;
 	new.y = data->player.loc.y + delta.y;
 	if (is_wall_tile(data->map, (int)new.x, (int)new.y))

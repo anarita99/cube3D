@@ -6,11 +6,11 @@
 /*   By: leramos- <leramos-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/24 15:01:53 by leramos-          #+#    #+#             */
-/*   Updated: 2026/07/13 15:34:32 by leramos-         ###   ########.fr       */
+/*   Updated: 2026/07/13 16:10:12 by leramos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "runtime.h"
+#include "cub3d.h"
 
 bool	is_wall_tile(t_map map, int x, int y)
 {

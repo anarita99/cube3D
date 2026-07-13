@@ -6,11 +6,20 @@
 /*   By: leramos- <leramos-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 14:03:44 by leramos-          #+#    #+#             */
-/*   Updated: 2026/07/13 15:35:46 by leramos-         ###   ########.fr       */
+/*   Updated: 2026/07/13 15:53:25 by leramos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+static void	cleanup_parsing(t_assets *assets, t_map *map)
+{
+	free(assets->no.path);
+	free(assets->so.path);
+	free(assets->we.path);
+	free(assets->ea.path);
+	ft_freearray(map->grid);
+}
 
 static void	cleanup_textures(t_data *data)
 {
@@ -48,6 +57,6 @@ void	cleanup_and_exit(int status_code, const char *error_msg, t_data *data)
 		if (error_msg)
 			ft_printf("%s\n", error_msg);
 	}
-	free_things(&data->assets, &data->map);
+	cleanup_parsing(&data->assets, &data->map);
 	exit(status_code);
 }

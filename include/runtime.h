@@ -6,14 +6,14 @@
 /*   By: leramos- <leramos-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/25 10:33:42 by adores            #+#    #+#             */
-/*   Updated: 2026/07/13 15:43:36 by leramos-         ###   ########.fr       */
+/*   Updated: 2026/07/13 16:08:14 by leramos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef RUNTIME_H
 # define RUNTIME_H
 
-# include <cub3d.h>
+# include <common.h>
 
 typedef struct s_range
 {

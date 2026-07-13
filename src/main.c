@@ -6,7 +6,7 @@
 /*   By: leramos- <leramos-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/15 11:39:36 by adores            #+#    #+#             */
-/*   Updated: 2026/06/29 14:59:33 by leramos-         ###   ########.fr       */
+/*   Updated: 2026/07/13 15:54:25 by leramos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,5 @@ int	main(int ac, char **av)
 	else
 		return (ft_putstr_fd("Error\n Wrong file.\n", 2), 1);
 	game(&data);
-	free_things(&data.assets, &data.map);
-	return (0);
+	cleanup_and_exit(0, NULL, &data);
 }
