@@ -6,7 +6,7 @@
 /*   By: leramos- <leramos-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/25 10:33:42 by adores            #+#    #+#             */
-/*   Updated: 2026/07/13 15:31:07 by leramos-         ###   ########.fr       */
+/*   Updated: 2026/07/13 15:44:31 by leramos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,10 @@
 # include "libft.h"
 # include "ft_printf.h"
 # include "get_next_line.h"
+
+// Modules
+# include "parsing.h"
+# include "runtime.h"
 
 // Game Settings
 # define GAME_TITLE "Cub3D"
@@ -87,11 +91,11 @@ typedef struct s_map
 
 typedef struct s_texture
 {
-    t_img	img;
+	t_img	img;
 	char	*path;
-    int     width;
-    int     height;
-}   t_texture;
+	int		width;
+	int		height;
+}			t_texture;
 
 typedef struct s_assets
 {
@@ -99,8 +103,8 @@ typedef struct s_assets
 	t_texture	so;
 	t_texture	we;
 	t_texture	ea;
-	int		floor_rgb;
-	int		ceiling_rgb;
+	int			floor_rgb;
+	int			ceiling_rgb;
 }	t_assets;
 
 typedef struct s_data
@@ -116,10 +120,6 @@ typedef struct s_data
 	t_player	player;
 	t_vector	plane;
 }				t_data;
-
-// Modules
-# include "parsing.h"
-# include "runtime.h"
 
 // Functions
 void	init(t_data *data);
