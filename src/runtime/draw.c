@@ -6,7 +6,7 @@
 /*   By: leramos- <leramos-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/06 14:53:44 by leramos-          #+#    #+#             */
-/*   Updated: 2026/07/06 15:52:24 by leramos-         ###   ########.fr       */
+/*   Updated: 2026/07/13 14:27:17 by leramos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,28 +50,22 @@ static int	get_texture_x(t_texture texture, double wall_x, t_raycast_data *rc)
 
 void	draw_textured_wall(t_data *data, int x, t_raycast_data *rc, t_wall_data	wall)
 {
-	double		wall_x;
-	int			texture_x;
-	int			texture_y;
-	double		step;
-	double		texture_pos;
+	t_draw_data	draw_data;
 	size_t		y;
-	int			color;
 	t_texture	texture;
-	
-	texture = select_wall_texture(data, rc);
-	wall_x = get_wall_x(data, rc, wall.perpwalldist);
-	texture_x = get_texture_x(texture, wall_x, rc);
-	step = 1.0 * (texture.height) / wall.line_height;
-	texture_pos = (wall.range.start - data->height / 2 + wall.line_height / 2) * step;
 
+	texture = select_wall_texture(data, rc);
+	draw_data.wall_x = get_wall_x(data, rc, wall.perpwalldist);
+	draw_data.texture_pixel.x = get_texture_x(texture, draw_data.wall_x, rc);
+	draw_data.step = 1.0 * (texture.height) / wall.line_height;
+	draw_data.texture_pos = (wall.range.start - data->height / 2 + wall.line_height / 2) * draw_data.step;
 	y = wall.range.start;
 	while ((int)y < wall.range.end)
 	{
-		texture_y = (int)(texture_pos) & (texture.height - 1);
-		color = get_texture_color(&texture.img, texture_x, texture_y);
-		my_mlx_pixel_put(data->img, x, y, color);
-		texture_pos += step;
+		draw_data.texture_pixel.y = (int)(draw_data.texture_pos) & (texture.height - 1);
+		draw_data.color = get_texture_color(&texture.img, draw_data.texture_pixel.x, draw_data.texture_pixel.y);
+		my_mlx_pixel_put(data->img, x, y, draw_data.color);
+		draw_data.texture_pos += draw_data.step;
 		y++;
 	}
 }

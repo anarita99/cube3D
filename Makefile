@@ -6,7 +6,7 @@
 #    By: leramos- <leramos-@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/10 11:54:19 by leramos-          #+#    #+#              #
-#    Updated: 2026/07/06 15:22:05 by leramos-         ###   ########.fr        #
+#    Updated: 2026/07/13 14:39:36 by leramos-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,7 @@ MAIN 			= 	main init exit
 PARSING 		= 	colours_parsing file_utils file_validation \
 					map normalize utils
 RUNTIME 		= 	game events render utils draw draw_utils mlx_init \
-					movement draw_textures
+					movement draw_textures movement_utils raycast
 
 FILES 			= 	$(MAIN) \
 					$(addprefix parsing/, $(PARSING)) \

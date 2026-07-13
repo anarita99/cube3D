@@ -6,7 +6,7 @@
 /*   By: leramos- <leramos-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/06 14:53:44 by leramos-          #+#    #+#             */
-/*   Updated: 2026/07/06 15:52:24 by leramos-         ###   ########.fr       */
+/*   Updated: 2026/07/13 14:35:59 by leramos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,34 +14,13 @@
 
 void	move_camera(t_data *data, int keycode)
 {
-	if (data->player.orientation == 'N')
-	{
-		if (keycode == XK_Left)
-			data->player.orientation = 'W';
-		else if (keycode == XK_Right)
-			data->player.orientation = 'E';
-	}
-	else if (data->player.orientation == 'E')
-	{
-		if (keycode == XK_Left)
-			data->player.orientation = 'N';
-		else if (keycode == XK_Right)
-			data->player.orientation = 'S';
-	}
-	else if (data->player.orientation == 'S')
-	{
-		if (keycode == XK_Left)
-			data->player.orientation = 'E';
-		else if (keycode == XK_Right)
-			data->player.orientation = 'W';
-	}
-	else if (data->player.orientation == 'W')
-	{
-		if (keycode == XK_Left)
-			data->player.orientation = 'S';
-		else if (keycode == XK_Right)
-			data->player.orientation = 'N';
-	}
+	int	index;
+
+	index = get_orientation_index(data->player.orientation);
+	if (keycode == XK_Left)
+		data->player.orientation = get_orientation_at(index - 1);
+	else if (keycode == XK_Right)
+		data->player.orientation = get_orientation_at(index + 1);
 }
 
 static t_vector	compute_move_delta(t_data *data, int keycode, double step)
