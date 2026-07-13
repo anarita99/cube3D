@@ -6,7 +6,7 @@
 /*   By: leramos- <leramos-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/06 14:53:44 by leramos-          #+#    #+#             */
-/*   Updated: 2026/07/13 14:27:17 by leramos-         ###   ########.fr       */
+/*   Updated: 2026/07/13 15:07:56 by leramos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,24 @@ void	draw_ceiling_floor(t_data *data, int x, t_range wall)
 	range.start = wall.end;
 	range.end = data->height - 1;
 	draw_vertical_line(data, x, range, data->assets.floor_rgb);
+}
+
+t_texture	select_wall_texture(t_data *data, t_raycast_data *rc)
+{
+	if (rc->side == false)
+	{
+		if (rc->ray_dir.x > 0)
+			return (data->assets.we);
+		else
+			return (data->assets.ea);
+	}
+	else
+	{
+		if (rc->ray_dir.y > 0)
+			return (data->assets.no);
+		else
+			return (data->assets.so);
+	}
 }
 
 static double	get_wall_x(t_data *data, t_raycast_data *rc, double perpwalldist)
