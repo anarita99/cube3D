@@ -6,7 +6,7 @@
 /*   By: leramos- <leramos-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/17 14:59:20 by leramos-          #+#    #+#             */
-/*   Updated: 2026/07/13 15:32:11 by leramos-         ###   ########.fr       */
+/*   Updated: 2026/07/15 14:38:21 by leramos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ static t_wall_data	compute_wall_draw(t_data *data, t_raycast_data *rc)
 		wall.perpwalldist = rc->side_distance.x - rc->delta_distance.x;
 	else
 		wall.perpwalldist = rc->side_distance.y - rc->delta_distance.y;
+	if (wall.perpwalldist < 0.05)
+		wall.perpwalldist = 0.05;
 	wall.line_height = data->height / wall.perpwalldist;
 	wall.range.start = -wall.line_height / 2 + data->height / 2;
 	wall.range.end = wall.line_height / 2 + data->height / 2;

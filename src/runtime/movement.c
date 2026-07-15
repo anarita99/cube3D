@@ -6,11 +6,11 @@
 /*   By: leramos- <leramos-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/06 14:53:44 by leramos-          #+#    #+#             */
-/*   Updated: 2026/07/13 16:11:03 by leramos-         ###   ########.fr       */
+/*   Updated: 2026/07/15 14:47:17 by leramos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "runtime.h"
+#include "cub3d.h"
 
 void	move_camera(t_data *data, int keycode)
 {
@@ -52,16 +52,12 @@ static t_vector	compute_move_delta(t_data *data, int keycode, double step)
 	return (delta);
 }
 
-static void	clamp_position(t_data *data, t_vector *pos)
+static bool	collides(t_map map, t_vector pos)
 {
-	if (pos->x < 0.0)
-		pos->x = 1.0;
-	else if (pos->x > data->map.width - 1.0)
-		pos->x = data->map.width - 1.0;
-	if (pos->y < 0.0)
-		pos->y = 1.0;
-	else if (pos->y > data->map.height - 1.0)
-		pos->y = data->map.height - 1.0;
+	return (is_wall_tile(map, (int)(pos.x - PLAYER_RADIUS), (int)pos.y)
+		|| is_wall_tile(map, (int)(pos.x + PLAYER_RADIUS), (int)pos.y)
+		|| is_wall_tile(map, (int)pos.x, (int)(pos.y - PLAYER_RADIUS))
+		|| is_wall_tile(map, (int)pos.x, (int)(pos.y + PLAYER_RADIUS)));
 }
 
 void	move_player(t_data *data, int keycode)
@@ -72,8 +68,7 @@ void	move_player(t_data *data, int keycode)
 	delta = compute_move_delta(data, keycode, 0.1);
 	new.x = data->player.loc.x + delta.x;
 	new.y = data->player.loc.y + delta.y;
-	if (is_wall_tile(data->map, (int)new.x, (int)new.y))
+	if (collides(data->map, new))
 		new = data->player.loc;
-	clamp_position(data, &new);
 	data->player.loc = new;
 }

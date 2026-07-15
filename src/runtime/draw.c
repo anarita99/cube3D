@@ -6,7 +6,7 @@
 /*   By: leramos- <leramos-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/06 14:53:44 by leramos-          #+#    #+#             */
-/*   Updated: 2026/07/13 15:40:32 by leramos-         ###   ########.fr       */
+/*   Updated: 2026/07/15 14:40:07 by leramos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ void	draw_ceiling_floor(t_data *data, int x, t_range wall)
 
 	range.start = 0;
 	range.end = wall.start - 1;
+	if (range.end < 0)
+		range.end = 0;
 	draw_vertical_line(data, x, range, data->assets.ceiling_rgb);
 	range.start = wall.end;
 	range.end = data->height - 1;
