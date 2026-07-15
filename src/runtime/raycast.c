@@ -6,7 +6,7 @@
 /*   By: leramos- <leramos-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/13 14:39:07 by leramos-          #+#    #+#             */
-/*   Updated: 2026/07/15 15:01:48 by leramos-         ###   ########.fr       */
+/*   Updated: 2026/07/15 15:04:11 by leramos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ void	dda_loop(t_raycast *rc, t_map map)
 {
 	while (true)
 	{
-		// Jump to next map square, either in x-direction, or in y-direction
 		if (rc->side_distance.x < rc->side_distance.y)
 		{
 			rc->side_distance.x += rc->delta_distance.x;
@@ -87,7 +86,6 @@ void	dda_loop(t_raycast *rc, t_map map)
 			rc->map.y += rc->step.y;
 			rc->side = true;
 		}
-		// Check if ray has hit a wall
 		if (is_wall_tile(map, (int)rc->map.x, (int)rc->map.y))
 			break ;
 	}
