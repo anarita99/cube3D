@@ -6,7 +6,7 @@
 /*   By: leramos- <leramos-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/15 11:39:36 by adores            #+#    #+#             */
-/*   Updated: 2026/07/13 15:54:25 by leramos-         ###   ########.fr       */
+/*   Updated: 2026/07/15 14:53:38 by leramos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,6 @@ void	print_assets(t_assets assets, t_map map)
 int	main(int ac, char **av)
 {
 	t_data		data;
-
-	data.width = WIN_WIDTH;
-	data.height = WIN_HEIGHT;
 
 	if (ac != 2)
 		return (ft_putstr_fd("Error\n Invalid number of arguments.\n", 2), 1);

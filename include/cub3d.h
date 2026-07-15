@@ -6,7 +6,7 @@
 /*   By: leramos- <leramos-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/25 10:33:42 by adores            #+#    #+#             */
-/*   Updated: 2026/07/15 14:45:04 by leramos-         ###   ########.fr       */
+/*   Updated: 2026/07/15 14:52:44 by leramos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 // Game Settings
 # define GAME_TITLE "Cub3D"
 # define PLAYER_RADIUS 0.1
-# define PLAYER_FOV 66
 # define WIN_WIDTH 1000
 # define WIN_HEIGHT 800
 # define TEXTURE_RES 64

@@ -6,7 +6,7 @@
 /*   By: leramos- <leramos-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/13 14:39:07 by leramos-          #+#    #+#             */
-/*   Updated: 2026/07/13 14:53:42 by leramos-         ###   ########.fr       */
+/*   Updated: 2026/07/15 15:01:48 by leramos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,37 +23,41 @@ static t_vector	get_ray_direction(t_data *data, size_t current_x)
 	return (ray_dir);
 }
 
-static void	init_dda_x(t_data *data, t_raycast_data *rc)
+static void	init_dda_x(t_data *data, t_raycast *rc)
 {
 	if (rc->ray_dir.x < 0)
 	{
 		rc->step.x = -1;
-		rc->side_distance.x = (data->player.loc.x - rc->map.x) * rc->delta_distance.x;
+		rc->side_distance.x = (data->player.loc.x - rc->map.x);
+		rc->side_distance.x *= rc->delta_distance.x;
 	}
 	else
 	{
 		rc->step.x = 1;
-		rc->side_distance.x = (rc->map.x + 1.0 - data->player.loc.x) * rc->delta_distance.x;
+		rc->side_distance.x = (rc->map.x + 1.0 - data->player.loc.x);
+		rc->side_distance.x *= rc->delta_distance.x;
 	}
 }
 
-static void	init_dda_y(t_data *data, t_raycast_data *rc)
+static void	init_dda_y(t_data *data, t_raycast *rc)
 {
 	if (rc->ray_dir.y < 0)
 	{
 		rc->step.y = -1;
-		rc->side_distance.y = (data->player.loc.y - rc->map.y) * rc->delta_distance.y;
+		rc->side_distance.y = (data->player.loc.y - rc->map.y);
+		rc->side_distance.y *= rc->delta_distance.y;
 	}
 	else
 	{
 		rc->step.y = 1;
-		rc->side_distance.y = (rc->map.y + 1.0 - data->player.loc.y) * rc->delta_distance.y;
+		rc->side_distance.y = (rc->map.y + 1.0 - data->player.loc.y);
+		rc->side_distance.y *= rc->delta_distance.y;
 	}
 }
 
-t_raycast_data	init_raycast_data(t_data *data, size_t current_x)
+t_raycast	init_raycast_data(t_data *data, size_t current_x)
 {
-	t_raycast_data	rc;
+	t_raycast	rc;
 
 	rc.ray_dir = get_ray_direction(data, current_x);
 	rc.delta_distance.x = fabs(1.0 / rc.ray_dir.x);
@@ -66,7 +70,7 @@ t_raycast_data	init_raycast_data(t_data *data, size_t current_x)
 	return (rc);
 }
 
-void	dda_loop(t_raycast_data *rc, t_map map)
+void	dda_loop(t_raycast *rc, t_map map)
 {
 	while (true)
 	{

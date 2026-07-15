@@ -6,7 +6,7 @@
 /*   By: leramos- <leramos-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/26 15:54:38 by adores            #+#    #+#             */
-/*   Updated: 2026/07/13 15:39:07 by leramos-         ###   ########.fr       */
+/*   Updated: 2026/07/15 14:54:04 by leramos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ static void	init_texture(t_texture *texture)
 
 void	init(t_data *data)
 {
+	data->width = WIN_WIDTH;
+	data->height = WIN_HEIGHT;
 	init_texture(&data->assets.no);
 	init_texture(&data->assets.so);
 	init_texture(&data->assets.we);
@@ -39,5 +41,5 @@ void	init(t_data *data)
 	data->player.loc.y = 0.0;
 	data->player.dir.x = 0.0;
 	data->player.dir.y = 0.0;
-	data->player.orientation = '\0'; 
+	data->player.orientation = '\0';
 }

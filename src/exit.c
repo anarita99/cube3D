@@ -6,7 +6,7 @@
 /*   By: leramos- <leramos-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 14:03:44 by leramos-          #+#    #+#             */
-/*   Updated: 2026/07/13 15:53:25 by leramos-         ###   ########.fr       */
+/*   Updated: 2026/07/15 14:53:03 by leramos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ static void	cleanup_textures(t_data *data)
 		mlx_destroy_image(data->mlx, data->assets.we.img.ptr);
 	if (data->assets.ea.img.ptr)
 		mlx_destroy_image(data->mlx, data->assets.ea.img.ptr);
-	
 }
 
 static void	cleanup_mlx(t_data *data)

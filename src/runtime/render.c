@@ -6,7 +6,7 @@
 /*   By: leramos- <leramos-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/17 14:59:20 by leramos-          #+#    #+#             */
-/*   Updated: 2026/07/15 14:38:21 by leramos-         ###   ########.fr       */
+/*   Updated: 2026/07/15 14:57:14 by leramos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static void	update_player_vectors(t_data *data)
 	data->plane.y = data->player.dir.x;
 }
 
-static t_wall_data	compute_wall_draw(t_data *data, t_raycast_data *rc)
+static t_wall_data	compute_wall_draw(t_data *data, t_raycast *rc)
 {
 	t_wall_data	wall;
 
@@ -62,8 +62,8 @@ static t_wall_data	compute_wall_draw(t_data *data, t_raycast_data *rc)
 
 static void	render_column(t_data *data, size_t x)
 {
-	t_raycast_data	rc;
-	t_wall_data		wall;
+	t_raycast	rc;
+	t_wall_data	wall;
 
 	rc = init_raycast_data(data, x);
 	dda_loop(&rc, data->map);
