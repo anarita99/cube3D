@@ -6,7 +6,7 @@
 /*   By: adores <adores@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/02 13:59:09 by adores            #+#    #+#             */
-/*   Updated: 2026/06/25 16:11:56 by adores           ###   ########.fr       */
+/*   Updated: 2026/07/15 15:14:09 by adores           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ free(tmp), free(line), NULL);
 	return (grid);
 }
 
-static int valid_row(char **map, t_data *data, int i)
+static int	valid_row(char **map, t_data *data, int i)
 {
 	int	j;
 
@@ -105,7 +105,7 @@ static int valid_row(char **map, t_data *data, int i)
 			else
 				return (ft_putstr_fd(PL_POS, 2), 1);
 		}
-			return (ft_putstr_fd("Error\n Invalid character.\n", 2), 1);
+		return (ft_putstr_fd("Error\n Invalid character.\n", 2), 1);
 	}
 	return (0);
 }
