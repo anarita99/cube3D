@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adores <adores@student.42lisboa.com>       +#+  +:+       +#+        */
+/*   By: adores <adores@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/15 11:39:36 by adores            #+#    #+#             */
-/*   Updated: 2026/07/15 15:13:12 by adores           ###   ########.fr       */
+/*   Updated: 2026/07/21 14:52:51 by adores           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,13 @@ int	main(int ac, char **av)
 		if (read_file(&data, &data.assets, &data.map) == 0 \
 && all_assets(data.assets) == 0)
 		{
-			print_assets(data.assets, data.map);
+			//print_assets(data.assets, data.map);
+			game(&data);
 		}
 		close(data.fd);
 	}
 	else
 		return (ft_putstr_fd("Error\n Wrong file.\n", 2), 1);
-	game(&data);
+	
 	cleanup_and_exit(0, NULL, &data);
 }

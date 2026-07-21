@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   file_validation.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leramos- <leramos-@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: adores <adores@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/25 10:25:13 by adores            #+#    #+#             */
-/*   Updated: 2026/06/29 14:59:54 by leramos-         ###   ########.fr       */
+/*   Updated: 2026/07/21 15:01:46 by adores           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@ static int	allocate_path(char *line, t_assets *assets, t_types type)
 	path = ft_strdup(extract_assets(line));
 	if (!path)
 		return (ft_putstr_fd(MALL_ERR, 2), 1);
-	if (access(path, R_OK))
+	/*if (access(path, R_OK))
 	{
 		ft_putstr_fd("Error\n No access to texture file.\n", 2);
 		return (free(path), 1);
-	}
+	}*/
 	if (type == NO && assets->no.path == NULL)
 		assets->no.path = path;
 	else if (type == SO && assets->so.path == NULL)
