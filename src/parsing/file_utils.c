@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   file_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leramos- <leramos-@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: adores <adores@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/15 11:42:53 by adores            #+#    #+#             */
-/*   Updated: 2026/06/29 14:59:44 by leramos-         ###   ########.fr       */
+/*   Updated: 2026/07/22 10:51:59 by adores           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ char	*extract_assets(char *line)
 
 	i = skip_space(line);
 	while (line[i] != ' ')
-		i ++;
+		i++;
 	i += skip_space(&line[i]);
 	find_new_line(&line[i]);
 	return (&line[i]);
