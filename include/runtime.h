@@ -66,7 +66,11 @@ t_texture	select_wall_texture(t_data *data, t_raycast *rc);
 
 // Draw
 void		draw_ceiling_floor(t_data *data, int x, t_range wall);
-void		draw_textured_wall(t_data *data, int x, t_raycast *rc, t_wall_data	wall);
+void		draw_textured_wall(
+				t_data *data,
+				int x,
+				t_raycast *rc,
+				t_wall_data	wall);
 
 // Movement Utils
 int			get_orientation_index(char orientation);
