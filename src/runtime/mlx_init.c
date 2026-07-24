@@ -37,13 +37,15 @@ void	init_render_image(t_data *data)
 		cleanup_and_exit(1, "Cannot access image data.", data);
 }
 
-static void	load_texture(t_texture *texture, void *mlx)
+static void	load_texture(t_data *data, t_texture *texture)
 {
 	texture->img.ptr = mlx_xpm_file_to_image(
-			mlx,
+			data->mlx,
 			texture->path,
 			&texture->width,
 			&texture->height);
+	if (texture->img.ptr == NULL)
+		cleanup_and_exit(1, "Texture file doesn't exist.", data);
 	texture->img.addr = mlx_get_data_addr(
 			texture->img.ptr,
 			&texture->img.bpp,
@@ -53,8 +55,8 @@ static void	load_texture(t_texture *texture, void *mlx)
 
 void	load_textures(t_data *data)
 {
-	load_texture(&data->assets.no, data->mlx);
-	load_texture(&data->assets.so, data->mlx);
-	load_texture(&data->assets.we, data->mlx);
-	load_texture(&data->assets.ea, data->mlx);
+	load_texture(data, &data->assets.no);
+	load_texture(data, &data->assets.so);
+	load_texture(data, &data->assets.we);
+	load_texture(data, &data->assets.ea);
 }

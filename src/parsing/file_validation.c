@@ -24,11 +24,6 @@ static int	allocate_path(char *line, t_assets *assets, t_types type)
 		ft_putstr_fd("Error\n Texture path has more than 1 word.\n", 2);
 		return (free(path), 1);
 	}
-	/*if (access(path, R_OK))
-	{
-		ft_putstr_fd("Error\n No access to texture file.\n", 2);
-		return (free(path), 1);
-	}*/
 	if (type == NO && assets->no.path == NULL)
 		assets->no.path = path;
 	else if (type == SO && assets->so.path == NULL)
