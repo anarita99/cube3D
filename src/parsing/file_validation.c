@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   file_validation.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adores <adores@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adores <adores@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/25 10:25:13 by adores            #+#    #+#             */
-/*   Updated: 2026/07/22 11:01:22 by adores           ###   ########.fr       */
+/*   Updated: 2026/07/27 10:57:05 by adores           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int	allocate_path(char *line, t_assets *assets, t_types type)
 		return (ft_putstr_fd(MALL_ERR, 2), 1);
 	if (count_words(path, ' ') != 1)
 	{
-		ft_putstr_fd("Error\n Texture path has more than 1 word.\n", 2);
+		ft_putstr_fd("Error\n Wrong texture path.\n", 2);
 		return (free(path), 1);
 	}
 	if (type == NO && assets->no.path == NULL)
