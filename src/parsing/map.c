@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leramos- <leramos-@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: adores <adores@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/02 13:59:09 by adores            #+#    #+#             */
-/*   Updated: 2026/07/27 13:57:46 by leramos-         ###   ########.fr       */
+/*   Updated: 2026/07/27 19:39:41 by adores           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,8 +98,8 @@ static int	valid_row(char **map, t_data *data, int i)
 		{
 			if (data->player.init_orientation == '\0')
 			{
-				data->player.loc.y = i;
-				data->player.loc.x = j;
+				data->player.loc.y = i + 0.5;
+				data->player.loc.x = j + 0.5;
 				data->player.init_orientation = map[i][j];
 				continue ;
 			}
