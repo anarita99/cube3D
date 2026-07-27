@@ -6,17 +6,21 @@
 /*   By: leramos- <leramos-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/25 10:33:42 by leramos-          #+#    #+#             */
-/*   Updated: 2026/07/13 16:10:26 by leramos-         ###   ########.fr       */
+/*   Updated: 2026/07/27 13:47:10 by leramos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	init_mlx_window(t_data *data)
+void	init_mlx_pointer(t_data *data)
 {
 	data->mlx = mlx_init();
 	if (!data->mlx)
 		cleanup_and_exit(1, "Cannot initialize MiniLibX.", data);
+}
+
+void	init_mlx_window(t_data *data)
+{
 	data->win = mlx_new_window(
 			data->mlx, data->width, data->height, GAME_TITLE);
 	if (!data->win)

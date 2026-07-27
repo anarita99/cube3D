@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   runtime.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adores <adores@student.42lisboa.com>       +#+  +:+       +#+        */
+/*   By: leramos- <leramos-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/25 10:33:42 by adores            #+#    #+#             */
-/*   Updated: 2026/07/15 15:12:26 by adores           ###   ########.fr       */
+/*   Updated: 2026/07/27 13:47:50 by leramos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ typedef struct s_raycast
 }				t_raycast;
 
 // MLX Initialization
+void		init_mlx_pointer(t_data *data);
 void		init_mlx_window(t_data *data);
 void		init_render_image(t_data *data);
 void		load_textures(t_data *data);
