@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adores <adores@student.42.fr>              +#+  +:+       +#+        */
+/*   By: leramos- <leramos-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/02 13:59:09 by adores            #+#    #+#             */
-/*   Updated: 2026/07/21 16:07:00 by adores           ###   ########.fr       */
+/*   Updated: 2026/07/27 13:57:46 by leramos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,11 +96,11 @@ static int	valid_row(char **map, t_data *data, int i)
 		if (map[i][j] == 'W' || map[i][j] == 'E' || map[i][j] == 'N' \
 || map[i][j] == 'S')
 		{
-			if (data->player.orientation == '\0')
+			if (data->player.init_orientation == '\0')
 			{
 				data->player.loc.y = i;
 				data->player.loc.x = j;
-				data->player.orientation = map[i][j];
+				data->player.init_orientation = map[i][j];
 				continue ;
 			}
 			else
@@ -121,7 +121,7 @@ int	valid_characters(char **map, t_data *data)
 		if (valid_row(map, data, i))
 			return (1);
 	}
-	if (data->player.orientation == '\0')
+	if (data->player.init_orientation == '\0')
 		return (ft_putstr_fd(PL_POS, 2), 1);
 	return (0);
 }

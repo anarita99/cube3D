@@ -6,7 +6,7 @@
 /*   By: leramos- <leramos-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/25 10:33:42 by adores            #+#    #+#             */
-/*   Updated: 2026/07/27 13:47:50 by leramos-         ###   ########.fr       */
+/*   Updated: 2026/07/27 14:40:25 by leramos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,12 @@ typedef struct s_raycast
 	bool		side;
 }				t_raycast;
 
-// MLX Initialization
+// Initialization
 void		init_mlx_pointer(t_data *data);
 void		init_mlx_window(t_data *data);
 void		init_render_image(t_data *data);
-void		load_textures(t_data *data);
+void		load_texture(t_data *data, t_texture *texture);
+void		init_camera_data(t_data *data);
 
 // Utils
 bool		is_wall_tile(t_map map, int x, int y);
@@ -72,10 +73,6 @@ void		draw_textured_wall(
 				int x,
 				t_raycast *rc,
 				t_wall_data	wall);
-
-// Movement Utils
-int			get_orientation_index(char orientation);
-char		get_orientation_at(int index);
 
 // Movement
 void		move_camera(t_data *data, int keycode);

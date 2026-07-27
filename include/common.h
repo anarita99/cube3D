@@ -6,7 +6,7 @@
 /*   By: leramos- <leramos-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/13 16:06:41 by leramos-          #+#    #+#             */
-/*   Updated: 2026/07/13 16:08:26 by leramos-         ###   ########.fr       */
+/*   Updated: 2026/07/27 13:56:33 by leramos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ typedef struct s_player
 {
 	t_vector	loc;
 	t_vector	dir;
-	char		orientation;
+	char		init_orientation;
 }				t_player;
 
 typedef struct s_map

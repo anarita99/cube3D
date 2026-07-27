@@ -6,7 +6,7 @@
 /*   By: leramos- <leramos-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/06 14:53:44 by leramos-          #+#    #+#             */
-/*   Updated: 2026/07/15 14:47:17 by leramos-         ###   ########.fr       */
+/*   Updated: 2026/07/27 14:42:51 by leramos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,24 @@
 
 void	move_camera(t_data *data, int keycode)
 {
-	int	index;
+	double		step;
+	double		angle;
+	t_vector	old_dir;
+	t_vector	old_plane;
 
-	index = get_orientation_index(data->player.orientation);
+	step = 0.05;
 	if (keycode == XK_Left)
-		data->player.orientation = get_orientation_at(index - 1);
+		angle = -step;
 	else if (keycode == XK_Right)
-		data->player.orientation = get_orientation_at(index + 1);
+		angle = step;
+	else
+		return ;
+	old_dir = data->player.dir;
+	data->player.dir.x = old_dir.x * cos(angle) - old_dir.y * sin(angle);
+	data->player.dir.y = old_dir.x * sin(angle) + old_dir.y * cos(angle);
+	old_plane = data->plane;
+	data->plane.x = old_plane.x * cos(angle) - old_plane.y * sin(angle);
+	data->plane.y = old_plane.x * sin(angle) + old_plane.y * cos(angle);
 }
 
 static t_vector	compute_move_delta(t_data *data, int keycode, double step)

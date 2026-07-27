@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mlx_init.c                                         :+:      :+:    :+:   */
+/*   initialization.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: leramos- <leramos-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/25 10:33:42 by leramos-          #+#    #+#             */
-/*   Updated: 2026/07/27 13:47:10 by leramos-         ###   ########.fr       */
+/*   Updated: 2026/07/27 14:40:18 by leramos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	init_render_image(t_data *data)
 		cleanup_and_exit(1, "Cannot access image data.", data);
 }
 
-static void	load_texture(t_data *data, t_texture *texture)
+void	load_texture(t_data *data, t_texture *texture)
 {
 	texture->img.ptr = mlx_xpm_file_to_image(
 			data->mlx,
@@ -57,10 +57,28 @@ static void	load_texture(t_data *data, t_texture *texture)
 			&texture->img.endian);
 }
 
-void	load_textures(t_data *data)
+void	init_camera_data(t_data *data)
 {
-	load_texture(data, &data->assets.no);
-	load_texture(data, &data->assets.so);
-	load_texture(data, &data->assets.we);
-	load_texture(data, &data->assets.ea);
+	if (data->player.init_orientation == 'N')
+	{
+		data->player.dir.x = 0.0;
+		data->player.dir.y = -1.0;
+	}
+	else if (data->player.init_orientation == 'S')
+	{
+		data->player.dir.x = 0.0;
+		data->player.dir.y = 1.0;
+	}
+	else if (data->player.init_orientation == 'E')
+	{
+		data->player.dir.x = 1.0;
+		data->player.dir.y = 0.0;
+	}
+	else if (data->player.init_orientation == 'W')
+	{
+		data->player.dir.x = -1.0;
+		data->player.dir.y = 0.0;
+	}
+	data->plane.x = -data->player.dir.y;
+	data->plane.y = data->player.dir.x;
 }

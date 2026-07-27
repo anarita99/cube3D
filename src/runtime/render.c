@@ -6,37 +6,11 @@
 /*   By: leramos- <leramos-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/17 14:59:20 by leramos-          #+#    #+#             */
-/*   Updated: 2026/07/15 14:57:14 by leramos-         ###   ########.fr       */
+/*   Updated: 2026/07/27 14:35:39 by leramos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "runtime.h"
-
-static void	update_player_vectors(t_data *data)
-{
-	if (data->player.orientation == 'N')
-	{
-		data->player.dir.x = 0.0;
-		data->player.dir.y = -1.0;
-	}
-	else if (data->player.orientation == 'S')
-	{
-		data->player.dir.x = 0.0;
-		data->player.dir.y = 1.0;
-	}
-	else if (data->player.orientation == 'E')
-	{
-		data->player.dir.x = 1.0;
-		data->player.dir.y = 0.0;
-	}
-	else if (data->player.orientation == 'W')
-	{
-		data->player.dir.x = -1.0;
-		data->player.dir.y = 0.0;
-	}
-	data->plane.x = -data->player.dir.y;
-	data->plane.y = data->player.dir.x;
-}
 
 static t_wall_data	compute_wall_draw(t_data *data, t_raycast *rc)
 {
@@ -79,7 +53,6 @@ int	render_frame(void *param)
 
 	data = (t_data *)param;
 	clear_img(data);
-	update_player_vectors(data);
 	x = 0;
 	while (x < (size_t)data->width)
 	{

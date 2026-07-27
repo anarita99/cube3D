@@ -6,7 +6,7 @@
 /*   By: leramos- <leramos-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/26 15:54:38 by adores            #+#    #+#             */
-/*   Updated: 2026/07/27 13:53:30 by leramos-         ###   ########.fr       */
+/*   Updated: 2026/07/27 13:57:13 by leramos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,5 +42,5 @@ void	init(t_data *data)
 	data->player.loc.y = 0.0;
 	data->player.dir.x = 0.0;
 	data->player.dir.y = 0.0;
-	data->player.orientation = '\0';
+	data->player.init_orientation = '\0';
 }
