@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   colours_parsing.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leramos- <leramos-@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: adores <adores@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/29 12:16:34 by adores            #+#    #+#             */
-/*   Updated: 2026/06/29 14:01:37 by leramos-         ###   ########.fr       */
+/*   Updated: 2026/08/03 11:21:02 by adores           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	*split_and_transform_array(char *line)
 		if (is_num(splitted[i]) == 0)
 		{
 			temp[i] = ft_atoi(splitted[i]);
-			if (temp[i] < 255)
+			if (temp[i] <= 255)
 				continue ;
 		}
 		ft_putstr_fd("Error\n Wrong colour code.\n", 2);
