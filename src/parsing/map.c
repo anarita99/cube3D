@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adores <adores@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adores <adores@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/02 13:59:09 by adores            #+#    #+#             */
-/*   Updated: 2026/07/27 19:39:41 by adores           ###   ########.fr       */
+/*   Updated: 2026/08/04 11:31:04 by adores           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ char	**make_map_grid(char *line, int fd, t_map *map)
 	{
 		tmp = map_line(tmp, line);
 		line = get_next_line(fd);
-		count++;
 		if (!line)
 			break ;
 	}
@@ -80,6 +79,8 @@ free(tmp), free(line), NULL);
 	if (!grid)
 		return (free(tmp), NULL);
 	free(tmp);
+	while (grid[count])
+		count++;
 	map->height = count;
 	return (grid);
 }
