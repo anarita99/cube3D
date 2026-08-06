@@ -81,8 +81,6 @@ void	draw_textured_wall(
 	texture = select_wall_texture(data, rc);
 	draw_data.wall_x = get_wall_x(data, rc, wall.perpwalldist);
 	draw_data.texture_pixel.x = get_texture_x(texture, draw_data.wall_x, rc);
-	printf("Wall X = %f\n", draw_data.wall_x);
-	printf("Texture X = %f\n", draw_data.texture_pixel.x);
 	draw_data.step = 1.0 * (texture.height) / wall.line_height;
 	draw_data.texture_pos = \
 (wall.range.start - data->height / 2 + wall.line_height / 2) * draw_data.step;
