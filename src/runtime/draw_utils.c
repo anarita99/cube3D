@@ -31,21 +31,3 @@ void	draw_vertical_line(t_data *data, int x, t_range range, int color)
 		current_y++;
 	}
 }
-
-void	clear_img(t_data *data)
-{
-	int	x;
-	int	y;
-
-	x = 0;
-	while (x < data->width)
-	{
-		y = 0;
-		while (y < data->height)
-		{
-			my_mlx_pixel_put(&data->img, x, y, 0x00000000);
-			y++;
-		}
-		x++;
-	}
-}

@@ -61,7 +61,6 @@ int			get_texture_color(t_img tex_img, int x, int y);
 // Draw Utils
 void		my_mlx_pixel_put(t_img *img, int x, int y, int color);
 void		draw_vertical_line(t_data *data, int x, t_range range, int color);
-void		clear_img(t_data *data);
 
 // Draw Textures
 t_texture	select_wall_texture(t_data *data, t_raycast *rc);

@@ -50,7 +50,6 @@ void	render_frame(t_data *data)
 {
 	size_t	x;
 
-	clear_img(data);
 	x = 0;
 	while (x < (size_t)data->width)
 	{
