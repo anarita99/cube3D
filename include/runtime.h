@@ -75,18 +75,19 @@ void		draw_textured_wall(
 				t_wall_data	wall);
 
 // Movement
-void		move_camera(t_data *data, int keycode);
-void		move_player(t_data *data, int keycode);
+void		update_position(t_data *data);
+void		update_camera(t_data *data);
 
 // Raycast
 t_raycast	init_raycast_data(t_data *data, size_t current_x);
 void		dda_loop(t_raycast *rc, t_map map);
 
 // Render
-int			render_frame(void *param);
+void		render_frame(t_data *data);
 
 // Events
-int			key_handler(int keycode, void *param);
+int			key_press_handler(int keycode, void *param);
+int			key_release_handler(int keycode, void *param);
 int			destroy_handler(void *param);
 
 // Main

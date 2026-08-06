@@ -19,6 +19,16 @@ static void	init_texture(t_texture *texture)
 	texture->height = TEXTURE_RES;
 }
 
+static void	init_movement(t_mov *movement)
+{
+	movement->forward = false;
+	movement->backward = false;
+	movement->left = false;
+	movement->right = false;
+	movement->look_left = false;
+	movement->look_right = false;
+}
+
 void	init(t_data *data)
 {
 	ft_memset(data, 0, sizeof(t_data));
@@ -36,11 +46,12 @@ void	init(t_data *data)
 	data->fd = -1;
 	data->mlx = NULL;
 	data->win = NULL;
-	data->plane.x = 0.0;
-	data->plane.y = 0.0;
 	data->player.loc.x = 0.0;
 	data->player.loc.y = 0.0;
 	data->player.dir.x = 0.0;
 	data->player.dir.y = 0.0;
 	data->player.init_orientation = '\0';
+	data->plane.x = 0.0;
+	data->plane.y = 0.0;
+	init_movement(&data->movement);
 }

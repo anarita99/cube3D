@@ -46,12 +46,10 @@ static void	render_column(t_data *data, size_t x)
 	draw_textured_wall(data, x, &rc, wall);
 }
 
-int	render_frame(void *param)
+void	render_frame(t_data *data)
 {
-	t_data			*data;
-	size_t			x;
+	size_t	x;
 
-	data = (t_data *)param;
 	clear_img(data);
 	x = 0;
 	while (x < (size_t)data->width)
@@ -60,5 +58,4 @@ int	render_frame(void *param)
 		x++;
 	}
 	mlx_put_image_to_window(data->mlx, data->win, data->img.ptr, 0, 0);
-	return (0);
 }

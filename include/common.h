@@ -87,6 +87,16 @@ typedef struct s_assets
 	int			ceiling_rgb;
 }	t_assets;
 
+typedef struct s_mov
+{
+	bool	forward;
+	bool	backward;
+	bool	left;
+	bool	right;
+	bool	look_left;
+	bool	look_right;
+}	t_mov;
+
 typedef struct s_data
 {
 	int			fd;
@@ -99,6 +109,7 @@ typedef struct s_data
 	t_map		map;
 	t_player	player;
 	t_vector	plane;
+	t_mov		movement;
 }				t_data;
 
 #endif
