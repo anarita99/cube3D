@@ -53,7 +53,7 @@ static double	get_wall_x(t_data *data, t_raycast *rc, double perpwalldist)
 	else
 		wall_x = data->player.loc.x + perpwalldist * rc->ray_dir.x;
 	wall_x -= floor(wall_x);
-	return (wall_x);
+	return (1 - wall_x);
 }
 
 static int	get_texture_x(t_texture texture, double wall_x, t_raycast *rc)
@@ -81,6 +81,8 @@ void	draw_textured_wall(
 	texture = select_wall_texture(data, rc);
 	draw_data.wall_x = get_wall_x(data, rc, wall.perpwalldist);
 	draw_data.texture_pixel.x = get_texture_x(texture, draw_data.wall_x, rc);
+	printf("Wall X = %f\n", draw_data.wall_x);
+	printf("Texture X = %f\n", draw_data.texture_pixel.x);
 	draw_data.step = 1.0 * (texture.height) / wall.line_height;
 	draw_data.texture_pos = \
 (wall.range.start - data->height / 2 + wall.line_height / 2) * draw_data.step;
