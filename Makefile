@@ -42,11 +42,9 @@ RUNTIME 		= 	game events render utils draw draw_utils initialization \
 FILES 			= 	$(MAIN) \
 					$(addprefix parsing/, $(PARSING)) \
 					$(addprefix runtime/, $(RUNTIME))
+
 SRCS 			= 	$(addprefix $(SRCS_DIR)/, $(addsuffix .c, $(FILES)))
 OBJS 			= 	$(SRCS:.c=.o)
-
-SRCS = $(addprefix $(SRCS_DIR)/, $(addsuffix .c, $(FILES)))
-OBJS = $(SRCS:.c=.o)
 
 # Rules
 all: $(LIBFT_LIB) $(NAME)
@@ -70,7 +68,7 @@ clean:
 
 fclean: clean
 	@make -C $(LIBFT_DIR) fclean
-	@make -C $(MLX_DIR) clean
+	@make -C $(MLX_DIR) fclean
 	$(RM) $(NAME)
 
 re: fclean all
