@@ -41,12 +41,12 @@ void	draw_vertical_line(t_data *data, int x, t_range range, int color)
 	}
 }
 
-int	get_texture_color(t_img tex_img, int x, int y)
+int	get_texture_color(t_texture tex, int x, int y)
 {
 	char	*color;
 
-	x = x % TEXTURE_RES;
-	y = y % TEXTURE_RES;
-	color = tex_img.addr + (y * tex_img.line_len + x * (tex_img.bpp / 8));
+	x = x % tex.width;
+	y = y % tex.height;
+	color = tex.img.addr + (y * tex.img.line_len + x * (tex.img.bpp / 8));
 	return (*(int *)color);
 }

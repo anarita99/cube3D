@@ -89,7 +89,7 @@ void	draw_textured_wall(
 	{
 		draw_data.texture_pixel.y = \
 (int)(draw_data.texture_pos) & (texture.height - 1);
-		draw_data.color = get_texture_color(texture.img, \
+		draw_data.color = get_texture_color(texture, \
 draw_data.texture_pixel.x, draw_data.texture_pixel.y);
 		my_mlx_pixel_put(&data->img, x, y, draw_data.color);
 		draw_data.texture_pos += draw_data.step;
