@@ -74,7 +74,7 @@ void	update_camera(t_data *data)
 	step = 0.05;
 	angle = 0.0;
 	if (data->movement.look_left)
-		angle = -step;
+		angle -= step;
 	if (data->movement.look_right)
 		angle += step;
 	old_dir = data->player.dir;
