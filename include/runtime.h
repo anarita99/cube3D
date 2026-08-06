@@ -56,14 +56,9 @@ void		init_camera_data(t_data *data);
 
 // Utils
 bool		is_wall_tile(t_map map, int x, int y);
-int			get_texture_color(t_img tex_img, int x, int y);
-
-// Draw Utils
 void		my_mlx_pixel_put(t_img *img, int x, int y, int color);
 void		draw_vertical_line(t_data *data, int x, t_range range, int color);
-
-// Draw Textures
-t_texture	select_wall_texture(t_data *data, t_raycast *rc);
+int			get_texture_color(t_img tex_img, int x, int y);
 
 // Draw
 void		draw_ceiling_floor(t_data *data, int x, t_range wall);

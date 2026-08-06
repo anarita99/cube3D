@@ -36,7 +36,7 @@ RM = rm -f
 MAIN 			= 	main init exit
 PARSING 		= 	colours_parsing file_utils file_validation \
 					map normalize utils
-RUNTIME 		= 	game events render utils draw draw_utils initialization \
+RUNTIME 		= 	game events render utils draw initialization \
 					movement raycast
 
 FILES 			= 	$(MAIN) \

@@ -26,7 +26,7 @@ void	draw_ceiling_floor(t_data *data, int x, t_range wall)
 	draw_vertical_line(data, x, range, data->assets.floor_rgb);
 }
 
-t_texture	select_wall_texture(t_data *data, t_raycast *rc)
+static t_texture	select_wall_texture(t_data *data, t_raycast *rc)
 {
 	if (rc->side == false)
 	{
