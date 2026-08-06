@@ -45,6 +45,10 @@ int	get_texture_color(t_texture tex, int x, int y)
 {
 	char	*color;
 
+	if (x < 0)
+		x = 0;
+    if (y < 0)
+		y = 0;
 	x = x % tex.width;
 	y = y % tex.height;
 	color = tex.img.addr + (y * tex.img.line_len + x * (tex.img.bpp / 8));
