@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   file_validation.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adores <adores@student.42lisboa.com>       +#+  +:+       +#+        */
+/*   By: adores <adores@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/25 10:25:13 by adores            #+#    #+#             */
-/*   Updated: 2026/07/27 10:57:05 by adores           ###   ########.fr       */
+/*   Updated: 2026/08/07 16:52:06 by adores           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int	read_file(t_data *data, t_assets *assets, t_map *map)
 		line = get_next_line(data->fd);
 	}
 	if (!line)
-		return (ft_putstr_fd("Error\n No map found.\n", 2), 1);
+		return (ft_putstr_fd("Error\n Invalid file.\n", 2), 1);
 	map->grid = make_map_grid(line, data->fd, map);
 	if (!map->grid || valid_characters(map->grid, data) == 1)
 		return (1);
