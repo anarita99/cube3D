@@ -6,7 +6,7 @@
 #    By: leramos- <leramos-@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/10 11:54:19 by leramos-          #+#    #+#              #
-#    Updated: 2026/07/27 14:39:31 by leramos-         ###   ########.fr        #
+#    Updated: 2026/08/10 13:52:12 by leramos-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ LIBFT_LIB = $(LIBFT_DIR)/libft.a
 MLX_DIR = minilibx-linux
 MLX_LIB = $(MLX_DIR)/libmlx.a
 MLX_DEPENDENCIES = -lXext -lX11 -lm
+MLX_REPO := https://github.com/42paris/minilibx-linux.git
 
 # Compiler and flags
 CC = cc
@@ -68,10 +69,12 @@ clean:
 
 fclean: clean
 	@make -C $(LIBFT_DIR) fclean
-	@make -C $(MLX_DIR) fclean
 	$(RM) $(NAME)
 
 re: fclean all
+
+mlx:
+	git clone $(MLX_REPO) $(MLX_DIR)
 
 valgrind: ${NAME} $(SUPP_FILE)
 	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --quiet --tool=memcheck --keep-debuginfo=yes ./$(NAME) maps/map.cub
