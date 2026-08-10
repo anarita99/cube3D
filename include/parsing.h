@@ -44,11 +44,14 @@ char	*extract_assets(char *line);
 // File Validation
 bool	is_map_file_valid(t_data *data);
 int		count_commas(char *s);
-int		allocate_colour(char *line, t_assets *assets, t_types type);
+int		assign_color(char *line, t_assets *assets, t_types type);
 char	**make_map_grid(char *line, int fd, t_map *map);
-bool	valid_characters(char **map, t_data *data);
+bool	is_grid_valid(char **grid, t_data *data);
 int		find_big_line(char **map);
-int		put_map_rect(t_map *map);
+int		rectangularize_map(t_map *map);
 bool	is_map_valid(t_map map);
+
+// Parsing
+void	parsing(t_data *data, int ac, char **av);
 
 #endif

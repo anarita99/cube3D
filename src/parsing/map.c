@@ -12,7 +12,6 @@
 
 #include "cub3d.h"
 
-//strjoin modificado
 char	*map_line(char *s1, char *s2)
 {
 	size_t	buffer_size;
@@ -79,8 +78,7 @@ char	**make_map_grid(char *line, int fd, t_map *map)
 			break ;
 	}
 	if (check_newline(tmp) == 1)
-		return (ft_putstr_fd("Error\n New line detected in map.\n", 2), \
-free(tmp), free(line), NULL);
+		return (free(tmp), free(line), NULL);
 	grid = ft_split(tmp, '\n');
 	if (!grid)
 		return (free(tmp), NULL);
@@ -91,7 +89,7 @@ free(tmp), free(line), NULL);
 	return (grid);
 }
 
-static int	valid_row(char **map, t_data *data, int i)
+static bool	is_row_valid(char **map, t_data *data, int i)
 {
 	int	j;
 
@@ -100,8 +98,8 @@ static int	valid_row(char **map, t_data *data, int i)
 	{
 		if (map[i][j] == '1' || map[i][j] == '0' || map[i][j] == ' ')
 			continue ;
-		if (map[i][j] == 'W' || map[i][j] == 'E' || map[i][j] == 'N' \
-|| map[i][j] == 'S')
+		if (map[i][j] == 'W' || map[i][j] == 'E' \
+|| map[i][j] == 'N' || map[i][j] == 'S')
 		{
 			if (data->player.init_orientation == '\0')
 			{
@@ -111,24 +109,26 @@ static int	valid_row(char **map, t_data *data, int i)
 				continue ;
 			}
 			else
-				return (ft_putstr_fd(ERR_PL_POS, 2), 1);
+				return (false);
 		}
-		return (ft_putstr_fd("Error\n Invalid character.\n", 2), 1);
+		return (false);
 	}
-	return (0);
+	return (true);
 }
 
-bool	valid_characters(char **map, t_data *data)
+bool	is_grid_valid(char **grid, t_data *data)
 {
 	int	i;
 
 	i = -1;
-	while (map[++i])
+	if (!grid)
+		return (false);
+	while (grid[++i])
 	{
-		if (valid_row(map, data, i))
+		if (!is_row_valid(grid, data, i))
 			return (false);
 	}
 	if (data->player.init_orientation == '\0')
-		return (ft_putstr_fd(ERR_PL_POS, 2), 1);
+		return (false);
 	return (true);
 }

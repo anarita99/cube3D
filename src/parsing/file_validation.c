@@ -12,6 +12,33 @@
 
 #include "cub3d.h"
 
+static char	*extract_valid_path(char *line)
+{
+	char	*path;
+
+	path = ft_strdup(extract_assets(line));
+	if (!path)
+		return (NULL);
+	if (count_words(path, ' ') != 1)
+		return (free(path), NULL);
+	return (path);
+}
+
+static int	assign_texture_path(t_assets *assets, char *path, t_types type)
+{
+	if (type == NO && assets->no.path == NULL)
+		assets->no.path = path;
+	else if (type == SO && assets->so.path == NULL)
+		assets->so.path = path;
+	else if (type == WE && assets->we.path == NULL)
+		assets->we.path = path;
+	else if (type == EA && assets->ea.path == NULL)
+		assets->ea.path = path;
+	else
+		return (free(path), 1);
+	return (0);
+}
+
 static bool	are_assets_valid(t_assets assets)
 {
 	if (assets.no.path == NULL)
@@ -29,49 +56,25 @@ static bool	are_assets_valid(t_assets assets)
 	return (true);
 }
 
-static int	allocate_path(char *line, t_assets *assets, t_types type)
-{
-	char	*path;
-
-	path = ft_strdup(extract_assets(line));
-	if (!path)
-		return (ft_putstr_fd(ERR_MALLOC, 2), 1);
-	if (count_words(path, ' ') != 1)
-	{
-		ft_putstr_fd("Error\n Wrong texture path.\n", 2);
-		return (free(path), 1);
-	}
-	if (type == NO && assets->no.path == NULL)
-		assets->no.path = path;
-	else if (type == SO && assets->so.path == NULL)
-		assets->so.path = path;
-	else if (type == WE && assets->we.path == NULL)
-		assets->we.path = path;
-	else if (type == EA && assets->ea.path == NULL)
-		assets->ea.path = path;
-	else
-	{
-		ft_putstr_fd("Error\n Double path detected.\n", 2);
-		return (free(path), 1);
-	}
-	return (0);
-}
-
-static int	allocate_assets(t_assets *assets, char *line)
+static int	parse_asset_line(t_assets *assets, char *line)
 {
 	t_types	type;
+	char	*path;
 
 	if (line[0] == '\n')
 		return (0);
 	type = find_type(line);
 	if (type >= NO && type <= EA)
 	{
-		if (allocate_path(line, assets, type) == 1)
+		path = extract_valid_path(line);
+		if (!path)
+			return (1);
+		if (assign_texture_path(assets, path, type) == 1)
 			return (1);
 	}
 	else if (type == C || type == F)
 	{
-		if (allocate_colour(line, assets, type) == 1)
+		if (assign_color(line, assets, type) == 1)
 			return (1);
 	}
 	else if (are_assets_valid(*assets) && type == MAP)
@@ -90,7 +93,7 @@ bool	is_map_file_valid(t_data *data)
 	line = get_next_line(data->fd);
 	while (line)
 	{
-		ret = allocate_assets(&data->assets, line);
+		ret = parse_asset_line(&data->assets, line);
 		if (ret == 1)
 			return (free(line), false);
 		if (ret == 2)
@@ -101,9 +104,9 @@ bool	is_map_file_valid(t_data *data)
 	if (!line)
 		return (false);
 	data->map.grid = make_map_grid(line, data->fd, &data->map);
-	if (!data->map.grid || !valid_characters(data->map.grid, data))
+	if (!is_grid_valid(data->map.grid, data))
 		return (false);
-	if (put_map_rect(&data->map) == 1)
+	if (rectangularize_map(&data->map) == 1)
 		return (false);
 	if (!is_map_valid(data->map) || !are_assets_valid(data->assets))
 		return (false);

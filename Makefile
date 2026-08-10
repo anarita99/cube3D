@@ -35,18 +35,20 @@ RM = rm -f
 VALGRIND = valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --track-fds=yes --quiet --tool=memcheck --keep-debuginfo=yes
 
 # Files
-MAIN 			= 	main init exit
-PARSING 		= 	colours_parsing file_utils file_validation \
-					map normalize utils
-RUNTIME 		= 	game events render utils draw initialization \
+MAIN			=	main init exit
+PARSING			=	parsing colours_parsing file_utils \
+					file_validation map normalize utils
+RUNTIME			=	game events render utils draw initialization \
 					movement raycast
 
-FILES 			= 	$(MAIN) \
+FILES			=	$(MAIN) \
 					$(addprefix parsing/, $(PARSING)) \
 					$(addprefix runtime/, $(RUNTIME))
 
-SRCS 			= 	$(addprefix $(SRCS_DIR)/, $(addsuffix .c, $(FILES)))
-OBJS 			= 	$(SRCS:.c=.o)
+SRCS			=	$(addprefix $(SRCS_DIR)/, $(addsuffix .c, $(FILES)))
+OBJS			=	$(SRCS:.c=.o)
+
+MAP				?=	maps/map.cub
 
 # Rules
 all: $(LIBFT_LIB) $(NAME)
@@ -78,7 +80,7 @@ mlx:
 	git clone $(MLX_REPO) $(MLX_DIR)
 
 valgrind: ${NAME} $(SUPP_FILE)
-	${VALGRIND} ./$(NAME) maps/map.cub
+	${VALGRIND} ./$(NAME) ${MAP}
 
 # Phony targets
 .PHONY: all bonus clean fclean re

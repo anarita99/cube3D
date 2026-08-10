@@ -32,7 +32,7 @@ int	find_big_line(char **map)
 	return (tmp);
 }
 
-int	put_map_rect(t_map *map)
+int	rectangularize_map(t_map *map)
 {
 	int		i;
 	int		j;
@@ -49,7 +49,7 @@ int	put_map_rect(t_map *map)
 		{
 			map_line = malloc(sizeof(char) * (map->width + 1));
 			if (!map_line)
-				return (ft_putstr_fd(ERR_MALLOC, 2), 1);
+				return (1);
 			ft_memset(map_line, ' ', map->width);
 			map_line[map->width] = '\0';
 			ft_memcpy(map_line, map->grid[i], j);
@@ -64,31 +64,31 @@ static bool	is_char(char **map, int i, int j, char c)
 {
 	if (map[i][j + 1] == c || map[i][j - 1] == c \
 || map[i + 1][j] == c || map[i - 1][j] == c)
-		return (false);
-	return (true);
+		return (true);
+	return (false);
 }
 
-static int	check_errors(char **map, int i, int j, int height)
+static bool	is_cell_valid(t_map map, int i, int j)
 {
-	if (j == 0 && (map[i][j] != '1' && map[i][j] != ' '))
-		return (ft_putstr_fd("Error\n Invalid map.\n", 2), 1);
-	if (i == 0 || i == height - 1)
+	if (j == 0 && (map.grid[i][j] != '1' && map.grid[i][j] != ' '))
+		return (false);
+	if (i == 0 || i == map.height - 1)
 	{
-		if (map[i][j] != '1' && map[i][j] != ' ' )
-			return (ft_putstr_fd("Error\n Invalid map.\n", 2), 1);
+		if (map.grid[i][j] != '1' && map.grid[i][j] != ' ' )
+			return (false);
 	}
-	if (map[i][j] == '0')
+	if (map.grid[i][j] == '0')
 	{
-		if (is_char(map, i, j, ' ') || is_char(map, i, j, '\0'))
-			return (ft_putstr_fd("Error\n Invalid map.\n", 2), 1);
+		if (is_char(map.grid, i, j, ' ') || is_char(map.grid, i, j, '\0'))
+			return (false);
 	}
-	if (map[i][j] == 'E' || map[i][j] == 'W' || map[i][j] == 'N' \
-|| map[i][j] == 'S')
+	if (map.grid[i][j] == 'E' || map.grid[i][j] == 'W' \
+|| map.grid[i][j] == 'N' || map.grid[i][j] == 'S')
 	{
-		if (is_char(map, i, j, ' '))
-			return (ft_putstr_fd("Error\n Invalid map.\n", 2), 1);
+		if (is_char(map.grid, i, j, ' '))
+			return (false);
 	}
-	return (0);
+	return (true);
 }
 
 bool	is_map_valid(t_map map)
@@ -102,7 +102,7 @@ bool	is_map_valid(t_map map)
 		j = 0;
 		while (map.grid[i][j])
 		{
-			if (check_errors(map.grid, i, j, map.height) == 1)
+			if (!is_cell_valid(map, i, j))
 				return (false);
 			j++;
 		}
