@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leramos- <leramos-@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: adores <adores@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/02 13:59:09 by adores            #+#    #+#             */
-/*   Updated: 2026/08/10 13:33:45 by leramos-         ###   ########.fr       */
+/*   Updated: 2026/08/10 15:53:17 by adores           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ static int	valid_row(char **map, t_data *data, int i)
 				continue ;
 			}
 			else
-				return (ft_putstr_fd("aaaaaa", 2), 1);
+				return (ft_putstr_fd(PL_POS, 2), 1);
 		}
 		return (ft_putstr_fd("Error\n Invalid character.\n", 2), 1);
 	}

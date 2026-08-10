@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: leramos- <leramos-@student.42lisboa.com    +#+  +:+       +#+         #
+#    By: adores <adores@student.42lisboa.com>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/10 11:54:19 by leramos-          #+#    #+#              #
-#    Updated: 2026/08/10 13:52:12 by leramos-         ###   ########.fr        #
+#    Updated: 2026/08/10 15:51:48 by adores           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -77,7 +77,7 @@ mlx:
 	git clone $(MLX_REPO) $(MLX_DIR)
 
 valgrind: ${NAME} $(SUPP_FILE)
-	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --quiet --tool=memcheck --keep-debuginfo=yes ./$(NAME) maps/map.cub
+	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --track-fds=yes --quiet --tool=memcheck --keep-debuginfo=yes ./$(NAME) maps/map.cub
 
 # Phony targets
 .PHONY: all bonus clean fclean re
