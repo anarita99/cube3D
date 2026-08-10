@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   file_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adores <adores@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adores <adores@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/15 11:42:53 by adores            #+#    #+#             */
-/*   Updated: 2026/07/22 10:51:59 by adores           ###   ########.fr       */
+/*   Updated: 2026/08/10 12:03:36 by adores           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,24 +30,30 @@ int	is_file_cub(char *filename)
 	return (1);
 }
 
+static int	is_ws(char c)
+{
+	return (c == ' ' || c == '\t');
+}
+
 t_types	find_type(char *line)
 {
 	int	i;
 
 	i = skip_space(line);
-	if (ft_strncmp(&line[i], "NO", 2) == 0 && line[i + 2] == ' ')
+	if (ft_strncmp(&line[i], "NO", 2) == 0 && is_ws(line[i + 2]))
 		return (NO);
-	else if (ft_strncmp(&line[i], "SO", 2) == 0 && line[i + 2] == ' ')
+	else if (ft_strncmp(&line[i], "SO", 2) == 0 && is_ws(line[i + 2]))
 		return (SO);
-	else if (ft_strncmp(&line[i], "WE", 2) == 0 && line[i + 2] == ' ')
+	else if (ft_strncmp(&line[i], "WE", 2) == 0 && is_ws(line[i + 2]))
 		return (WE);
-	else if (ft_strncmp(&line[i], "EA", 2) == 0 && line[i + 2] == ' ')
+	else if (ft_strncmp(&line[i], "EA", 2) == 0 && is_ws(line[i + 2]))
 		return (EA);
-	else if (ft_strncmp(&line[i], "F", 1) == 0 && line[i + 1] == ' ')
+	else if (ft_strncmp(&line[i], "F", 1) == 0 && is_ws(line[i + 1]))
 		return (F);
-	else if (ft_strncmp(&line[i], "C", 1) == 0 && line[i + 1] == ' ')
+	else if (ft_strncmp(&line[i], "C", 1) == 0 && is_ws(line[i + 1]))
 		return (C);
-	else if (ft_strncmp(&line[i], "1", 1) == 0)
+	else if (ft_strncmp(&line[i], "1", 1) == 0
+		|| ft_strncmp(&line[i], " ", 1) == 0)
 		return (MAP);
 	else
 		return (INVALID);
@@ -58,7 +64,7 @@ char	*extract_assets(char *line)
 	int	i;
 
 	i = skip_space(line);
-	while (line[i] != ' ')
+	while (line[i] && line[i] != ' ' && line[i] != '\t')
 		i++;
 	i += skip_space(&line[i]);
 	find_new_line(&line[i]);
