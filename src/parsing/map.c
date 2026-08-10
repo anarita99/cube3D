@@ -111,14 +111,14 @@ static int	valid_row(char **map, t_data *data, int i)
 				continue ;
 			}
 			else
-				return (ft_putstr_fd(PL_POS, 2), 1);
+				return (ft_putstr_fd(ERR_PL_POS, 2), 1);
 		}
 		return (ft_putstr_fd("Error\n Invalid character.\n", 2), 1);
 	}
 	return (0);
 }
 
-int	valid_characters(char **map, t_data *data)
+bool	valid_characters(char **map, t_data *data)
 {
 	int	i;
 
@@ -126,9 +126,9 @@ int	valid_characters(char **map, t_data *data)
 	while (map[++i])
 	{
 		if (valid_row(map, data, i))
-			return (1);
+			return (false);
 	}
 	if (data->player.init_orientation == '\0')
-		return (ft_putstr_fd(PL_POS, 2), 1);
-	return (0);
+		return (ft_putstr_fd(ERR_PL_POS, 2), 1);
+	return (true);
 }

@@ -21,13 +21,12 @@
 # define TEXTURE_RES 64
 
 // Errors
-# define ERR_INVALID_ARG_COUNT 1
-# define ERR_EMPTY_FILE 2
-# define ERR_INVALID_MAP 3
-# define ERR_INVALID_EXT 4
-# define ERR_CANT_READ_FILE 5
-# define ERR_CANT_INIT_MAP 6
-# define ERR_CANT_READ_IMG 7
+# define ERR_ARG_NUM "Invalid number of arguments."
+# define ERR_INV_FILE "Invalid file."
+# define ERR_WRONG_FILE "Wrong file."
+# define ERR_INVALID_MAP "Invalid map file."
+# define ERR_MALLOC "Malloc failed."
+# define ERR_PL_POS "Needs exactly one starting position."
 
 // // Modules
 # include "parsing.h"

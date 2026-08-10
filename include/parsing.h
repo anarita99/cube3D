@@ -19,9 +19,6 @@
 # include <stdio.h>
 # include <common.h>
 
-# define MALL_ERR "Error\n Malloc failed.\n"
-# define PL_POS "Error\n Needs exactly one starting position.\n"
-
 typedef enum s_types
 {
 	NO,
@@ -34,26 +31,24 @@ typedef enum s_types
 	INVALID
 }	t_types;
 
-//utils.c
+// Utils
 int		skip_space(char *line);
 char	*find_new_line(char *str);
 int		count_words(char *str, char sep);
 
-//file_utils.c
-int		is_file_cub(char *filename);
+// File Utils
+bool	is_file_cub(char *filename);
 t_types	find_type(char *line);
 char	*extract_assets(char *line);
-int		all_assets(t_assets assets);
 
-//file_validation.c
-int		read_file(t_data *data, t_assets *assets, t_map *map);
-
+// File Validation
+bool	is_map_file_valid(t_data *data);
 int		count_commas(char *s);
 int		allocate_colour(char *line, t_assets *assets, t_types type);
 char	**make_map_grid(char *line, int fd, t_map *map);
-int		valid_characters(char **map, t_data *data);
+bool	valid_characters(char **map, t_data *data);
 int		find_big_line(char **map);
 int		put_map_rect(t_map *map);
-int		is_map_valid(char **map, int height);
+bool	is_map_valid(t_map map);
 
 #endif

@@ -12,13 +12,30 @@
 
 #include "cub3d.h"
 
+static bool	are_assets_valid(t_assets assets)
+{
+	if (assets.no.path == NULL)
+		return (false);
+	if (assets.so.path == NULL)
+		return (false);
+	if (assets.we.path == NULL)
+		return (false);
+	if (assets.ea.path == NULL)
+		return (false);
+	if (assets.floor_rgb == -1)
+		return (false);
+	if (assets.ceiling_rgb == -1)
+		return (false);
+	return (true);
+}
+
 static int	allocate_path(char *line, t_assets *assets, t_types type)
 {
 	char	*path;
 
 	path = ft_strdup(extract_assets(line));
 	if (!path)
-		return (ft_putstr_fd(MALL_ERR, 2), 1);
+		return (ft_putstr_fd(ERR_MALLOC, 2), 1);
 	if (count_words(path, ' ') != 1)
 	{
 		ft_putstr_fd("Error\n Wrong texture path.\n", 2);
@@ -54,40 +71,41 @@ static int	allocate_assets(t_assets *assets, char *line)
 	}
 	else if (type == C || type == F)
 	{
-		if (allocate_colour (line, assets, type) == 1)
+		if (allocate_colour(line, assets, type) == 1)
 			return (1);
 	}
-	else if (all_assets(*assets) == 0 && type == MAP)
+	else if (are_assets_valid(*assets) && type == MAP)
 		return (2);
 	else
-		return (ft_putstr_fd("Error\n Invalid file.\n", 2), 1);
+		return (1);
 	return (0);
 }
 
-int	read_file(t_data *data, t_assets *assets, t_map *map)
+bool	is_map_file_valid(t_data *data)
 {
 	char	*line;
 	int		ret;
 
+	ret = 0;
 	line = get_next_line(data->fd);
 	while (line)
 	{
-		ret = allocate_assets(assets, line);
+		ret = allocate_assets(&data->assets, line);
 		if (ret == 1)
-			return (free(line), 1);
+			return (free(line), false);
 		if (ret == 2)
 			break ;
 		free(line);
 		line = get_next_line(data->fd);
 	}
 	if (!line)
-		return (ft_putstr_fd("Error\n Invalid file.\n", 2), 1);
-	map->grid = make_map_grid(line, data->fd, map);
-	if (!map->grid || valid_characters(map->grid, data) == 1)
-		return (1);
-	if (put_map_rect(map) == 1)
-		return (1);
-	if (is_map_valid(map->grid, map->height) == 1)
-		return (1);
-	return (0);
+		return (false);
+	data->map.grid = make_map_grid(line, data->fd, &data->map);
+	if (!data->map.grid || !valid_characters(data->map.grid, data))
+		return (false);
+	if (put_map_rect(&data->map) == 1)
+		return (false);
+	if (!is_map_valid(data->map) || !are_assets_valid(data->assets))
+		return (false);
+	return (true);
 }

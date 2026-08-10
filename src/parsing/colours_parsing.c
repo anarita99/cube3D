@@ -35,10 +35,10 @@ int	*split_and_transform_array(char *line)
 	i = -1;
 	temp = malloc(sizeof(int) * 3);
 	if (!temp)
-		return (ft_putstr_fd(MALL_ERR, 2), NULL);
+		return (ft_putstr_fd(ERR_MALLOC, 2), NULL);
 	splitted = ft_split(line, ',');
 	if (!splitted)
-		return (ft_putstr_fd(MALL_ERR, 2), NULL);
+		return (ft_putstr_fd(ERR_MALLOC, 2), NULL);
 	while (splitted[++i])
 	{
 		if (is_num(splitted[i]) == 0)

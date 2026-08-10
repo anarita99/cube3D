@@ -12,44 +12,25 @@
 
 #include "cub3d.h"
 
-void	print_assets(t_assets assets, t_map map)
+static void	parsing(t_data *data, int ac, char **av)
 {
-	int	i;
-
-	i = 0;
-	printf("%s\n", assets.no.path);
-	printf("%s\n", assets.so.path);
-	printf("%s\n", assets.we.path);
-	printf("%s\n", assets.ea.path);
-	printf("%d\n", assets.floor_rgb);
-	printf("%d\n", assets.ceiling_rgb);
-	while (map.grid[i])
-	{
-		printf("%s\n", map.grid[i]);
-		i++;
-	}
+	if (ac != 2)
+		cleanup_and_exit(1, ERR_ARG_NUM, data);
+	data->fd = open(av[1], O_RDONLY);
+	if (data->fd < 0)
+		cleanup_and_exit(1, ERR_INV_FILE, data);
+	if (!is_file_cub(av[1]))
+		cleanup_and_exit(1, ERR_WRONG_FILE, data);
+	if (!is_map_file_valid(data))
+		cleanup_and_exit(1, ERR_INVALID_MAP, data);
 }
 
 int	main(int ac, char **av)
 {
-	t_data		data;
+	t_data	data;
 
-	if (ac != 2)
-		return (ft_putstr_fd("Error\n Invalid number of arguments.\n", 2), 1);
 	init(&data);
-	data.fd = open(av[1], O_RDONLY);
-	if (data.fd < 0)
-		return (ft_putstr_fd("Error\n Can't open file.\n", 2), 1);
-	if (is_file_cub(av[1]) == 0)
-	{
-		if (read_file(&data, &data.assets, &data.map) == 0 \
-&& all_assets(data.assets) == 0)
-		{
-			game(&data);
-		}
-		close(data.fd);
-	}
-	else
-		return (ft_putstr_fd("Error\n Wrong file.\n", 2), 1);
+	parsing(&data, ac, av);
+	game(&data);
 	cleanup_and_exit(0, NULL, &data);
 }

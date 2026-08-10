@@ -29,9 +29,10 @@ MLX_REPO := https://github.com/42paris/minilibx-linux.git
 
 # Compiler and flags
 CC = cc
-CFLAGS = -g -Wall -Wextra -Werror -I$(INCS_DIR) -I$(LIBFT_INCS_DIR) -I$(MLX_DIR)
+CFLAGS = -g -Wall -Wextra -Werror -O2 -I$(INCS_DIR) -I$(LIBFT_INCS_DIR) -I$(MLX_DIR)
 AR = ar rcs
 RM = rm -f
+VALGRIND = valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --track-fds=yes --quiet --tool=memcheck --keep-debuginfo=yes
 
 # Files
 MAIN 			= 	main init exit
@@ -77,7 +78,7 @@ mlx:
 	git clone $(MLX_REPO) $(MLX_DIR)
 
 valgrind: ${NAME} $(SUPP_FILE)
-	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --track-fds=yes --quiet --tool=memcheck --keep-debuginfo=yes ./$(NAME) maps/map.cub
+	${VALGRIND} ./$(NAME) maps/map.cub
 
 # Phony targets
 .PHONY: all bonus clean fclean re

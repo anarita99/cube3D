@@ -49,14 +49,17 @@ static void	cleanup_mlx(t_data *data)
 
 void	cleanup_and_exit(int status_code, const char *error_msg, t_data *data)
 {
-	cleanup_mlx(data);
+	if (data)
+	{
+		cleanup_mlx(data);
+		cleanup_parsing(&data->assets, &data->map);
+		close(data->fd);
+	}
 	if (status_code != 0)
 	{
 		ft_printf("Error\n");
 		if (error_msg)
-			ft_printf("%s\n", error_msg);
+			ft_printf(" %s\n", error_msg);
 	}
-	cleanup_parsing(&data->assets, &data->map);
-	close(data->fd);
 	exit(status_code);
 }
