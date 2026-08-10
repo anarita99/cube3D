@@ -25,9 +25,6 @@
 # define ERR_INV_FILE "Invalid file."
 # define ERR_WRONG_FILE "Wrong file."
 # define ERR_INVALID_MAP "Invalid map file."
-# define ERR_MALLOC "Malloc failed."
-# define ERR_PL_POS "Needs exactly one starting position."
-# define ERR_INVALID_COLOR "Invalid color code."
 
 // // Modules
 # include "parsing.h"
