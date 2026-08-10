@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adores <adores@student.42lisboa.com>       +#+  +:+       +#+        */
+/*   By: leramos- <leramos-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/02 13:59:09 by adores            #+#    #+#             */
-/*   Updated: 2026/08/04 11:59:16 by adores           ###   ########.fr       */
+/*   Updated: 2026/08/10 13:33:45 by leramos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char	*map_line(char *s1, char *s2)
 		buffer_size = ft_strlen(s1) + ft_strlen(s2) + 1;
 	dst = malloc(buffer_size);
 	if (!dst)
-		return (NULL);
+		return (free(s1), free(s2), NULL);
 	if (s1 && s2)
 	{
 		ft_strlcpy(dst, s1, buffer_size);
@@ -111,7 +111,7 @@ static int	valid_row(char **map, t_data *data, int i)
 				continue ;
 			}
 			else
-				return (ft_putstr_fd(PL_POS, 2), 1);
+				return (ft_putstr_fd("aaaaaa", 2), 1);
 		}
 		return (ft_putstr_fd("Error\n Invalid character.\n", 2), 1);
 	}
