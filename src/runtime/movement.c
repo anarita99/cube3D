@@ -6,7 +6,7 @@
 /*   By: leramos- <leramos-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/06 14:53:44 by leramos-          #+#    #+#             */
-/*   Updated: 2026/07/27 14:42:51 by leramos-         ###   ########.fr       */
+/*   Updated: 2026/08/10 14:01:02 by leramos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	update_position(t_data *data)
 	t_vector	new;
 	double		step;
 
-	step = 0.1;
+	step = 0.02;
 	delta = compute_move_delta(data, step);
 	new.x = data->player.loc.x + delta.x;
 	new.y = data->player.loc.y + delta.y;
@@ -71,7 +71,7 @@ void	update_camera(t_data *data)
 	t_vector	old_dir;
 	t_vector	old_plane;
 
-	step = 0.05;
+	step = 0.02;
 	angle = 0.0;
 	if (data->movement.look_left)
 		angle -= step;
