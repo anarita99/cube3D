@@ -12,33 +12,6 @@
 
 #include "cub3d.h"
 
-static char	*extract_valid_path(char *line)
-{
-	char	*path;
-
-	path = ft_strdup(extract_assets(line));
-	if (!path)
-		return (NULL);
-	if (count_words(path, ' ') != 1)
-		return (free(path), NULL);
-	return (path);
-}
-
-static int	assign_texture_path(t_assets *assets, char *path, t_types type)
-{
-	if (type == NO && assets->no.path == NULL)
-		assets->no.path = path;
-	else if (type == SO && assets->so.path == NULL)
-		assets->so.path = path;
-	else if (type == WE && assets->we.path == NULL)
-		assets->we.path = path;
-	else if (type == EA && assets->ea.path == NULL)
-		assets->ea.path = path;
-	else
-		return (free(path), 1);
-	return (0);
-}
-
 static bool	are_assets_valid(t_assets assets)
 {
 	if (assets.no.path == NULL)
@@ -59,17 +32,13 @@ static bool	are_assets_valid(t_assets assets)
 static int	parse_asset_line(t_assets *assets, char *line)
 {
 	t_types	type;
-	char	*path;
 
 	if (line[0] == '\n')
 		return (0);
 	type = find_type(line);
 	if (type >= NO && type <= EA)
 	{
-		path = extract_valid_path(line);
-		if (!path)
-			return (1);
-		if (assign_texture_path(assets, path, type) == 1)
+		if (assign_texture(line, assets, type) == 1)
 			return (1);
 	}
 	else if (type == C || type == F)
@@ -106,7 +75,7 @@ bool	is_map_file_valid(t_data *data)
 	data->map.grid = make_map_grid(line, data->fd, &data->map);
 	if (!is_grid_valid(data->map.grid, data))
 		return (false);
-	if (rectangularize_map(&data->map) == 1)
+	if (normalize_map(&data->map) == 1)
 		return (false);
 	if (!is_map_valid(data->map) || !are_assets_valid(data->assets))
 		return (false);

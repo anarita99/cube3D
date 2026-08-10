@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   normalize.c                                        :+:      :+:    :+:   */
+/*   map_normalize.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adores <adores@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,7 +12,7 @@
 
 #include "cub3d.h"
 
-int	find_big_line(char **map)
+static int	find_big_line(char **map)
 {
 	int	tmp;
 	int	i;
@@ -32,7 +32,7 @@ int	find_big_line(char **map)
 	return (tmp);
 }
 
-int	rectangularize_map(t_map *map)
+int	normalize_map(t_map *map)
 {
 	int		i;
 	int		j;
@@ -58,55 +58,4 @@ int	rectangularize_map(t_map *map)
 		}
 	}
 	return (0);
-}
-
-static bool	is_char(char **map, int i, int j, char c)
-{
-	if (map[i][j + 1] == c || map[i][j - 1] == c \
-|| map[i + 1][j] == c || map[i - 1][j] == c)
-		return (true);
-	return (false);
-}
-
-static bool	is_cell_valid(t_map map, int i, int j)
-{
-	if (j == 0 && (map.grid[i][j] != '1' && map.grid[i][j] != ' '))
-		return (false);
-	if (i == 0 || i == map.height - 1)
-	{
-		if (map.grid[i][j] != '1' && map.grid[i][j] != ' ' )
-			return (false);
-	}
-	if (map.grid[i][j] == '0')
-	{
-		if (is_char(map.grid, i, j, ' ') || is_char(map.grid, i, j, '\0'))
-			return (false);
-	}
-	if (map.grid[i][j] == 'E' || map.grid[i][j] == 'W' \
-|| map.grid[i][j] == 'N' || map.grid[i][j] == 'S')
-	{
-		if (is_char(map.grid, i, j, ' '))
-			return (false);
-	}
-	return (true);
-}
-
-bool	is_map_valid(t_map map)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (map.grid[i])
-	{
-		j = 0;
-		while (map.grid[i][j])
-		{
-			if (!is_cell_valid(map, i, j))
-				return (false);
-			j++;
-		}
-		i++;
-	}
-	return (true);
 }

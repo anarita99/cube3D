@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map.c                                              :+:      :+:    :+:   */
+/*   map_grid.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adores <adores@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,7 +12,7 @@
 
 #include "cub3d.h"
 
-char	*map_line(char *s1, char *s2)
+static char	*map_line(char *s1, char *s2)
 {
 	size_t	buffer_size;
 	char	*dst;
@@ -36,7 +36,7 @@ char	*map_line(char *s1, char *s2)
 	return (dst);
 }
 
-int	check_newline(char	*tmp)
+static int	check_newline(char	*tmp)
 {
 	int	i;
 	int	j;
@@ -87,48 +87,4 @@ char	**make_map_grid(char *line, int fd, t_map *map)
 		count++;
 	map->height = count;
 	return (grid);
-}
-
-static bool	is_row_valid(char **map, t_data *data, int i)
-{
-	int	j;
-
-	j = -1;
-	while (map[i][++j])
-	{
-		if (map[i][j] == '1' || map[i][j] == '0' || map[i][j] == ' ')
-			continue ;
-		if (map[i][j] == 'W' || map[i][j] == 'E' \
-|| map[i][j] == 'N' || map[i][j] == 'S')
-		{
-			if (data->player.init_orientation == '\0')
-			{
-				data->player.loc.y = i + 0.5;
-				data->player.loc.x = j + 0.5;
-				data->player.init_orientation = map[i][j];
-				continue ;
-			}
-			else
-				return (false);
-		}
-		return (false);
-	}
-	return (true);
-}
-
-bool	is_grid_valid(char **grid, t_data *data)
-{
-	int	i;
-
-	i = -1;
-	if (!grid)
-		return (false);
-	while (grid[++i])
-	{
-		if (!is_row_valid(grid, data, i))
-			return (false);
-	}
-	if (data->player.init_orientation == '\0')
-		return (false);
-	return (true);
 }

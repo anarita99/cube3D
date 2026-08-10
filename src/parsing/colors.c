@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   colours_parsing.c                                  :+:      :+:    :+:   */
+/*   colors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adores <adores@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,7 +12,7 @@
 
 #include "cub3d.h"
 
-int	is_num(char *str)
+static int	is_num(char *str)
 {
 	int	i;
 
@@ -26,7 +26,7 @@ int	is_num(char *str)
 	return (0);
 }
 
-int	*split_and_transform_array(char *line)
+static int	*split_and_transform_array(char *line)
 {
 	int		*temp;
 	int		i;
@@ -52,7 +52,7 @@ int	*split_and_transform_array(char *line)
 	return (ft_freearray(splitted), temp);
 }
 
-int	rgb_to_int(int r, int g, int b)
+static int	rgb_to_int(int r, int g, int b)
 {
 	int	rgb;
 
