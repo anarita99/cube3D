@@ -6,7 +6,7 @@
 /*   By: leramos- <leramos-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/24 15:01:53 by leramos-          #+#    #+#             */
-/*   Updated: 2026/07/15 13:36:11 by leramos-         ###   ########.fr       */
+/*   Updated: 2026/08/10 13:56:58 by leramos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	get_texture_color(t_texture tex, int x, int y)
 
 	if (x < 0)
 		x = 0;
-    if (y < 0)
+	if (y < 0)
 		y = 0;
 	x = x % tex.width;
 	y = y % tex.height;
