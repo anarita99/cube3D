@@ -6,7 +6,7 @@
 /*   By: adores <adores@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/15 11:39:36 by adores            #+#    #+#             */
-/*   Updated: 2026/08/11 14:43:08 by adores           ###   ########.fr       */
+/*   Updated: 2026/08/11 18:44:40 by adores           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ int	main(int ac, char **av)
 		{
 			game(&data);
 		}
-		close(data.fd);
 	}
 	else
 		ft_putstr_fd("Error\n Wrong file.\n", 2);
