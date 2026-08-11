@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   colours_parsing.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adores <adores@student.42lisboa.com>       +#+  +:+       +#+        */
+/*   By: adores <adores@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/29 12:16:34 by adores            #+#    #+#             */
-/*   Updated: 2026/08/04 11:29:31 by adores           ###   ########.fr       */
+/*   Updated: 2026/08/11 18:10:14 by adores           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	*split_and_transform_array(char *line)
 		return (ft_putstr_fd(MALL_ERR, 2), NULL);
 	while (splitted[++i])
 	{
-		if (is_num(splitted[i]) == 0)
+		if (is_num(splitted[i]) == 0 && ft_strlen(splitted[i]) < 4)
 		{
 			temp[i] = ft_atoi(splitted[i]);
 			if (temp[i] <= 255)
