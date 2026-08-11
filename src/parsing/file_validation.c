@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   file_validation.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leramos- <leramos-@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: adores <adores@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/25 10:25:13 by adores            #+#    #+#             */
-/*   Updated: 2026/08/10 13:25:38 by leramos-         ###   ########.fr       */
+/*   Updated: 2026/08/11 15:08:08 by adores           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,10 @@ static int	allocate_path(char *line, t_assets *assets, t_types type)
 static int	allocate_assets(t_assets *assets, char *line)
 {
 	t_types	type;
+	int		i;
 
-	if (line[0] == '\n')
+	i = skip_space(line);
+	if (line[i] == '\n' || line[i] == '\0')
 		return (0);
 	type = find_type(line);
 	if (type >= NO && type <= EA)

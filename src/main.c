@@ -3,32 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adores <adores@student.42lisboa.com>       +#+  +:+       +#+        */
+/*   By: adores <adores@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/15 11:39:36 by adores            #+#    #+#             */
-/*   Updated: 2026/07/27 10:32:10 by adores           ###   ########.fr       */
+/*   Updated: 2026/08/11 14:43:08 by adores           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-void	print_assets(t_assets assets, t_map map)
-{
-	int	i;
-
-	i = 0;
-	printf("%s\n", assets.no.path);
-	printf("%s\n", assets.so.path);
-	printf("%s\n", assets.we.path);
-	printf("%s\n", assets.ea.path);
-	printf("%d\n", assets.floor_rgb);
-	printf("%d\n", assets.ceiling_rgb);
-	while (map.grid[i])
-	{
-		printf("%s\n", map.grid[i]);
-		i++;
-	}
-}
 
 int	main(int ac, char **av)
 {
@@ -50,6 +32,6 @@ int	main(int ac, char **av)
 		close(data.fd);
 	}
 	else
-		return (ft_putstr_fd("Error\n Wrong file.\n", 2), 1);
+		ft_putstr_fd("Error\n Wrong file.\n", 2);
 	cleanup_and_exit(0, NULL, &data);
 }
