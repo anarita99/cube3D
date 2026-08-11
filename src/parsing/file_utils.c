@@ -12,7 +12,7 @@
 
 #include "cub3d.h"
 
-bool	is_file_cub(char *filename)
+int	is_file_cub(char *filename)
 {
 	int		i;
 	char	*cub;
@@ -22,12 +22,12 @@ bool	is_file_cub(char *filename)
 	while (filename[i])
 	{
 		if (filename[i] == '/' && filename[i + 1] == '.')
-			return (false);
+			return (1);
 		i++;
 	}
 	if (ft_strncmp(&filename[i - 4], cub, 5) == 0)
-		return (true);
-	return (false);
+		return (0);
+	return (1);
 }
 
 static int	is_ws(char c)
@@ -69,4 +69,21 @@ char	*extract_assets(char *line)
 	i += skip_space(&line[i]);
 	find_new_line(&line[i]);
 	return (&line[i]);
+}
+
+int	all_assets(t_assets assets)
+{
+	if (assets.no.path == NULL)
+		return (1);
+	if (assets.so.path == NULL)
+		return (1);
+	if (assets.we.path == NULL)
+		return (1);
+	if (assets.ea.path == NULL)
+		return (1);
+	if (assets.floor_rgb == -1)
+		return (1);
+	if (assets.ceiling_rgb == -1)
+		return (1);
+	return (0);
 }

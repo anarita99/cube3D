@@ -12,24 +12,35 @@
 
 #include "cub3d.h"
 
-static bool	are_assets_valid(t_assets assets)
+static int	allocate_path(char *line, t_assets *assets, t_types type)
 {
-	if (assets.no.path == NULL)
-		return (false);
-	if (assets.so.path == NULL)
-		return (false);
-	if (assets.we.path == NULL)
-		return (false);
-	if (assets.ea.path == NULL)
-		return (false);
-	if (assets.floor_rgb == -1)
-		return (false);
-	if (assets.ceiling_rgb == -1)
-		return (false);
-	return (true);
+	char	*path;
+
+	path = ft_strdup(extract_assets(line));
+	if (!path)
+		return (ft_putstr_fd(MALL_ERR, 2), 1);
+	if (count_words(path, ' ') != 1)
+	{
+		ft_putstr_fd("Error\n Wrong texture path.\n", 2);
+		return (free(path), 1);
+	}
+	if (type == NO && assets->no.path == NULL)
+		assets->no.path = path;
+	else if (type == SO && assets->so.path == NULL)
+		assets->so.path = path;
+	else if (type == WE && assets->we.path == NULL)
+		assets->we.path = path;
+	else if (type == EA && assets->ea.path == NULL)
+		assets->ea.path = path;
+	else
+	{
+		ft_putstr_fd("Error\n Double path detected.\n", 2);
+		return (free(path), 1);
+	}
+	return (0);
 }
 
-static int	parse_asset_line(t_assets *assets, char *line)
+static int	allocate_assets(t_assets *assets, char *line)
 {
 	t_types	type;
 
@@ -38,46 +49,45 @@ static int	parse_asset_line(t_assets *assets, char *line)
 	type = find_type(line);
 	if (type >= NO && type <= EA)
 	{
-		if (assign_texture(line, assets, type) == 1)
+		if (allocate_path(line, assets, type) == 1)
 			return (1);
 	}
 	else if (type == C || type == F)
 	{
-		if (assign_color(line, assets, type) == 1)
+		if (allocate_colour (line, assets, type) == 1)
 			return (1);
 	}
-	else if (are_assets_valid(*assets) && type == MAP)
+	else if (all_assets(*assets) == 0 && type == MAP)
 		return (2);
 	else
-		return (1);
+		return (ft_putstr_fd("Error\n Invalid file.\n", 2), 1);
 	return (0);
 }
 
-bool	is_map_file_valid(t_data *data)
+int	read_file(t_data *data, t_assets *assets, t_map *map)
 {
 	char	*line;
 	int		ret;
 
-	ret = 0;
 	line = get_next_line(data->fd);
 	while (line)
 	{
-		ret = parse_asset_line(&data->assets, line);
+		ret = allocate_assets(assets, line);
 		if (ret == 1)
-			return (free(line), false);
+			return (free(line), 1);
 		if (ret == 2)
 			break ;
 		free(line);
 		line = get_next_line(data->fd);
 	}
 	if (!line)
-		return (false);
-	data->map.grid = make_map_grid(line, data->fd, &data->map);
-	if (!is_grid_valid(data->map.grid, data))
-		return (false);
-	if (normalize_map(&data->map) == 1)
-		return (false);
-	if (!is_map_valid(data->map) || !are_assets_valid(data->assets))
-		return (false);
-	return (true);
+		return (ft_putstr_fd("Error\n Invalid file.\n", 2), 1);
+	map->grid = make_map_grid(line, data->fd, map);
+	if (!map->grid || valid_characters(map->grid, data) == 1)
+		return (1);
+	if (put_map_rect(map) == 1)
+		return (1);
+	if (is_map_valid(map->grid, map->height) == 1)
+		return (1);
+	return (0);
 }

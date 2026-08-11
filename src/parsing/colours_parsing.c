@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   colors.c                                           :+:      :+:    :+:   */
+/*   colours_parsing.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adores <adores@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,7 +12,7 @@
 
 #include "cub3d.h"
 
-static int	is_num(char *str)
+int	is_num(char *str)
 {
 	int	i;
 
@@ -26,7 +26,7 @@ static int	is_num(char *str)
 	return (0);
 }
 
-static int	*split_and_transform_array(char *line)
+int	*split_and_transform_array(char *line)
 {
 	int		*temp;
 	int		i;
@@ -35,10 +35,10 @@ static int	*split_and_transform_array(char *line)
 	i = -1;
 	temp = malloc(sizeof(int) * 3);
 	if (!temp)
-		return (NULL);
+		return (ft_putstr_fd(MALL_ERR, 2), NULL);
 	splitted = ft_split(line, ',');
 	if (!splitted)
-		return (NULL);
+		return (ft_putstr_fd(MALL_ERR, 2), NULL);
 	while (splitted[++i])
 	{
 		if (is_num(splitted[i]) == 0)
@@ -47,12 +47,13 @@ static int	*split_and_transform_array(char *line)
 			if (temp[i] <= 255)
 				continue ;
 		}
+		ft_putstr_fd("Error\n Wrong colour code.\n", 2);
 		return (ft_freearray(splitted), free(temp), NULL);
 	}
 	return (ft_freearray(splitted), temp);
 }
 
-static int	rgb_to_int(int r, int g, int b)
+int	rgb_to_int(int r, int g, int b)
 {
 	int	rgb;
 
@@ -60,17 +61,20 @@ static int	rgb_to_int(int r, int g, int b)
 	return (rgb);
 }
 
-// Formula para transformar RGB em int
+//formula pra transformar rgb em int
 // return (r << 16) | (g << 8) | b;
-static int	get_color_int(char *colour)
+int	get_colour_int(char *colour)
 {
 	int	*colour_code;
 	int	rgb_code;
 
 	if (count_words(colour, ',') != 3 || count_commas(colour) != 2)
-		return (-1);
+		return (ft_putstr_fd("Error\n Wrong colour code.\n", 2), -1);
 	if (count_words(colour, ' ') != 1)
+	{
+		ft_putstr_fd("Error\n Wrong colour code.\n", 2);
 		return (-1);
+	}
 	else
 	{
 		colour_code = split_and_transform_array(colour);
@@ -82,23 +86,23 @@ static int	get_color_int(char *colour)
 	return (rgb_code);
 }
 
-int	assign_color(char *line, t_assets *assets, t_types type)
+int	allocate_colour(char *line, t_assets *assets, t_types type)
 {
-	char	*color_rgb;
-	int		color_int;
+	char	*colour;
+	int		colour_code;
 
-	color_rgb = ft_strdup(extract_assets(line));
-	if (!color_rgb)
-		return (1);
-	color_int = get_color_int(color_rgb);
-	free(color_rgb);
-	if (color_int == -1)
+	colour = ft_strdup(extract_assets(line));
+	if (!colour)
+		return (ft_putstr_fd("Error\n Malloc error.\n", 2), 1);
+	colour_code = get_colour_int(colour);
+	free(colour);
+	if (colour_code == -1)
 		return (1);
 	if (type == F && assets->floor_rgb == -1)
-		assets->floor_rgb = color_int;
+		assets->floor_rgb = colour_code;
 	else if (type == C && assets->ceiling_rgb == -1)
-		assets->ceiling_rgb = color_int;
+		assets->ceiling_rgb = colour_code;
 	else
-		return (1);
+		return (ft_putstr_fd("Error\n Double colour detected.\n", 2), 1);
 	return (0);
 }

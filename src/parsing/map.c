@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map_grid.c                                         :+:      :+:    :+:   */
+/*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adores <adores@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,7 +12,8 @@
 
 #include "cub3d.h"
 
-static char	*map_line(char *s1, char *s2)
+//strjoin modificado
+char	*map_line(char *s1, char *s2)
 {
 	size_t	buffer_size;
 	char	*dst;
@@ -36,7 +37,7 @@ static char	*map_line(char *s1, char *s2)
 	return (dst);
 }
 
-static int	check_newline(char	*tmp)
+int	check_newline(char	*tmp)
 {
 	int	i;
 	int	j;
@@ -78,7 +79,8 @@ char	**make_map_grid(char *line, int fd, t_map *map)
 			break ;
 	}
 	if (check_newline(tmp) == 1)
-		return (free(tmp), free(line), NULL);
+		return (ft_putstr_fd("Error\n New line detected in map.\n", 2), \
+free(tmp), free(line), NULL);
 	grid = ft_split(tmp, '\n');
 	if (!grid)
 		return (free(tmp), NULL);
@@ -87,4 +89,46 @@ char	**make_map_grid(char *line, int fd, t_map *map)
 		count++;
 	map->height = count;
 	return (grid);
+}
+
+static int	valid_row(char **map, t_data *data, int i)
+{
+	int	j;
+
+	j = -1;
+	while (map[i][++j])
+	{
+		if (map[i][j] == '1' || map[i][j] == '0' || map[i][j] == ' ')
+			continue ;
+		if (map[i][j] == 'W' || map[i][j] == 'E' || map[i][j] == 'N' \
+|| map[i][j] == 'S')
+		{
+			if (data->player.init_orientation == '\0')
+			{
+				data->player.loc.y = i + 0.5;
+				data->player.loc.x = j + 0.5;
+				data->player.init_orientation = map[i][j];
+				continue ;
+			}
+			else
+				return (ft_putstr_fd(PL_POS, 2), 1);
+		}
+		return (ft_putstr_fd("Error\n Invalid character.\n", 2), 1);
+	}
+	return (0);
+}
+
+int	valid_characters(char **map, t_data *data)
+{
+	int	i;
+
+	i = -1;
+	while (map[++i])
+	{
+		if (valid_row(map, data, i))
+			return (1);
+	}
+	if (data->player.init_orientation == '\0')
+		return (ft_putstr_fd(PL_POS, 2), 1);
+	return (0);
 }

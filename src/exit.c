@@ -12,13 +12,14 @@
 
 #include "cub3d.h"
 
-static void	cleanup_parsing(t_assets *assets, t_map *map)
+static void	cleanup_parsing(t_data *data)
 {
-	free(assets->no.path);
-	free(assets->so.path);
-	free(assets->we.path);
-	free(assets->ea.path);
-	ft_freearray(map->grid);
+	close(data->fd);
+	free(data->assets.no.path);
+	free(data->assets.so.path);
+	free(data->assets.we.path);
+	free(data->assets.ea.path);
+	ft_freearray(data->map.grid);
 }
 
 static void	cleanup_textures(t_data *data)
@@ -52,8 +53,7 @@ void	cleanup_and_exit(int status_code, const char *error_msg, t_data *data)
 	if (data)
 	{
 		cleanup_mlx(data);
-		cleanup_parsing(&data->assets, &data->map);
-		close(data->fd);
+		cleanup_parsing(data);
 	}
 	if (status_code != 0)
 	{

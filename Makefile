@@ -37,9 +37,8 @@ VALGRIND = valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes 
 
 # Files
 MAIN			=	main init exit
-PARSING			=	parsing file_validation file_utils \
-					colors textures utils \
-					map_validation map_grid map_normalize
+PARSING 		= 	colours_parsing file_utils file_validation \
+					map normalize utils
 RUNTIME			=	game events render utils draw initialization \
 					movement raycast
 
