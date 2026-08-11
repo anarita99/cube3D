@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: adores <adores@student.42lisboa.com>       +#+  +:+       +#+         #
+#    By: adores <adores@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/10 11:54:19 by leramos-          #+#    #+#              #
-#    Updated: 2026/08/10 15:51:48 by adores           ###   ########.fr        #
+#    Updated: 2026/08/11 17:17:16 by adores           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,7 @@ MLX_REPO := https://github.com/42paris/minilibx-linux.git
 
 # Commands and flags
 CC = cc
-CFLAGS = -g -Wall -Wextra -Werror -O2 -I$(INCS_DIR) -I$(LIBFT_INCS_DIR) -I$(MLX_DIR)
+CFLAGS = -g -Wall -Wextra -Werror -I$(INCS_DIR) -I$(LIBFT_INCS_DIR) -I$(MLX_DIR)
 AR = ar rcs
 RM = rm -f
 RUN = ./$(NAME) ${MAP}
