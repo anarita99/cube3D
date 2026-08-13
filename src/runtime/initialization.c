@@ -49,7 +49,7 @@ void	load_texture(t_data *data, t_texture *texture)
 			&texture->width,
 			&texture->height);
 	if (texture->img.ptr == NULL)
-		cleanup_and_exit(1, "Texture file doesn't exist.", data);
+		cleanup_and_exit(1, "Texture file is invalid.", data);
 	texture->img.addr = mlx_get_data_addr(
 			texture->img.ptr,
 			&texture->img.bpp,
