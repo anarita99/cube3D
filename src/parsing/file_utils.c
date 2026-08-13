@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   file_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adores <adores@student.42lisboa.com>       +#+  +:+       +#+        */
+/*   By: adores <adores@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/15 11:42:53 by adores            #+#    #+#             */
-/*   Updated: 2026/08/10 12:03:36 by adores           ###   ########.fr       */
+/*   Updated: 2026/08/13 14:55:23 by adores           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ t_types	find_type(char *line)
 {
 	int	i;
 
-	i = skip_space(line);
+	i = skip_ws(line);
 	if (ft_strncmp(&line[i], "NO", 2) == 0 && is_ws(line[i + 2]))
 		return (NO);
 	else if (ft_strncmp(&line[i], "SO", 2) == 0 && is_ws(line[i + 2]))
@@ -63,10 +63,10 @@ char	*extract_assets(char *line)
 {
 	int	i;
 
-	i = skip_space(line);
+	i = skip_ws(line);
 	while (line[i] && line[i] != ' ' && line[i] != '\t')
 		i++;
-	i += skip_space(&line[i]);
+	i += skip_ws(&line[i]);
 	find_new_line(&line[i]);
 	return (&line[i]);
 }

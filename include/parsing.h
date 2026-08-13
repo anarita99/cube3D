@@ -6,7 +6,7 @@
 /*   By: adores <adores@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/25 10:33:42 by adores            #+#    #+#             */
-/*   Updated: 2026/08/11 17:13:59 by adores           ###   ########.fr       */
+/*   Updated: 2026/08/13 14:55:23 by adores           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ typedef enum s_types
 }	t_types;
 
 //utils.c
-int		skip_space(char *line);
+int		skip_ws(char *line);
 char	*find_new_line(char *str);
 int		count_words(char *str, char sep);
 
@@ -44,7 +44,7 @@ char	*extract_assets(char *line);
 int		all_assets(t_assets assets);
 
 //file_validation.c
-int		read_file(t_data *data, t_assets *assets, t_map *map);
+int	read_file(t_data *data);
 
 int		count_commas(char *s);
 int		allocate_colour(char *line, t_assets *assets, t_types type);

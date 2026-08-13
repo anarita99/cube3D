@@ -6,13 +6,13 @@
 /*   By: adores <adores@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/26 14:17:27 by adores            #+#    #+#             */
-/*   Updated: 2026/08/07 16:22:55 by adores           ###   ########.fr       */
+/*   Updated: 2026/08/13 14:55:11 by adores           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	skip_space(char *line)
+int	skip_ws(char *line)
 {
 	int	i;
 

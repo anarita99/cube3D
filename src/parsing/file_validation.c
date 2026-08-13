@@ -6,7 +6,7 @@
 /*   By: adores <adores@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/25 10:25:13 by adores            #+#    #+#             */
-/*   Updated: 2026/08/11 15:08:08 by adores           ###   ########.fr       */
+/*   Updated: 2026/08/13 14:55:23 by adores           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static int	allocate_assets(t_assets *assets, char *line)
 	t_types	type;
 	int		i;
 
-	i = skip_space(line);
+	i = skip_ws(line);
 	if (line[i] == '\n' || line[i] == '\0')
 		return (0);
 	type = find_type(line);
@@ -66,7 +66,7 @@ static int	allocate_assets(t_assets *assets, char *line)
 	return (0);
 }
 
-int	read_file(t_data *data, t_assets *assets, t_map *map)
+int	read_file(t_data *data)
 {
 	char	*line;
 	int		ret;
@@ -74,7 +74,7 @@ int	read_file(t_data *data, t_assets *assets, t_map *map)
 	line = get_next_line(data->fd);
 	while (line)
 	{
-		ret = allocate_assets(assets, line);
+		ret = allocate_assets(&data->assets, line);
 		if (ret == 1)
 			return (free(line), 1);
 		if (ret == 2)
@@ -84,12 +84,12 @@ int	read_file(t_data *data, t_assets *assets, t_map *map)
 	}
 	if (!line)
 		return (ft_putstr_fd("Error\n Invalid file.\n", 2), 1);
-	map->grid = make_map_grid(line, data->fd, map);
-	if (!map->grid || valid_characters(map->grid, data) == 1)
+	data->map.grid = make_map_grid(line, data->fd, &data->map);
+	if (!data->map.grid || valid_characters(data->map.grid, data) == 1)
 		return (1);
-	if (put_map_rect(map) == 1)
+	if (put_map_rect(&data->map) == 1)
 		return (1);
-	if (is_map_valid(map->grid, map->height) == 1)
+	if (is_map_valid(data->map.grid, data->map.height) == 1)
 		return (1);
 	return (0);
 }

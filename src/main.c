@@ -6,7 +6,7 @@
 /*   By: adores <adores@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/15 11:39:36 by adores            #+#    #+#             */
-/*   Updated: 2026/08/11 18:44:40 by adores           ###   ########.fr       */
+/*   Updated: 2026/08/13 14:50:25 by adores           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,8 @@ int	main(int ac, char **av)
 		return (ft_putstr_fd("Error\n Can't open file.\n", 2), 1);
 	if (is_file_cub(av[1]) == 0)
 	{
-		if (read_file(&data, &data.assets, &data.map) == 0 \
-&& all_assets(data.assets) == 0)
-		{
+		if (read_file(&data) == 0 && all_assets(data.assets) == 0)
 			game(&data);
-		}
 	}
 	else
 		ft_putstr_fd("Error\n Wrong file.\n", 2);
