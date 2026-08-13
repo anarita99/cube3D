@@ -35,6 +35,6 @@
 
 // Functions
 void	init(t_data *data);
-void	cleanup_and_exit(int status_code, const char *error_msg, t_data *data);
+void	cleanup_and_exit(int status_code, char *error_msg, t_data *data);
 
 #endif

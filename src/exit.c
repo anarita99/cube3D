@@ -48,7 +48,7 @@ static void	cleanup_mlx(t_data *data)
 	data->mlx = NULL;
 }
 
-void	cleanup_and_exit(int status_code, const char *error_msg, t_data *data)
+void	cleanup_and_exit(int status_code, char *error_msg, t_data *data)
 {
 	if (data)
 	{
@@ -57,9 +57,9 @@ void	cleanup_and_exit(int status_code, const char *error_msg, t_data *data)
 	}
 	if (status_code != 0)
 	{
-		ft_printf("Error\n");
+		ft_putendl_fd("Error", 2);
 		if (error_msg)
-			ft_printf(" %s\n", error_msg);
+			ft_putendl_fd(error_msg, 2);
 	}
 	exit(status_code);
 }
