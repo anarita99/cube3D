@@ -6,27 +6,13 @@
 /*   By: adores <adores@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/29 12:16:34 by adores            #+#    #+#             */
-/*   Updated: 2026/08/11 18:10:14 by adores           ###   ########.fr       */
+/*   Updated: 2026/08/14 15:43:14 by adores           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	is_num(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (!ft_isdigit(str[i]))
-			return (1);
-		i++;
-	}
-	return (0);
-}
-
-int	*split_and_transform_array(char *line)
+static int	*split_and_transform_array(char *line)
 {
 	int		*temp;
 	int		i;
@@ -53,7 +39,7 @@ int	*split_and_transform_array(char *line)
 	return (ft_freearray(splitted), temp);
 }
 
-int	rgb_to_int(int r, int g, int b)
+static int	rgb_to_int(int r, int g, int b)
 {
 	int	rgb;
 
@@ -63,7 +49,7 @@ int	rgb_to_int(int r, int g, int b)
 
 //formula pra transformar rgb em int
 // return (r << 16) | (g << 8) | b;
-int	get_colour_int(char *colour)
+static int	get_colour_int(char *colour)
 {
 	int	*colour_code;
 	int	rgb_code;

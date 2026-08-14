@@ -6,7 +6,7 @@
 /*   By: adores <adores@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/15 11:42:53 by adores            #+#    #+#             */
-/*   Updated: 2026/08/13 14:55:23 by adores           ###   ########.fr       */
+/*   Updated: 2026/08/14 14:59:44 by adores           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,28 @@
 
 int	is_file_cub(char *filename)
 {
-	int		i;
-	char	*cub;
+	char	*slash;
+	char	*name;
+	char	*dot;
 
-	cub = ".cub";
-	i = 0;
-	while (filename[i])
+	slash = ft_strrchr(filename, '/');
+	if (slash)
+		name = slash + 1;
+	else
+		name = filename;
+	dot = ft_strrchr(name, '.');
+	if (!dot)
+		return (1);
+	if (ft_strncmp(dot, ".cub", 5) == 0)
 	{
-		if (filename[i] == '/' && filename[i + 1] == '.')
+		if (dot == name)
 			return (1);
-		i++;
-	}
-	if (ft_strncmp(&filename[i - 4], cub, 5) == 0)
 		return (0);
+	}
 	return (1);
 }
 
-static int	is_ws(char c)
+int	is_ws(char c)
 {
 	return (c == ' ' || c == '\t');
 }
