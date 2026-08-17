@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adores <adores@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adores <adores@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/25 10:33:42 by adores            #+#    #+#             */
-/*   Updated: 2026/08/14 15:41:30 by adores           ###   ########.fr       */
+/*   Updated: 2026/08/17 12:07:25 by adores           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include "libft.h"
 # include "get_next_line.h"
-# include <common.h>
+# include "common.h"
 
 # define MALL_ERR "Error\n Malloc failed.\n"
 # define PL_POS "Error\n Needs exactly one starting position.\n"
@@ -45,7 +45,7 @@ char	*extract_assets(char *line);
 int		all_assets(t_assets assets);
 
 //file_validation.c
-int	read_file(t_data *data);
+int		read_file(t_data *data);
 
 int		count_commas(char *s);
 int		allocate_colour(char *line, t_assets *assets, t_types type);
